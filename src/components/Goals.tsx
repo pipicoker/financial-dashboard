@@ -69,7 +69,7 @@ const Goals = () => {
                         <p className='text-sm font-medium text-secondary'>{formattedDate}</p>
                     </div>
                     
-                    <div className='pt-[26px] grid grid-cols-2'>
+                    <div className='pt-[26px] grid grid-cols-2 '>
                         <div>
 
                             <div className='flex space-x-1'>
@@ -92,9 +92,10 @@ const Goals = () => {
 
                         </div>
 
-                        {/* <div>
-                            <GaugeChart />
-                        </div> */}
+                       <div>
+                        <GaugeChart />
+                        {/* <p className='text-xs font-medium text-defaultBlack'>Target vs Achievement</p> */}
+                       </div>
                     </div>
                 </div>
             ))

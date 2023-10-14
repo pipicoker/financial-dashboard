@@ -48,10 +48,10 @@ const ExpensesBreakdown = () => {
             </button>
         </div>
 
-        <div className='mt-2 px-6 py-5 bg-[#FFF] w-[728px] h-[212px] grid grid-cols-3 divide-y divide-x'>
+        <div className='mt-2 px-6 py-5 bg-[#FFF] w-[728px] h-[212px] grid grid-cols-3  '>
             
            {breakdown.map((item, index) => (
-             <div key={index} className='flex '>
+             <div key={index} className=''>
                 <div className='flex  items-center gap-6'>
 
                 <div className='w-10 h-14 rounded-lg bg-special flex justify-center items-center'>
@@ -75,7 +75,7 @@ const ExpensesBreakdown = () => {
 
                       <div className=''>
                         {item[Object.keys(item)[0]].color === 'red' ? (
-                            <BsArrowUp className='text-[#E73D1C] '/>
+                            <BsArrowUp className='text-[#E73D1C] ' />
                         ) : (
                             <BsArrowDown className='text-[#4DAF6E] '/>
                         )}
@@ -87,7 +87,10 @@ const ExpensesBreakdown = () => {
                   
                 </div>
 
-                <BsArrowRight className='w-[19px] h-[14px]'/>
+                <button>
+                  <BsArrowRight className='w-[19px] h-[14px]'/>
+                </button>
+                
 
                 </div>
                 
