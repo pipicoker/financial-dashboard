@@ -38,7 +38,6 @@ const Statistics = () => {
         
                 // Update the stats state with the fetched and mapped data
                 setStats(statsData);
-                console.log(stats);
                 
               } catch (err) {
                 console.error(err);

@@ -94,7 +94,7 @@ const Goals = () => {
 
                        <div>
                         <GaugeChart />
-                        {/* <p className='text-xs font-medium text-defaultBlack'>Target vs Achievement</p> */}
+                        
                        </div>
                     </div>
                 </div>

@@ -23,7 +23,6 @@ const ExpensesBreakdown = () => {
                     ...doc.data()
                 }))
                 setBreakdown(filteredData)
-                console.log(filteredData);
                 
                 
                 
