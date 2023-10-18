@@ -5,10 +5,12 @@ import UpcomingBill from './UpcomingBill'
 import RecentTransactions from './RecentTransactions'
 import Statistics from './Statistics'
 import ExpensesBreakdown from './ExpensesBreakdown'
+import GoalsForm from './GoalsForm'
 
 const Overview = () => {
   return (
     <div className='px-6 pt-4 '>
+      <GoalsForm />
       <div className='grid grid-cols-3'>
         <TotalBalance />
         <Goals />

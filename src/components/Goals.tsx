@@ -1,12 +1,20 @@
 import React, {useState, useEffect} from 'react'
 import { db } from '../config/firebase'
 import { getDocs, collection } from 'firebase/firestore';
+
+import { useSelector, useDispatch } from 'react-redux';
+import {selectActiveForm, setActiveForm } from '../redux/goalsFormSlice'
+
 import {FiEdit3} from 'react-icons/fi'
 import {GoGoal} from 'react-icons/go'
 import {PiMedalMilitaryThin} from 'react-icons/pi'
 import GaugeChart from './GaugeChart';
 
 const Goals = () => {
+    const activeForm = useSelector(selectActiveForm)
+    const dispatch = useDispatch();
+
+
     const [goals, setGoals] = useState<{ [x: string]: any }[]>([]);
 
     const goalsRef = collection(db, "goals")
@@ -61,7 +69,7 @@ const Goals = () => {
                         <div className='flex items-center space-x-3'>
                             <p className='text-[22px] font-extrabold'>${goal.target}</p>
 
-                            <div className='w-8 h-8 rounded-[4px]  flex justify-center items-center bg-special'>
+                            <div className='w-8 h-8 rounded-[4px]  flex justify-center items-center bg-special' onClick={() => dispatch(setActiveForm(!activeForm))}>
                                 <FiEdit3 className='w-4 h-4'/>
                             </div>
                         </div>

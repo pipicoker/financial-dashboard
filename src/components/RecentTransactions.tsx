@@ -23,7 +23,7 @@ const RecentTransactions = () => {
             </button>
         </div>
 
-        <div className='w-[352px]  mt-2 bg-[#FFF] px-6 pt-4'>
+        <div className='w-[352px]  mt-2 bg-[#FFF] px-6 pt-4 pb-[34px]'>
 
             <div>
                 <RecentTransactioBtns />

@@ -39,7 +39,7 @@ const ExpensesBreakdown = () => {
 
 
   return (
-    <div className='mt-8'>
+    <div className='mt-5'>
         <div className='flex justify-between items-center w-[728px] text-gray03'>
             <h3 className='text-left  text-[22px]'>Expenses Breakdown</h3>
             <button className='flex items-center text-xs'>Compare to last week
