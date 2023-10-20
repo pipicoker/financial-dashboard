@@ -3,7 +3,7 @@ import { db } from '../config/firebase'
 import { getDocs, collection } from 'firebase/firestore';
 
 import { useSelector, useDispatch } from 'react-redux';
-import {selectActiveForm, setActiveForm } from '../redux/goalsFormSlice'
+import {selectActiveForm, setActiveForm, selectPresentAmount, selectTargetAmount,} from '../redux/goalsFormSlice'
 
 import {FiEdit3} from 'react-icons/fi'
 import {GoGoal} from 'react-icons/go'
@@ -12,6 +12,8 @@ import GaugeChart from './GaugeChart';
 
 const Goals = () => {
     const activeForm = useSelector(selectActiveForm)
+    const targetAmount = useSelector(selectTargetAmount)
+    const presentAmount = useSelector(selectPresentAmount)
     const dispatch = useDispatch();
 
 
@@ -62,12 +64,12 @@ const Goals = () => {
 
         <div className='h-[232px] w-[352px] bg-[#FFF] px-6 py-5 mt-2 '>
            {
-            goals.map((goal) => (
-                <div key={goal.target} className='divide-y '>
+            goals.map((goal, id) => (
+                <div key={id} className='divide-y '>
                     <div className='flex items-center justify-between pb-3'>
 
                         <div className='flex items-center space-x-3'>
-                            <p className='text-[22px] font-extrabold'>${goal.target}</p>
+                            <p className='text-[22px] font-extrabold'>${targetAmount ? `${targetAmount}` : goal.target}</p>
 
                             <div className='w-8 h-8 rounded-[4px]  flex justify-center items-center bg-special' onClick={() => dispatch(setActiveForm(!activeForm))}>
                                 <FiEdit3 className='w-4 h-4'/>
@@ -84,7 +86,7 @@ const Goals = () => {
                                 <PiMedalMilitaryThin />
                                 <div>
                                     <p className='text-gray02 text-xs'>Target Achieved</p>
-                                    <p className='font-bold text-defaultBlack text-left'>${goal.targetAchieved}</p>
+                                    <p className='font-bold text-defaultBlack text-left'>${presentAmount ? `${presentAmount}` : goal.targetAchieved}</p>
                                 </div>
                                 
                             </div>
@@ -93,7 +95,7 @@ const Goals = () => {
                                 <GoGoal />
                                 <div>
                                     <p className='text-gray02 text-xs'>This month target</p>
-                                    <p className='font-bold text-defaultBlack text-left'>${goal.target}</p>
+                                    <p className='font-bold text-defaultBlack text-left'>${targetAmount ? `${targetAmount}` : goal.target}</p>
                                 </div>
                                 
                             </div>

@@ -1,6 +1,9 @@
 import React, {useState, useEffect, useRef} from 'react'
 import { db } from '../config/firebase'
 import { getDocs, collection } from 'firebase/firestore';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectPresentAmount, selectTargetAmount,} from '../redux/goalsFormSlice'
+
 import { Chart, ArcElement } from "chart.js";
 
 import { Doughnut } from 'react-chartjs-2';
@@ -9,6 +12,8 @@ Chart.register(ArcElement);
 
 
 const GaugeChart = () => {
+  const targetAmount = useSelector(selectTargetAmount)
+    const presentAmount = useSelector(selectPresentAmount)
 
   const [goals, setGoals] = useState<any[]>([]);
 
@@ -43,15 +48,26 @@ const GaugeChart = () => {
         }
         getGoals()
     }, [])
-  
+
+
+    const userTarget = (targetAmount !== undefined && targetAmount !== "") ? Number(targetAmount) : targetRef.current;
+    const userTargetAchieved = (presentAmount !== undefined && presentAmount !== "") ? Number(presentAmount) :speedRef.current;
+    
+
+    const log = () => {
+      console.log('targetRef.current:', targetRef.current);
+      console.log('speedRef.current:', speedRef.current);
+    }
+    
+    
     const data = {
     labels: [
-      'Red',
-      'Blue',
+      'Target Achieved',
+      'Target',
     ],
     datasets: [{
       label: 'Goals',
-      data: [20000, 12500],
+      data: [ userTargetAchieved, userTarget],
       backgroundColor: [
         '#299D91',
         '#E8E8E8',
@@ -76,7 +92,11 @@ const GaugeChart = () => {
       ctx.font = `16px`;
       ctx.textAlign = "center";
 
-      const speed = speedRef.current;
+    
+        const speed = (presentAmount !== undefined && presentAmount !== "") ? Number(presentAmount) : speedRef.current;
+        console.log( speed);
+ 
+      
     const formattedSpeed = formatSpeed(speed); // Format the speed value
 
     ctx.fillText(formattedSpeed, centerX, centerY);
@@ -85,7 +105,7 @@ const GaugeChart = () => {
   };
 
   // Function to format the speed value
-function formatSpeed(speed: any) {
+function formatSpeed(speed: number) {
   if (speed >= 1000) {
     return (speed / 1000).toFixed(1) + "k"; // Format as "X.Xk" for values over 1000
   } else {
@@ -108,15 +128,14 @@ function formatSpeed(speed: any) {
       ctx.textAlign = "center";
       ctx.fillText("$0", 10, cy + 15);
 
-      const target = targetRef.current;
+      const target = (targetAmount !== undefined && targetAmount !== "") ? Number(targetAmount) : targetRef.current;
     const formattedtarget = formatTarget(target); // Format the speed value
-
       ctx.fillText(formattedtarget, width - 20, cy + 15);
     }
   };
 
   //format the target value
-  function formatTarget(target: any) {
+  function formatTarget(target: number) {
     if (target >= 1000) {
       return (target / 1000).toFixed(1) + "k"; // Format as "X.Xk" for values over 1000
     } else {
@@ -231,7 +250,7 @@ function formatSpeed(speed: any) {
 
       </Doughnut>
 
-      <p className='text-xs font-medium text-defaultBlack'>Target vs Achievement</p>
+      <p className='text-xs font-medium text-defaultBlack' onClick={log}>Target vs Achievement</p>
 
    {/* <Doughnut plugins={[speedLabel, guageNeedle, labels]}
         data={chartData}

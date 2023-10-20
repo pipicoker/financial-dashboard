@@ -1,11 +1,13 @@
 import {  configureStore } from '@reduxjs/toolkit'
 import buttonReducer from "./buttonSlice"
 import goalsFormSlice from './goalsFormSlice';
+import targetAmountSlice from './targetAmountSlice';
 
 const store = configureStore({
     reducer: {
         button: buttonReducer,
-        form: goalsFormSlice
+        form: goalsFormSlice,
+        target: targetAmountSlice
     }
 })
 
