@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { db } from '../config/firebase'
 import { getDocs, collection } from 'firebase/firestore';
+
+import { useSelector, useDispatch } from 'react-redux';
+import {selectCardList, setCardList} from '../redux/balancesSlice'
+
 import {BsFillArrowUpRightCircleFill} from 'react-icons/bs'
 import {GrFormNext} from 'react-icons/gr'
 import {GrFormPrevious} from 'react-icons/gr'
@@ -18,7 +22,9 @@ import "swiper/css/free-mode";
 import mastercard from "../images/Mastercard.png"
 
 const TotalBalance = () => {
-    const [cardList, setCardList] = useState<{ [x: string]: any }[]>([]);
+    const cardList = useSelector(selectCardList)
+    const dispatch = useDispatch()
+    // const [cardList, setCardList] = useState<{ [x: string]: any }[]>([]);
 
     const cardListRef = collection(db, "accounts")
 
@@ -31,7 +37,8 @@ const TotalBalance = () => {
                 const filteredData = data.docs.map((doc) => ({
                     ...doc.data()
                 }))
-                setCardList(filteredData)
+                dispatch(setCardList(filteredData))
+                console.log(cardList)
                 
             } catch (err) {
                 console.error(err);
@@ -45,7 +52,7 @@ const TotalBalance = () => {
     const [prevEl, setPrevEl] = useState<HTMLElement | null>(null)
     const [nextEl, setNextEl] = useState<HTMLElement | null>(null)
   
-    const totalAccountBalance = cardList.reduce((acc, card) => acc + card.accountBalance, 0)
+    const totalAccountBalance = cardList.reduce((acc: any, card: any) => acc + card.accountBalance, 0)
   return (
     <div className='w-[352px]   '>
         <h3 className='text-left text-gray02 text-[22px]'>Total Balance</h3>
@@ -69,7 +76,7 @@ const TotalBalance = () => {
         className="mySwiper grid   p-4"
       >
         
-            {cardList.map((card) => 
+            {cardList.map((card: any) => 
               <SwiperSlide key={card.accountNumber} className="shrink-0 w-[304px] bg-[#299D91]  p-4 ">
 
                 <div className=''>

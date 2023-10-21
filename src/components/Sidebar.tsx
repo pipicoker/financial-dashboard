@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import SidebarData from '../data/SidebarData'
 import {FiLogOut} from 'react-icons/fi'
 
@@ -16,10 +17,16 @@ const Sidebar = () => {
 
         <div className='pt-10 '>
             {SidebarData.map((data) => (
-                <div key={data.id} className='text-greyish2 flex items-center gap-3 font-semibold text-base mb-3 py-3'>
+                
+                <Link to={data.path} key={data.id}>
+                <div  className='text-greyish2 flex items-center gap-3 font-semibold text-base mb-3 py-3'>
                     {data.icon({ size: '24'})}
                     <p>{data.title}</p>
                 </div>
+                </Link>
+                
+                
+                
             ))}
         </div>
 

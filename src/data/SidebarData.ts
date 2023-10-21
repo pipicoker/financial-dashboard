@@ -11,42 +11,50 @@ interface SideItem {
     id: string
     title: string
     icon: IconType
+    path: string
 }
 const SidebarData: SideItem[] = [
     {
         id: 'one',
         title: 'Overview',
-        icon: BiCategory 
+        icon: BiCategory ,
+        path: ""
     },
     {
         id: 'two',
         title: 'Balances',
-        icon: MdOutlineAccountBalanceWallet 
+        icon: MdOutlineAccountBalanceWallet ,
+        path: "/Home/Balances"
     },
     {
         id: 'three',
         title: 'Transactions',
-        icon: LuArrowLeftRight 
+        icon: LuArrowLeftRight ,
+        path: ""
     },
     {
         id: 'four',
         title: 'Bills',
-        icon: FaFileInvoiceDollar 
+        icon: FaFileInvoiceDollar ,
+        path: '/Home/Balances'
     },
     {
         id: 'five',
         title: 'Expenses',
-        icon: FaMoneyCheckDollar 
+        icon: FaMoneyCheckDollar ,
+        path: ''
     },
     {
         id: 'six',
         title: 'Goals',
-        icon: TbSteeringWheel 
+        icon: TbSteeringWheel ,
+        path: ""
     },
     {
         id: 'seven',
         title: 'Setting',
-        icon: CiSettings 
+        icon: CiSettings ,
+        path: ''
     },
 ]
 

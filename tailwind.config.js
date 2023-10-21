@@ -6,6 +6,7 @@ module.exports = {
       colors: {
         'pry-col' : '#299D91',
         'defaultBlack' : '#191919',
+        'gray01' : '#666',
         'gray02' : '#878787',
         'gray03' : '#9F9F9F',
         'gray05' : '#E8E8E8',
