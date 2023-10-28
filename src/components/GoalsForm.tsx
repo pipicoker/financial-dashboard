@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import {selectActiveForm, selectTargetAmount, selectPresentAmount, setActiveForm , setPresentAmount, setTargetAmount} from '../redux/goalsFormSlice'
 
 
 import { db, auth } from '../config/firebase'
-import { addDoc, collection } from 'firebase/firestore'
+import { addDoc, collection, getDocs, deleteDoc } from 'firebase/firestore'
 import {GrClose} from 'react-icons/gr'
 import { log } from 'console';
 
@@ -15,21 +15,47 @@ const GoalsForm = () => {
     const presentAmount = useSelector(selectPresentAmount)
     const dispatch = useDispatch();
   
+    const storedTargetAmount = localStorage.getItem('targetAmount');
+    const storedPresentAmount = localStorage.getItem('presentAmount');
+
+    useEffect(() => {
+      // const storedTargetAmount = localStorage.getItem('targetAmount');
+      // const storedPresentAmount = localStorage.getItem('presentAmount');
+  
+      if (storedTargetAmount) {
+        setTargetAmount(storedTargetAmount);
+      }
+      if (storedPresentAmount) {
+        setPresentAmount(storedPresentAmount);
+      }
+    }, []);
 
     const handleSave = async (e: React.FormEvent) => {
         e.preventDefault()
         dispatch(setActiveForm(false))
 
         try {
+          // function to delete all documents before adding a new one
+          const deleteCollection = async (collectionRef: any) => {
+            const querySnapshot = await getDocs(collectionRef);
+            querySnapshot.forEach((doc) => {
+              deleteDoc(doc.ref);
+            });
+          };
+          
+          // Delete all documents in the collection before adding a new one
+          await deleteCollection(collection(db, 'userSpecificGoals'));
+          
+          // Adding a new document to the collection based on user input
           const docRef = await addDoc(collection(db, 'userSpecificGoals'), {
             targetAmount: targetAmount,
             presentAmount: presentAmount,
-            userId: auth.currentUser ? auth.currentUser.uid : null,
-
-            
+            userId: auth.currentUser ? auth.currentUser.uid : null,           
           });
+
+          localStorage.setItem('targetAmount', targetAmount);
+      localStorage.setItem('presentAmount', presentAmount);
          
-          console.log('Document written with ID: ', docRef.id);
         } catch (error) {
           console.error('Error adding document: ', error);
         }

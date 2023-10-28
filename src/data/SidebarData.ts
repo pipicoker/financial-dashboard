@@ -30,7 +30,7 @@ const SidebarData: SideItem[] = [
         id: 'three',
         title: 'Transactions',
         icon: LuArrowLeftRight ,
-        path: ""
+        path: "/Home/RecentTransactionPage"
     },
     {
         id: 'four',

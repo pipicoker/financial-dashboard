@@ -1,30 +1,31 @@
-import React, { useEffect, useRef, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { db } from '../config/firebase'
 import { getDocs, collection } from 'firebase/firestore';
-
 import {PiGameController} from 'react-icons/pi'
+
 import { useSelector, useDispatch } from 'react-redux';
-import { setExpenses, selectExpenses} from '../redux/revenueAndExpensesSlice'
+// import { setExpensesAndRevenue, selectExpensesAndRevenue} from '../redux/revenueAndExpensesSlice'
 
-const Expenses = () => {
+const FullExpensesAndRevenue = () => {
+    const [expensesAndRevenue, setExpensesAndRevenue] = useState<{ [x: string]: any }[]>([]);
 
-    const dispatch = useDispatch()
-    const expenses = useSelector(selectExpenses)
-//   const [expenses, setExpenses] = useState<{ [x: string]: any }[]>([]);
+    const dispatch = (useDispatch)
+    // const expensesAndRevenue = useSelector(selectExpensesAndRevenue)
 
-    const expensesRef = collection(db, "expenses")
+    const expensesAndRevenueRef = collection(db, "revenuesAndExpenses")
 
-    // function to get data from firestore
     useEffect(() => {
-      const getExpenses = async () => {
+        // function to get data from firestore 
+      const getExpensesAndRevenue = async () => {
 
           try{
-              const data =  await getDocs(expensesRef)
+              const data =  await getDocs(expensesAndRevenueRef)
               const filteredData = data.docs.map((doc) => ({
                   ...doc.data()
               }))
-              dispatch(setExpenses(filteredData))
-              console.log('Expenses:', expenses);
+            //   dispatch(setExpensesAndRevenue(filteredData))
+              setExpensesAndRevenue(filteredData)
+              
               
           } catch (err) {
               console.error(err);
@@ -32,12 +33,12 @@ const Expenses = () => {
           }
           
       }
-      getExpenses()
+      getExpensesAndRevenue()
   }, [])
 
   return (
-    <div className='divide-y mt-3'>{expenses.map((data) => (
-      <div key={data.item} className='flex justify-between items-center  py-6'>
+    <div className='divide-y mt-3'>{expensesAndRevenue.map((data) => (
+      <div key={data.name} className='flex justify-between items-center  py-6'>
 
             <div className='flex items-center  space-x-3 text-left'>
                 <div className='w-10 h-10 flex justify-center items-center bg-special rounded-lg'>
@@ -60,4 +61,4 @@ const Expenses = () => {
   )
 }
 
-export default Expenses
+export default FullExpensesAndRevenue

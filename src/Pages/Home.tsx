@@ -5,6 +5,8 @@ import Sidebar from '../components/Sidebar'
 import Overview from '../components/Overview'
 import Header from '../components/Header'
 import Balances from './Balances'
+import AccountDetails from './AccountDetails'
+import RecentTransactionPage from './RecentTransactionPage'
 
 const Home = () => {
   return (
@@ -14,7 +16,9 @@ const Home = () => {
         <Header />
         <Routes>
           <Route path="/" element={<Overview />} />
-          <Route path="/Balances" element={<Balances />} />
+          <Route path="/Balances/*" element={<Balances />} />
+          <Route path="/Balances/AccountDetails" element={<AccountDetails/>} />
+          <Route path='/RecentTransactionPage' element={<RecentTransactionPage/>}/>
         </Routes>
         
       </div>

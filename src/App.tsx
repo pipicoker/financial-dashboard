@@ -1,4 +1,9 @@
-import React from 'react';
+import React , {useEffect} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { db } from './config/firebase'
+import store from './redux/store';
+
+import { getDocs, collection } from 'firebase/firestore';
 import './App.css';
 import {Routes, Route,} from 'react-router-dom'
 import Login from './components/Login';
@@ -7,7 +12,33 @@ import ForgotPassword from './components/ForgotPassword';
 import Home from './Pages/Home';
 // import Balances from './Pages/Balances';
 
+import {selectCardList, setCardList} from './redux/balancesSlice'
+import { setGetCardList } from './redux/getCardListSlice';
+
 function App() {
+  const dispatch = useDispatch();
+
+  const cardListRef = collection(db, 'accounts');
+
+  // Function to get data from Firestore
+  const getCardList = async () => {
+    try {
+      const data = await getDocs(cardListRef);
+      const filteredData = data.docs.map((doc) => ({
+        ...doc.data(),
+      }));
+      dispatch(setCardList(filteredData));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // Dispatch the getCardList function to the Redux store
+  dispatch(store.dispatch(setGetCardList(getCardList)));
+
+  useEffect(() => {
+    getCardList();
+  }, [dispatch]);
   return (
     <div className="App">
       <Routes>

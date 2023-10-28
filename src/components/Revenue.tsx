@@ -4,9 +4,13 @@ import { getDocs, collection } from 'firebase/firestore';
 
 import {PiGameController} from 'react-icons/pi'
 
+import { useSelector, useDispatch } from 'react-redux';
+import { setRevenues, selectRevenues} from '../redux/revenueAndExpensesSlice'
 const Revenue = () => {
 
-    const [revenues, setRevenues] = useState<{ [x: string]: any }[]>([]);
+    const dispatch = useDispatch()
+    const revenues = useSelector(selectRevenues)
+    // const [revenues, setRevenues] = useState<{ [x: string]: any }[]>([]);
 
     const revenuesRef = collection(db, "revenue")
 
@@ -19,7 +23,7 @@ const Revenue = () => {
                 const filteredData = data.docs.map((doc) => ({
                     ...doc.data()
                 }))
-                setRevenues(filteredData)
+                dispatch(setRevenues(filteredData))
                 
                 
             } catch (err) {
@@ -33,7 +37,7 @@ const Revenue = () => {
 
   return (
     <div className='divide-y mt-3'>{revenues.map((data) => (
-        <div key={data.Name} className='flex justify-between items-center  py-6'>
+        <div key={data.name} className='flex justify-between items-center  py-6'>
   
               <div className='flex items-center  space-x-3 text-left'>
                   <div className='w-10 h-10 flex justify-center items-center bg-special rounded-lg'>
@@ -41,7 +45,7 @@ const Revenue = () => {
                   </div>
   
                   <div>
-                      <p className='text-defaultBlack font-semibold'>{data.Name}</p>
+                      <p className='text-defaultBlack font-semibold'>{data.name}</p>
                       <p className='text-gray03 text-xs'>{data.item}</p>
                   </div>
               </div>
