@@ -1,15 +1,13 @@
-import React from 'react'
+import React, {memo} from 'react'
 import { Link } from 'react-router-dom';
 import { useSelector , useDispatch} from 'react-redux';
 import {selectCardList, removeCard} from '../redux/balancesSlice'
 import {selectAccountForm, setAccountForm} from '../redux/addAccountSlice'
-import { setAccountDetails, selectAccountDetails } from '../redux/accountDetailsSlice';
+import { setAccountDetails,  } from '../redux/accountDetailsSlice';
 
 import { MdOutlineNavigateNext } from 'react-icons/md';
-import { deleteDoc, doc, collection } from 'firebase/firestore';
+import { deleteDoc, doc,  } from 'firebase/firestore';
 import { db, auth } from '../config/firebase'
-import AddAccountForm from './AddAccountForm';
-import { log } from 'console';
 
 
 

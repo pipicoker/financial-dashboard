@@ -10,7 +10,7 @@ import {GrClose} from 'react-icons/gr'
 
 const AddAccountForm = ({ activeAccountForm, setActiveAccountForm }: { activeAccountForm: boolean, setActiveAccountForm: (value: boolean) => void }) => {
     const accountForm = useSelector(selectAccountForm)
-    const dispatch = useDispatch
+    const dispatch = useDispatch()
 
     const getCardList = useSelector(selectGetCardList);
 
@@ -34,10 +34,12 @@ const AddAccountForm = ({ activeAccountForm, setActiveAccountForm }: { activeAcc
           cardType: cardType,
           userId: auth.currentUser ? auth.currentUser.uid : null,           
         });
-        if (getCardList) {
-          // Call the getCardList function when needed
-          getCardList();
-        }
+        // Fetch the updated list of accounts
+      const data = await getDocs(collection(db, 'accounts'));
+      const updatedAccountList = data.docs.map((doc) => ({ ...doc.data() }));
+
+      // Dispatch the updated list to the Redux store
+      dispatch(setCardList(updatedAccountList));
       } catch (error) {
         console.error('Error adding document: ', error);
       }

@@ -12,28 +12,28 @@ const Revenue = () => {
     const revenues = useSelector(selectRevenues)
     // const [revenues, setRevenues] = useState<{ [x: string]: any }[]>([]);
 
-    const revenuesRef = collection(db, "revenue")
+    // const revenuesRef = collection(db, "revenue")
 
-    // function to get data from firestore
-    useEffect(() => {
-        const getRevenues = async () => {
+    // // function to get data from firestore
+    // useEffect(() => {
+    //     const getRevenues = async () => {
 
-            try{
-                const data =  await getDocs(revenuesRef)
-                const filteredData = data.docs.map((doc) => ({
-                    ...doc.data()
-                }))
-                dispatch(setRevenues(filteredData))
+    //         try{
+    //             const data =  await getDocs(revenuesRef)
+    //             const filteredData = data.docs.map((doc) => ({
+    //                 ...doc.data()
+    //             }))
+    //             dispatch(setRevenues(filteredData))
                 
                 
-            } catch (err) {
-                console.error(err);
+    //         } catch (err) {
+    //             console.error(err);
                 
-            }
+    //         }
             
-        }
-        getRevenues()
-    }, [])
+    //     }
+    //     getRevenues()
+    // }, [])
 
   return (
     <div className='divide-y mt-3'>{revenues.map((data) => (

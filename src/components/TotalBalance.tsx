@@ -52,7 +52,7 @@ const TotalBalance = () => {
     const [prevEl, setPrevEl] = useState<HTMLElement | null>(null)
     const [nextEl, setNextEl] = useState<HTMLElement | null>(null)
   
-    const totalAccountBalance = cardList.reduce((acc: any, card: any) => acc + card.accountBalance, 0)
+    const totalAccountBalance = cardList.reduce((acc: any, card: any) => acc + Number(card.accountBalance), 0)
   return (
     <div className='w-[352px]   '>
         <h3 className='text-left text-gray02 text-[22px]'>Total Balance</h3>

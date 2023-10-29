@@ -17,7 +17,7 @@ const RecentTransactionPage = () => {
          <h3 className='text-left text-gray02 text-[22px] mb-4'>Recent Transaction</h3>
          <RecentTransactioBtns />
          <RecentTransactionFullTable />
-         <div>
+         {/* <div>
          {activeButton === 'all' && (
                         <FullExpensesAndRevenue />
                     )}
@@ -27,7 +27,7 @@ const RecentTransactionPage = () => {
                     {activeButton === 'expenses' && (
                         <FullExpenses />
                     )}
-         </div>
+         </div> */}
     </div>
   )
 }

@@ -18,10 +18,11 @@ import { setGetCardList } from './redux/getCardListSlice';
 function App() {
   const dispatch = useDispatch();
 
-  const cardListRef = collection(db, 'accounts');
+const cardListRef = collection(db, 'accounts');
 
-  // Function to get data from Firestore
-  const getCardList = async () => {
+// Function to get data from Firestore
+useEffect(() => {
+  const fetchData = async () => {
     try {
       const data = await getDocs(cardListRef);
       const filteredData = data.docs.map((doc) => ({
@@ -33,12 +34,9 @@ function App() {
     }
   };
 
-  // Dispatch the getCardList function to the Redux store
-  dispatch(store.dispatch(setGetCardList(getCardList)));
+  fetchData(); // Call the fetchData function when the component mounts
+}, [dispatch]);
 
-  useEffect(() => {
-    getCardList();
-  }, [dispatch]);
   return (
     <div className="App">
       <Routes>

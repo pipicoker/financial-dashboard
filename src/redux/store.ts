@@ -7,6 +7,7 @@ import addAccountSlice from './addAccountSlice';
 import getCardListSlice from './getCardListSlice';
 import accountDetailsSlice from './accountDetailsSlice';
 import revenueAndExpensesSlice from './revenueAndExpensesSlice';
+import upcomingBillSlice from './upcomingBillSlice';
 const store = configureStore({
     reducer: {
         button: buttonReducer,
@@ -17,6 +18,7 @@ const store = configureStore({
         getCardList: getCardListSlice,
         accountDetail: accountDetailsSlice,
         transactions: revenueAndExpensesSlice,
+        upcomingBill: upcomingBillSlice,
     }
 })
 

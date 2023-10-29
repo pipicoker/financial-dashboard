@@ -2,31 +2,14 @@ import React, {useState, useEffect} from 'react'
 import { db } from '../config/firebase'
 import { getDocs, collection } from 'firebase/firestore';
 import {GrFormNext} from 'react-icons/gr'
+import { useSelector, useDispatch } from 'react-redux';
+import { selectUpcoming } from '../redux/upcomingBillSlice';
 
 const UpcomingBill = () => {
-  const [upcoming, setUpcoming] = useState<{ [x: string]: any }[]>([]);
+  // const [upcoming, setUpcoming] = useState<{ [x: string]: any }[]>([]);
+  const upcoming = useSelector(selectUpcoming)
 
-    const upcomingRef = collection(db, "upcomingBill")
-
-    // function to get data from firestore
-    useEffect(() => {
-        const getUpcoming = async () => {
-
-            try{
-                const data =  await getDocs(upcomingRef)
-                const filteredData = data.docs.map((doc) => ({
-                    ...doc.data()
-                }))
-                setUpcoming(filteredData)
-                
-            } catch (err) {
-                console.error(err);
-                
-            }
-            
-        }
-        getUpcoming()
-    }, [])
+    
   return (
     <div>
         
@@ -51,7 +34,8 @@ const UpcomingBill = () => {
                 </div>
 
                 <div className='text-left'>
-                  <p className='text-sm font-semibold'>{data.company}</p>
+                  {/* <p className='text-sm font-semibold'>{data.company}</p> */}
+                  <img src={data.pix} alt="" className='w-11 h-4' />
                   <p className='text-secondary font-bold'>{data.company} - {data.duration}</p>
                   <p className='text-gray03  text-xs'>Last charge - {data.lastCharge}</p>
                 </div>

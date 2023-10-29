@@ -30,7 +30,7 @@ const BalancesAccountDetails = () => {
     <div className=''>
         <h3 className='text-left text-gray02 text-[22px]' onClick={() => console.log(accountDetailsSlice)}>Account Details</h3>
 
-        <div className='w-[1104px] h-[292px] mt-4 bg-[#FFF] px-8 pt-8 text-left'>
+        <div className='w-[1104px] h-[292px] mt-4 bg-[#FFF] px-8 pt-8 text-left rounded-lg'>
             {accountDetails && (
                 <div className='grid grid-cols-3 gap-y-10 '>
                 <div>

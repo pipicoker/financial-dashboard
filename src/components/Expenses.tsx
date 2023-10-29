@@ -12,28 +12,28 @@ const Expenses = () => {
     const expenses = useSelector(selectExpenses)
 //   const [expenses, setExpenses] = useState<{ [x: string]: any }[]>([]);
 
-    const expensesRef = collection(db, "expenses")
+//     const expensesRef = collection(db, "expenses")
 
-    // function to get data from firestore
-    useEffect(() => {
-      const getExpenses = async () => {
+//     // function to get data from firestore
+//     useEffect(() => {
+//       const getExpenses = async () => {
 
-          try{
-              const data =  await getDocs(expensesRef)
-              const filteredData = data.docs.map((doc) => ({
-                  ...doc.data()
-              }))
-              dispatch(setExpenses(filteredData))
-              console.log('Expenses:', expenses);
+//           try{
+//               const data =  await getDocs(expensesRef)
+//               const filteredData = data.docs.map((doc) => ({
+//                   ...doc.data()
+//               }))
+//               dispatch(setExpenses(filteredData))
+//               console.log('Expenses:', expenses);
               
-          } catch (err) {
-              console.error(err);
+//           } catch (err) {
+//               console.error(err);
               
-          }
+//           }
           
-      }
-      getExpenses()
-  }, [])
+//       }
+//       getExpenses()
+//   }, [])
 
   return (
     <div className='divide-y mt-3'>{expenses.map((data) => (
