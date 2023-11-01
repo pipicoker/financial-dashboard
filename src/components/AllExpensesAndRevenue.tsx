@@ -1,35 +1,32 @@
-import React, { useEffect } from 'react';
-import { db } from '../config/firebase';
-import { getDocs, collection } from 'firebase/firestore';
-import { PiGameController } from 'react-icons/pi';
-import { useSelector, useDispatch } from 'react-redux';
-import { setExpRev, selectexpensesAndRevenue } from '../redux/revenueAndExpensesSlice';
+import React, { useEffect, useState , } from 'react'
+import { useSelector } from 'react-redux';
+import { selectActiveButton } from '../redux/buttonSlice';
+import {  selectExpenses, selectRevenues, } from '../redux/revenueAndExpensesSlice'
+import {PiGameController} from 'react-icons/pi'
 
 const AllExpensesAndRevenue = () => {
-  const dispatch = useDispatch();
-  const expensesAndRevenue = useSelector(selectexpensesAndRevenue);
+  const activeButton = useSelector(selectActiveButton)
+  const expenses = useSelector(selectExpenses)
+  const revenue = useSelector(selectRevenues)
+  const revenuesAndExpenses = expenses.concat(revenue)
 
-  const expensesAndRevenueRef = collection(db, "revenuesAndExpenses");
-
+  const [tableDetails, setTableDetails] = useState(revenuesAndExpenses);
+  // const prevTableDetails = useRef(revenuesAndExpenses);
   useEffect(() => {
-    const getExpenses = async () => {
-      try {
-        const data = await getDocs(expensesAndRevenueRef);
-        const filteredData = data.docs.map((doc) => ({
-          ...doc.data(),
-        }));
-        dispatch(setExpRev(filteredData));
-      } catch (err) {
-        console.error(err);
-      }
+  
+      if (activeButton === 'expenses') {
+        setTableDetails(expenses);
+    } else if (activeButton === 'revenue') {
+      setTableDetails(revenue);
+    } else  {
+      setTableDetails(revenuesAndExpenses);
     }
-    getExpenses();
-  }, []);
+  }, [activeButton, expenses, revenue, ])
 
   return (
     <div className='divide-y mt-3'>
-      {expensesAndRevenue.map((data) => (
-        <div key={data.name} className='flex justify-between items-center py-6'>
+      {tableDetails.map((data, id) => (
+        <div key={id} className='flex justify-between items-center py-6'>
           <div className='flex items-center space-x-3 text-left'>
             <div className='w-10 h-10 flex justify-center items-center bg-special rounded-lg'>
               <PiGameController className='w-6 h-6' />

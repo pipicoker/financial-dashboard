@@ -6,7 +6,6 @@ import {selectActiveForm, selectTargetAmount, selectPresentAmount, setActiveForm
 import { db, auth } from '../config/firebase'
 import { addDoc, collection, getDocs, deleteDoc } from 'firebase/firestore'
 import {GrClose} from 'react-icons/gr'
-import { log } from 'console';
 
 
 const GoalsForm = () => {

@@ -5,6 +5,7 @@ import {Routes, Route,} from 'react-router-dom'
 import { setExpenses, setRevenues } from '../redux/revenueAndExpensesSlice'
 import { setUpcoming } from '../redux/upcomingBillSlice'
 import { useDispatch } from 'react-redux'
+import { setExpenseBreakdown} from '../redux/expensesSlices';
 
 import Sidebar from '../components/Sidebar'
 import Overview from '../components/Overview'
@@ -13,6 +14,8 @@ import Balances from './Balances'
 import AccountDetails from './AccountDetails'
 import Transactions from './Trasactions'
 import Bills from './Bills'
+import ExpensesPage from './ExpensesPage'
+import GoalsPage from './GoalsPage'
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -20,6 +23,8 @@ const Home = () => {
   const expensesRef = collection(db, "expenses")
   const revenuesRef = collection(db, "revenue")
   const upcomingRef = collection(db, "upcomingBill")
+  const goalsRef = collection(db, "expensesBreakdown")
+
 
     // function to get data from firestore
     useEffect(() => {
@@ -84,6 +89,29 @@ const Home = () => {
         }
         getRevenues()
     }, [])
+
+
+    // function to get data from firestore
+    useEffect(() => {
+        const getBreakdown = async () => {
+
+            try{
+                const data =  await getDocs(goalsRef)
+                const filteredData = data.docs.map((doc) => ({
+                    ...doc.data()
+                }))
+                dispatch(setExpenseBreakdown(filteredData))
+                
+            } catch (err) {
+                console.error(err);
+               
+                
+                
+            } 
+            
+        }
+        getBreakdown()
+    }, [])
   return (
     <div className='flex '>
       <Sidebar/>
@@ -95,11 +123,13 @@ const Home = () => {
           <Route path="/Balances/AccountDetails" element={<AccountDetails/>} />
           <Route path='/Transactions' element={<Transactions/>}/>
           <Route path='/Bills' element={<Bills/>}/>
+          <Route path='/ExpensesPage' element={<ExpensesPage/>}/>
+          <Route path='/GoalsPage' element={<GoalsPage/>}/>
         </Routes>
         
       </div>
       
-    </div>
+    </div> 
   )
 }
 

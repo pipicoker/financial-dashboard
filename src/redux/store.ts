@@ -8,6 +8,8 @@ import getCardListSlice from './getCardListSlice';
 import accountDetailsSlice from './accountDetailsSlice';
 import revenueAndExpensesSlice from './revenueAndExpensesSlice';
 import upcomingBillSlice from './upcomingBillSlice';
+import expensesSlices from './expensesSlices';
+import goalsByCategorySlice from './goalsByCategorySlice';
 const store = configureStore({
     reducer: {
         button: buttonReducer,
@@ -19,6 +21,8 @@ const store = configureStore({
         accountDetail: accountDetailsSlice,
         transactions: revenueAndExpensesSlice,
         upcomingBill: upcomingBillSlice,
+        expensesBreakdown: expensesSlices,
+        ByCategory: goalsByCategorySlice,
     }
 })
 

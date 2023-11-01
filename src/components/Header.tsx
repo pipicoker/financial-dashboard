@@ -1,4 +1,3 @@
-import React, {useState} from 'react'
 import {MdKeyboardDoubleArrowRight} from 'react-icons/md'
 import {IoMdNotifications} from 'react-icons/io'
 

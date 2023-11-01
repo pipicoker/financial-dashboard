@@ -1,7 +1,6 @@
 import React , {useEffect} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import {  useDispatch } from 'react-redux';
 import { db } from './config/firebase'
-import store from './redux/store';
 
 import { getDocs, collection } from 'firebase/firestore';
 import './App.css';
@@ -12,8 +11,7 @@ import ForgotPassword from './components/ForgotPassword';
 import Home from './Pages/Home';
 // import Balances from './Pages/Balances';
 
-import {selectCardList, setCardList} from './redux/balancesSlice'
-import { setGetCardList } from './redux/getCardListSlice';
+import { setCardList} from './redux/balancesSlice'
 
 function App() {
   const dispatch = useDispatch();

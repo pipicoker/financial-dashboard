@@ -44,11 +44,11 @@ export const upcomingBillSlice  = createSlice({
   
 })
 
-export const {setUpcoming} = upcomingBillSlice .actions
+export const {setUpcoming} = upcomingBillSlice.actions
 
 
 export const selectUpcoming = (state: { upcomingBill: FormState }) => state.upcomingBill.upcoming;
 
 
 
-export default upcomingBillSlice .reducer
+export default upcomingBillSlice.reducer

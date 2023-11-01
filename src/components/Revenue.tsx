@@ -1,39 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { db } from '../config/firebase'
-import { getDocs, collection } from 'firebase/firestore';
-
 import {PiGameController} from 'react-icons/pi'
 
-import { useSelector, useDispatch } from 'react-redux';
-import { setRevenues, selectRevenues} from '../redux/revenueAndExpensesSlice'
+import { useSelector,  } from 'react-redux';
+import {  selectRevenues} from '../redux/revenueAndExpensesSlice'
 const Revenue = () => {
 
-    const dispatch = useDispatch()
     const revenues = useSelector(selectRevenues)
-    // const [revenues, setRevenues] = useState<{ [x: string]: any }[]>([]);
-
-    // const revenuesRef = collection(db, "revenue")
-
-    // // function to get data from firestore
-    // useEffect(() => {
-    //     const getRevenues = async () => {
-
-    //         try{
-    //             const data =  await getDocs(revenuesRef)
-    //             const filteredData = data.docs.map((doc) => ({
-    //                 ...doc.data()
-    //             }))
-    //             dispatch(setRevenues(filteredData))
-                
-                
-    //         } catch (err) {
-    //             console.error(err);
-                
-    //         }
-            
-    //     }
-    //     getRevenues()
-    // }, [])
+ 
 
   return (
     <div className='divide-y mt-3'>{revenues.map((data) => (

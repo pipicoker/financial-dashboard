@@ -9,6 +9,7 @@ module.exports = {
         'gray01' : '#666',
         'gray02' : '#878787',
         'gray03' : '#9F9F9F',
+        'gray04' : '#D1D1D1',
         'gray05' : '#E8E8E8',
         'secondary' : '#525256',
         'greyish' : "rgba(255, 255, 255, 0.08)",

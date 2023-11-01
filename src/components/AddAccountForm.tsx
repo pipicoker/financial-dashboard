@@ -1,18 +1,14 @@
 import React, { useState } from 'react'
-import { useSelector , useDispatch} from 'react-redux';
-import {selectAccountForm, setAccountForm} from '../redux/addAccountSlice'
-import {selectCardList, setCardList} from '../redux/balancesSlice'
-import { selectGetCardList } from '../redux/getCardListSlice';
+import { useDispatch} from 'react-redux';
+import {setCardList} from '../redux/balancesSlice'
 import { db, auth } from '../config/firebase'
-import { addDoc, collection, getDocs, deleteDoc } from 'firebase/firestore'
+import { addDoc, collection, getDocs,  } from 'firebase/firestore'
 import {GrClose} from 'react-icons/gr'
 
 
 const AddAccountForm = ({ activeAccountForm, setActiveAccountForm }: { activeAccountForm: boolean, setActiveAccountForm: (value: boolean) => void }) => {
-    const accountForm = useSelector(selectAccountForm)
     const dispatch = useDispatch()
 
-    const getCardList = useSelector(selectGetCardList);
 
 
     const [accountType, setAccounType ] = useState("")
@@ -20,7 +16,7 @@ const AddAccountForm = ({ activeAccountForm, setActiveAccountForm }: { activeAcc
     const [accountBalance, setAccounBalance ] = useState("")
     const [cardType, setCardType ] = useState("")
 
-    const [newAcconts, setNewAccouts] = useState([])
+    // const [newAcconts, setNewAccouts] = useState([])
 
     const addAccountToDatabase = async  (e : React.FormEvent) => {
       e.preventDefault()

@@ -27,11 +27,11 @@ export const goalsFormSlice  = createSlice({
       },
 })
 
-export const {setActiveForm} = goalsFormSlice .actions
-export const {setTargetAmount} = goalsFormSlice .actions
-export const {setPresentAmount} = goalsFormSlice .actions
+export const {setActiveForm} = goalsFormSlice.actions
+export const {setTargetAmount} = goalsFormSlice.actions
+export const {setPresentAmount} = goalsFormSlice.actions
 export const selectActiveForm = (state: { form: FormState }) => state.form.activeForm;
 export const selectTargetAmount = (state: { form: FormState }) => state.form.targetAmount;
 export const selectPresentAmount = (state: { form: FormState }) => state.form.presentAmount;
 
-export default goalsFormSlice .reducer
+export default goalsFormSlice.reducer

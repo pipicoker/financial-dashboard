@@ -2,7 +2,7 @@ import React, {memo} from 'react'
 import { Link } from 'react-router-dom';
 import { useSelector , useDispatch} from 'react-redux';
 import {selectCardList, removeCard} from '../redux/balancesSlice'
-import {selectAccountForm, setAccountForm} from '../redux/addAccountSlice'
+import {setAccountForm} from '../redux/addAccountSlice'
 import { setAccountDetails,  } from '../redux/accountDetailsSlice';
 
 import { MdOutlineNavigateNext } from 'react-icons/md';
@@ -12,7 +12,6 @@ import { db, auth } from '../config/firebase'
 
 
 const BalanceCards = ({ activeAccountForm, setActiveAccountForm }: { activeAccountForm: boolean, setActiveAccountForm: (value: boolean) => void }) => {
-    const accountForm = useSelector(selectAccountForm)
     const cardList = useSelector(selectCardList)
     const accountDetails:any = useSelector(setAccountForm)
     const dispatch = useDispatch()
@@ -95,4 +94,4 @@ const BalanceCards = ({ activeAccountForm, setActiveAccountForm }: { activeAccou
   )
 }
 
-export default BalanceCards
+export default memo(BalanceCards)

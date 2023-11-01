@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {GrFormNext} from 'react-icons/gr'
 import RecentTransactioBtns from './RecentTransactioBtns'
 import Revenue from './Revenue'
@@ -27,9 +27,10 @@ const RecentTransactions = () => {
 
             <div>
                 <RecentTransactioBtns />
+                <AllExpensesAndRevenue />
 
                 <div>
-                    {activeButton === 'all' && (
+                    {/* {activeButton === 'all' && (
                         <AllExpensesAndRevenue />
                     )}
                     {activeButton === 'revenue' && (
@@ -37,7 +38,9 @@ const RecentTransactions = () => {
                     )}
                     {activeButton === 'expenses' && (
                         <Expenses />
-                    )}
+                    )} */}
+
+
                 </div>
 
 

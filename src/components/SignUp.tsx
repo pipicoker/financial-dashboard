@@ -4,8 +4,6 @@
 
  import {auth, googleProvider} from '../config/firebase'
 import { FcGoogle } from 'react-icons/fc';
-import { log } from 'console';
-
 
 const SignUp = () => {
   const navigate = useNavigate()
@@ -17,7 +15,7 @@ const SignUp = () => {
     await createUserWithEmailAndPassword(auth,  email, password)
     
     .then((userCredential) => {
-      const user = userCredential.user
+      // const user = userCredential.user
       navigate("/")
     })
     .catch((error) => {
@@ -33,7 +31,7 @@ const SignUp = () => {
     
     
     .then((userCredential) => {
-      const user = userCredential.user
+      // const user = userCredential.user
       navigate("/")
     })
     .catch((error) => {

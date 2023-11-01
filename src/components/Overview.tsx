@@ -19,7 +19,12 @@ const Overview = () => {
         <div className='flex space-x-4 mt-8 '>
           <RecentTransactions />
           <div>
+            <div>
+            <h3 className=' text-[22px] text-gray02 text-left'>Statistics</h3>
             <Statistics />
+
+            </div>
+            
             <ExpensesBreakdown />
           </div>
         </div>

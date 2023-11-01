@@ -19,7 +19,7 @@ export const targetAmountSlice  = createSlice({
       },
 })
 
-export const {setTargetAmount} = targetAmountSlice .actions
+export const {setTargetAmount} = targetAmountSlice.actions
 export const selectTargetAmount = (state: { form: FormState }) => state.form.targetAmount;
 
-export default targetAmountSlice .reducer
+export default targetAmountSlice.reducer

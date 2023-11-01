@@ -17,7 +17,7 @@ export const buttonSlice  = createSlice({
     }
 })
 
-export const {setActiveButton} = buttonSlice .actions
+export const {setActiveButton} = buttonSlice.actions
 export const selectActiveButton = (state: { button: ButtonState }) => state.button.activeButton;
 
-export default buttonSlice .reducer
+export default buttonSlice.reducer

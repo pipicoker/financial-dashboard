@@ -38,8 +38,8 @@ export const balancesSlice  = createSlice({
     }
 })
 
-export const {setCardList} = balancesSlice .actions
-export const {removeCard} = balancesSlice .actions
+export const {setCardList} = balancesSlice.actions
+export const {removeCard} = balancesSlice.actions
 export const selectCardList = (state: { balances: CardState }) => state.balances.cardList;
 
-export default balancesSlice .reducer
+export default balancesSlice.reducer

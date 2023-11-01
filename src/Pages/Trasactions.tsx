@@ -4,9 +4,7 @@ import { useSelector } from 'react-redux';
 import RecentTransactioBtns from '../components/RecentTransactioBtns'
 import RecentTransactionFullTable from '../components/RecentTransactionFullTable'
 import {selectActiveButton } from '../redux/buttonSlice'
-import FullExpensesAndRevenue from '../components/FullExpensesAndRevenue'
-import FullRevenue from '../components/FullRevenue'
-import FullExpenses from '../components/FullExpenses'
+
 
 
 const RecentTransactionPage = () => {

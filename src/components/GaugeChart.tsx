@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react'
 import { db } from '../config/firebase'
 import { getDocs, collection } from 'firebase/firestore';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectPresentAmount, selectTargetAmount,} from '../redux/goalsFormSlice'
 
 import { Chart, ArcElement } from "chart.js";
@@ -47,7 +47,7 @@ const GaugeChart = () => {
             
         }
         getGoals()
-    }, [])
+    }, [goalsRef])
 
 
     const userTarget = (targetAmount !== undefined && targetAmount !== "") ? Number(targetAmount) : targetRef.current;
@@ -94,7 +94,6 @@ const GaugeChart = () => {
 
     
         const speed = (presentAmount !== undefined && presentAmount !== "") ? Number(presentAmount) : speedRef.current;
-        console.log( speed);
  
       
     const formattedSpeed = formatSpeed(speed); // Format the speed value
@@ -143,7 +142,7 @@ function formatSpeed(speed: number) {
     }
   }
 
-  // const chartData = {
+
   //   datasets: [
   //     {
   //       data: [12500, 20000],

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { db } from '../config/firebase'
 import { getDocs, collection } from 'firebase/firestore';
 
@@ -11,7 +11,7 @@ import {GrFormPrevious} from 'react-icons/gr'
 
 import { Navigation, FreeMode, Pagination,  } from 'swiper/modules';
 
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import { Swiper, SwiperSlide,  } from 'swiper/react';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -31,23 +31,20 @@ const TotalBalance = () => {
     // function to get data from firestore
     useEffect(() => {
         const getCardList = async () => {
-
-            try{
-                const data =  await getDocs(cardListRef)
+            try {
+                const data = await getDocs(cardListRef);
                 const filteredData = data.docs.map((doc) => ({
                     ...doc.data()
-                }))
-                dispatch(setCardList(filteredData))
-                console.log(cardList)
-                
+                }));
+                dispatch(setCardList(filteredData));
             } catch (err) {
                 console.error(err);
-                
             }
-            
         }
-        getCardList()
-    }, [])
+    
+        getCardList();
+    }, [cardListRef, dispatch]);
+    
 
     const [prevEl, setPrevEl] = useState<HTMLElement | null>(null)
     const [nextEl, setNextEl] = useState<HTMLElement | null>(null)

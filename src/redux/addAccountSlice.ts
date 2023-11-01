@@ -19,9 +19,9 @@ export const addAccountSlice  = createSlice({
       },
 })
 
-export const {setAccountForm} = addAccountSlice .actions
+export const {setAccountForm} = addAccountSlice.actions
 
 export const selectAccountForm = (state: { form: FormState }) => state.form.accountForm;
 
 
-export default addAccountSlice .reducer
+export default addAccountSlice.reducer

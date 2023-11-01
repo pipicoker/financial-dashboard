@@ -1,8 +1,5 @@
-import React, {useState, useEffect} from 'react'
-import { db } from '../config/firebase'
-import { getDocs, collection } from 'firebase/firestore';
 import {GrFormNext} from 'react-icons/gr'
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector,  } from 'react-redux';
 import { selectUpcoming } from '../redux/upcomingBillSlice';
 
 const UpcomingBill = () => {

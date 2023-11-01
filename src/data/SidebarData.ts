@@ -42,13 +42,13 @@ const SidebarData: SideItem[] = [
         id: 'five',
         title: 'Expenses',
         icon: FaMoneyCheckDollar ,
-        path: ''
+        path: '/Home/ExpensesPage'
     },
     {
         id: 'six',
         title: 'Goals',
         icon: TbSteeringWheel ,
-        path: ""
+        path: "/Home/GoalsPage"
     },
     {
         id: 'seven',

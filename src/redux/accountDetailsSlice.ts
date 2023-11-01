@@ -47,9 +47,9 @@ export const accountDetailsSlice  = createSlice({
       },
 })
 
-export const {setAccountDetails} = accountDetailsSlice .actions
+export const {setAccountDetails} = accountDetailsSlice.actions
 
 export const selectAccountDetails= (state: { accountDetail: FormState }) => state.accountDetail.accountDetails;
 
 
-export default accountDetailsSlice .reducer
+export default accountDetailsSlice.reducer

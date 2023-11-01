@@ -53,7 +53,7 @@ const Statistics = () => {
             
         }
         getStats()
-    }, [])
+    }, [statsRef])
 
     const dayLabel = stats.map((stat) => stat.day)
     const thisWeekData = stats.map((stat) => stat.thisWeek)
@@ -121,9 +121,9 @@ const Statistics = () => {
   return (
     <div className=''>
         
-        <h3 className=' text-[22px] text-gray02 text-left'>Statistics</h3>
+       
 
-        <div className='w-[728px] h-[258px] bg-[#FFF] px-6 pt-4 pb-10 mt-2 rounded-lg'>
+        <div className='w-full h-[258px] bg-[#FFF] px-6 pt-4 pb-10 mt-2 rounded-lg'>
         <Bar options={options} data={data}  />
         </div>
         

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect, useState , } from 'react'
+import { useSelector } from 'react-redux';
 import { selectActiveButton } from '../redux/buttonSlice';
-import { setExpenses, selectExpenses, selectRevenues, setRevenues} from '../redux/revenueAndExpensesSlice'
+import {  selectExpenses, selectRevenues, } from '../redux/revenueAndExpensesSlice'
 import {PiGameController} from 'react-icons/pi'
 
 const RecentTransactionFullTable = () => {
@@ -10,21 +10,19 @@ const RecentTransactionFullTable = () => {
   const revenue = useSelector(selectRevenues)
   const revenuesAndExpenses = expenses.concat(revenue)
 
-  const [tableDetails, setTableDetails] = useState(revenuesAndExpenses)
-
-  const cecki = () => {
-    console.log(activeButton)
-  }
-
+  const [tableDetails, setTableDetails] = useState(revenuesAndExpenses);
+  // const prevTableDetails = useRef(revenuesAndExpenses);
   useEffect(() => {
-    if (activeButton === 'all') {
-      setTableDetails(revenuesAndExpenses);
+  
+      if (activeButton === 'expenses') {
+        setTableDetails(expenses);
     } else if (activeButton === 'revenue') {
       setTableDetails(revenue);
-    } else if (activeButton === 'expenses') {
-      setTableDetails(expenses);
+    } else  {
+      setTableDetails(revenuesAndExpenses);
     }
-  }, [activeButton]);
+  }, [activeButton, expenses, revenue, ])
+
   
 
   return (
