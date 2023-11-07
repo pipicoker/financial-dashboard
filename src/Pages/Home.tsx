@@ -16,6 +16,7 @@ import Transactions from './Trasactions'
 import Bills from './Bills'
 import ExpensesPage from './ExpensesPage'
 import GoalsPage from './GoalsPage'
+import SettingsPage from './SettingsPage'
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -125,6 +126,7 @@ const Home = () => {
           <Route path='/Bills' element={<Bills/>}/>
           <Route path='/ExpensesPage' element={<ExpensesPage/>}/>
           <Route path='/GoalsPage' element={<GoalsPage/>}/>
+          <Route path='/SettingsPage' element={<SettingsPage/>}/>
         </Routes>
         
       </div>

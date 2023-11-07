@@ -12,11 +12,6 @@ import {  selectExpenseBreakdown } from '../redux/expensesSlices';
 const ExpensesBreakdown = () => {
   const breakdown = useSelector(selectExpenseBreakdown)
 
-
-
-    
-
-
   return (
     <div className='mt-5'>
         <div className='flex justify-between items-center w-[728px] text-gray03'>

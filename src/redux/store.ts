@@ -25,5 +25,4 @@ const store = configureStore({
         ByCategory: goalsByCategorySlice,
     }
 })
-
 export default store;

@@ -5,6 +5,9 @@ import Goals from '../components/Goals'
 import { useSelector, useDispatch } from 'react-redux'
 import { setGoalCategory, selectGoalCategory } from '../redux/goalsByCategorySlice'
 import GoalsByCategory from '../components/GoalsByCategory'
+import SavingSummary from '../components/SavingSummary'
+import GoalsForm from '../components/GoalsForm'
+import AdjustGoalsForm from '../components/AdjustGoalsForm'
 
 const GoalsPage = () => {
      const dispatch = useDispatch()
@@ -34,8 +37,11 @@ const GoalsPage = () => {
     }, [])
   return (
     <div className='px-6 pt-4 '>
-        <div className='flex'>
-        <Goals />
+        <div className='flex space-x-6'>
+            <GoalsForm />
+            <AdjustGoalsForm />
+            <Goals />
+            <SavingSummary />
 
         </div>
         <GoalsByCategory />

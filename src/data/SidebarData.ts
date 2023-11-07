@@ -54,7 +54,7 @@ const SidebarData: SideItem[] = [
         id: 'seven',
         title: 'Setting',
         icon: CiSettings ,
-        path: ''
+        path: '/Home/SettingsPage'
     },
 ]
 
