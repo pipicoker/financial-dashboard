@@ -11,7 +11,7 @@ const Overview = () => {
   return (
     <div className='px-6 pt-4 '>
       <GoalsForm />
-      <div className='grid grid-cols-3'>
+      <div className='grid grid-cols-1  md:grid-cols-3'>
         <TotalBalance />
         <Goals />
         <UpcomingBill />

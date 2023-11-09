@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 interface GoalCategoryState {
   goalCategory: {
+    id: ''
     type: string;
     amount: number;
     logo: string;

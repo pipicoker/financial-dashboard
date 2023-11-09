@@ -1,14 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { PayloadAction } from '@reduxjs/toolkit';
-import produce from 'immer'; 
 
 export interface FormState {
     activeForm: boolean;
     activeAdjustForm: boolean ;
     targetAmount: string
     presentAmount: string
-    // categoryTargetAmounts: Record<string, number>;
     categoryTargetAmounts: string;
+    openedCategory:  string 
+    categoryValues: object
   }
   
 export const goalsFormSlice  = createSlice({
@@ -18,16 +18,17 @@ export const goalsFormSlice  = createSlice({
         activeAdjustForm: false,
         targetAmount: '',
         presentAmount: '',
-        // categoryTargetAmounts: {} as Record<string, number>, 
-        categoryTargetAmounts: '',
+        categoryTargetAmounts: "",
+        openedCategory:  "",
+        categoryValues: {} as Record<string, any>,
       },
 
     reducers: {
         setActiveForm: (state, action) => {
           state.activeForm = action.payload;
         },
-        setActiveAdjustForm: (state, action) => {
-          state.activeAdjustForm = action.payload;
+         setActiveAdjustForm :(state, { payload }) => {
+          state.activeAdjustForm = payload.value;
         },
         setTargetAmount: (state, action) => {
           state.targetAmount = action.payload;
@@ -38,13 +39,13 @@ export const goalsFormSlice  = createSlice({
         setCategoryTargetAmount: (state, action) => {
           state.categoryTargetAmounts = action.payload;
         },
-        // setCategoryTargetAmount: (state, action: PayloadAction<{ id: string; amount: number }>) => {
-        //   const { id, amount } = action.payload;
-        //   // Use 'immer' to update the draft state
-        //   produce(state, (draftState) => {
-        //     draftState.categoryTargetAmounts[id] = amount;
-        //   });
-        // },
+        setOpenedCategory: (state, action) => {
+          state.openedCategory = action.payload;
+        },
+        setCategoryValue: (state, action: PayloadAction<{ category: string; value: any }>) => {
+          const { category, value } = action.payload;
+          state.categoryValues[category] = value;
+        },
         
       },
 })
@@ -54,13 +55,15 @@ export const {setActiveAdjustForm} = goalsFormSlice.actions
 export const {setTargetAmount} = goalsFormSlice.actions
 export const {setPresentAmount} = goalsFormSlice.actions
 export const {setCategoryTargetAmount} = goalsFormSlice.actions
+export const {setOpenedCategory, setCategoryValue} = goalsFormSlice.actions
 
 export const selectActiveForm = (state: { form: FormState }) => state.form.activeForm;
 export const selectActiveAdjustForm = (state: { form: FormState }) => state.form.activeAdjustForm;
 export const selectTargetAmount = (state: { form: FormState }) => state.form.targetAmount;
 export const selectPresentAmount = (state: { form: FormState }) => state.form.presentAmount;
+export const selectOpenedCategory = (state: { form: FormState }) => state.form.openedCategory;
 export const selectCategoryTargetAmount = (state: { form: FormState }) => state.form.categoryTargetAmounts;
-// export const selectCategoryTargetAmount = (state: { form: FormState }, id: string) =>
-//   state.form.categoryTargetAmounts[id] || 0;
+export const selectCategoryValues= (state: { form: FormState }) => state.form.categoryTargetAmounts;
+
 
 export default goalsFormSlice.reducer

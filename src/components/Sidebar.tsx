@@ -5,7 +5,7 @@ import {FiLogOut} from 'react-icons/fi'
 
 const Sidebar = () => {
   return (
-    <nav className='bg-defaultBlack w-56 h-[928px] flex flex-col justify-start pt-12 px-7'>
+    <nav className='bg-defaultBlack w-56 h-full hidden md:flex flex-col justify-start pt-12 px-7'>
         
         <div className='flex justify-center'>
             <div className='flex justify-center  text-white text-2xl'>

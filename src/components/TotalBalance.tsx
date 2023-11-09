@@ -51,13 +51,13 @@ const TotalBalance = () => {
   
     const totalAccountBalance = cardList.reduce((acc: any, card: any) => acc + Number(card.accountBalance), 0)
   return (
-    <div className='w-[352px]   '>
+    <div className=' w-[352px]   '>
         <h3 className='text-left text-gray02 text-[22px]'>Total Balance</h3>
-        <div className='bg-[#FFF] h-[232px] w-[352px] px-6 py-5 mt-2 divide-y'>
+        <div className='bg-[#FFF] h-[232px] w-[352px] px-6 py-5 mt-2 divide-y'> 
 
             <div className='flex justify-between items-center rounded-lg pb-3'>
                 <p className='text-defaultBlack font-extrabold text-[22px] '>${totalAccountBalance}</p>
-                <p className='text-secondary text-sm '>All Accounts</p>
+                <p className='t ext-secondary text-sm '>All Accounts</p>
             </div> 
 
             <div className='pt-3'>

@@ -16,25 +16,22 @@ const GoalsPage = () => {
 
     // function to get expenses goals by category data from firestore
     useEffect(() => {
-        const getGoalsCategory = async () => {
-
-            try{
-                const data =  await getDocs(goalsRef)
-                const filteredData = data.docs.map((doc) => ({
-                    ...doc.data()
-                }))
-                dispatch(setGoalCategory(filteredData))
-                
-            } catch (err) {
-                console.error(err);
-               
-                
-                
-            } 
-            
+       // Inside the function to get goals data from Firestore
+    const getGoalsCategory = async () => {
+        try {
+        const data = await getDocs(goalsRef);
+        const filteredData = data.docs.map((doc) => ({
+            id: doc.id, // Store the document ID
+            ...doc.data(),
+        }));
+        dispatch(setGoalCategory(filteredData));
+        } catch (err) {
+        console.error(err);
         }
-        getGoalsCategory()
-    }, [])
+    };
+    
+            getGoalsCategory();
+        }, []);
   return (
     <div className='px-6 pt-4 '>
         <div className='flex space-x-6'>
