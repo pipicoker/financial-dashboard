@@ -29,7 +29,7 @@ const Header = () => {
 
     
   return (
-    <header className=' py-5 flex justify-between items-center'>
+    <header className='sticky py-5 flex justify-between items-center'>
         <div className='flex items-center gap-6'>
             <h1 className='text-[191919] text-2xl font-bold '>Hello Princess</h1>
 

@@ -62,23 +62,23 @@ const GoalsForm = () => {
       };
       
   return (
-    <div className={`fixed top-[40%] left-[40%] z-[999]  w-[488px] h-[392px] bg-[#FFF] pl-16 pr-6 pt-4 border ${activeForm ? 'block' : 'hidden'}`}>
+    <div className={`fixed lg:top-[40%] lg:left-[40%] z-[999] w-5/6  lg:w-[488px] h-[392px] bg-[#FFF] ml-3 lg:ml-0 pl-4 lg:pl-16 pr-6 pt-4 border rounded-lg ${activeForm ? 'block' : 'hidden'}`}>
 
         <div className='flex flex-col'>
             <div className='flex justify-end ' onClick={() => dispatch(setActiveForm(false))}>
                 <GrClose className='w-8 h-8  '/>
             </div>
-            <form action="" className='flex flex-col text-left pr-10'>
+            <form action="" className='flex flex-col text-left px-4 lg:px-0 lg:pr-10'>
                     
                 <label htmlFor="" className='text-secondary font-semibold'>Target Amounts</label>
-                <input type="text" id='target-amount' placeholder='$500000' className='border border-[#D1D1D1] w-[360px] h-14 mt-2 px-6 py-4 rounded-lg text-gray02'
+                <input type="text" id='target-amount' placeholder='$500000' className='border border-[#D1D1D1] w-full  lg:w-[360px] h-14 mt-2 px-6 py-4 rounded-lg text-gray02'
                 value={targetAmount}
                 onChange={(e) => dispatch(setTargetAmount(e.target.value))}
 
                 />
 
                 <label htmlFor="" className='mt-6 text-secondary font-semibold'>Present Amounts</label>
-                <input type="text" id='present-amount' placeholder='Write present amounts here' className='border border-[#D1D1D1] w-[360px] h-14 mt-2 px-6 py-4 rounded-lg text-gray02'
+                <input type="text" id='present-amount' placeholder='Write present amounts here' className='border border-[#D1D1D1] lg:w-[360px] h-14 mt-2 px-6 py-4 rounded-lg text-gray02'
                 value={presentAmount}
                 onChange={(e) => dispatch(setPresentAmount(e.target.value))}
 
