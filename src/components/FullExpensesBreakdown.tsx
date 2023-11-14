@@ -8,13 +8,13 @@ import {BsArrowUp} from "react-icons/bs"
 const FullExpensesBreakdown = () => {
     const breakdown = useSelector(selectExpenseBreakdown)
   return (
-    <div className='mt-8'>
+    <div className='mt-8 w-full'>
        <h3 className=' text-[22px] text-gray02 text-left' >Expenses Breakdown</h3>
 
-       <div className='grid grid-cols-3 gap-6'>
+       <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
           {breakdown.map((data, id) => (
             <div key={id}>
-                <div className='w-[352px]'>
+                <div className=''>
                     <div className='flex justify-between items-center bg-gray05 px-6 py-4 rounded-t-lg'>
                         
                         <div className='flex items-center space-x-4'>

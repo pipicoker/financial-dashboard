@@ -1,4 +1,5 @@
 import {  configureStore } from '@reduxjs/toolkit'
+import goalsSlice from './goalsSlice';
 import buttonReducer from "./buttonSlice"
 import goalsFormSlice from './goalsFormSlice';
 import targetAmountSlice from './targetAmountSlice';
@@ -10,6 +11,8 @@ import revenueAndExpensesSlice from './revenueAndExpensesSlice';
 import upcomingBillSlice from './upcomingBillSlice';
 import expensesSlices from './expensesSlices';
 import goalsByCategorySlice from './goalsByCategorySlice';
+import navSlice from './navSlice';
+
 const store = configureStore({
     reducer: {
         button: buttonReducer,
@@ -23,6 +26,8 @@ const store = configureStore({
         upcomingBill: upcomingBillSlice,
         expensesBreakdown: expensesSlices,
         ByCategory: goalsByCategorySlice,
+        goalss: goalsSlice,
+        NavControl: navSlice
     }
 })
 export default store;

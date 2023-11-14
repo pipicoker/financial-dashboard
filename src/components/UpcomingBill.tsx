@@ -3,14 +3,13 @@ import { useSelector,  } from 'react-redux';
 import { selectUpcoming } from '../redux/upcomingBillSlice';
 
 const UpcomingBill = () => {
-  // const [upcoming, setUpcoming] = useState<{ [x: string]: any }[]>([]);
   const upcoming = useSelector(selectUpcoming)
 
     
   return (
-    <div>
-        
-        <div className='flex justify-between items-center w-[352px] text-gray02'>
+    <div className=''>
+      
+        <div className='flex justify-between items-center  text-gray02'>
             <h3 className='text-left  text-[22px]'>Upcoming Bill</h3>
             <button className='flex items-center text-xs'>View All
             <GrFormNext className='w-4 h-4'/>
@@ -18,7 +17,7 @@ const UpcomingBill = () => {
             </button>
         </div>
 
-        <div className='h-[232px] w-[352px] bg-[#FFF] px-6 pb-5 mt-2 divide-y space-y-4'>
+        <div className='h-[232px]  bg-[#FFF] px-6 pb-5 mt-2 divide-y space-y-4 rounded-lg'>
 
           {upcoming.map((data) => (
             <div key={data.company} className='flex items-center justify-between pt-5'>

@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 interface CardState {
     cardList: {
+      id: string
       accountBalance: number;
       accountNumber: number;
       accountType: string;
@@ -13,6 +14,7 @@ export const balancesSlice  = createSlice({
     name: " balances",
     initialState: {
         cardList: [{
+          id: "",
             accountBalance: 0,
       accountNumber: 0,
       accountType: "",

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, { useEffect, useRef} from 'react'
 import { db } from '../config/firebase'
 import { getDocs, collection } from 'firebase/firestore';
 import { useSelector } from 'react-redux';
@@ -15,13 +15,14 @@ const GaugeChart = () => {
   const targetAmount = useSelector(selectTargetAmount)
     const presentAmount = useSelector(selectPresentAmount)
 
-  const [goals, setGoals] = useState<any[]>([]);
+  // const [goals, setGoals] = useState<any[]>([]);
+// console.log(goals);
 
     const goalsRef = collection(db, "goals")
     const speedRef = useRef(0);
     const targetRef = useRef(0);
 
-    // function to get data from firestore
+    //function to get data from firestore
     useEffect(() => {
         const getGoals = async () => {
 
@@ -32,7 +33,7 @@ const GaugeChart = () => {
                   target: doc.data().target, 
                   targetAchieved: doc.data().targetAchieved
                 }))
-                setGoals(filteredData)
+                // setGoals(filteredData)
 
                 const speed = filteredData.reduce((total, goal) => total + goal.targetAchieved, 0);
                 speedRef.current = speed;
@@ -49,6 +50,61 @@ const GaugeChart = () => {
         getGoals()
     }, [goalsRef])
 
+  //   const fetchGoals = async () => {
+
+  //     try{
+  //         const data =  await getDocs(goalsRef)
+  //         return data.docs.map((doc) => ({
+  //             ...doc.data(),
+  //           }));     
+          
+  //     } catch (err) {
+  //         console.error(err);
+          
+  //     } 
+  // }
+
+  // const { data: goalsData, isLoading, isError } = useQuery('goals', fetchGoals, {
+  //   refetchOnWindowFocus: false,
+  //   onSuccess: (data) => {
+  //     if (data) {
+  //       const filteredData = data.map((doc) => ({
+  //         id: doc.id,
+  //         target: doc.target,
+  //         targetAchieved: doc.targetAchieved,
+  //       }));
+  
+  //       setGoals(filteredData);
+  
+  //       const speed = filteredData.reduce((total, goal) => total + goal.targetAchieved, 0);
+  //       speedRef.current = speed;
+  
+  //       const target = filteredData.reduce((total, goal) => total + goal.target, 0);
+  //       targetRef.current = target;
+  //     }
+  //   },
+  // });
+  
+  // useEffect(() => {
+  //   if (goalsData) {
+  //     const filteredData = goalsData.map((doc) => ({
+  //       id: doc.id,
+  //       target: doc.target,
+  //       targetAchieved: doc.targetAchieved,
+  //     }));
+  
+  //     setGoals(filteredData);
+  
+  //     const speed = filteredData.reduce((total, goal) => total + goal.targetAchieved, 0);
+  //     speedRef.current = speed;
+  
+  //     const target = filteredData.reduce((total, goal) => total + goal.target, 0);
+  //     targetRef.current = target;
+  //   }
+  // }, [goalsData]);
+  
+  
+  
 
     const userTarget = (targetAmount !== undefined && targetAmount !== "") ? Number(targetAmount) : targetRef.current;
     const userTargetAchieved = (presentAmount !== undefined && presentAmount !== "") ? Number(presentAmount) :speedRef.current;

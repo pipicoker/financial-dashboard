@@ -1,11 +1,10 @@
-import React , {useEffect, useState} from 'react'
+import React  from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { setActiveAdjustForm, selectActiveAdjustForm , setCategoryTargetAmount, selectCategoryTargetAmount, selectOpenedCategory, setCategoryValue, selectCategoryValues} from '../redux/goalsFormSlice'
+import { setActiveAdjustForm, selectActiveAdjustForm , setCategoryTargetAmount, selectCategoryTargetAmount, selectOpenedCategory, } from '../redux/goalsFormSlice'
 import { setGoalCategory } from '../redux/goalsByCategorySlice'
-import { RootState } from '../redux/types'
 
-import { db, auth } from '../config/firebase'
-import { addDoc, collection, getDocs, deleteDoc, updateDoc, doc, onSnapshot } from 'firebase/firestore'
+import { db } from '../config/firebase'
+import {  collection, getDocs, updateDoc, doc,  } from 'firebase/firestore'
 import {GrClose} from 'react-icons/gr'
 
 const AdjustGoalsForm = () => {

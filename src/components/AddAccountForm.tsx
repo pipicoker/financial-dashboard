@@ -30,6 +30,7 @@ const AddAccountForm = ({ activeAccountForm, setActiveAccountForm }: { activeAcc
           cardType: cardType,
           userId: auth.currentUser ? auth.currentUser.uid : null,           
         });
+        console.log(docRef)
         // Fetch the updated list of accounts
       const data = await getDocs(collection(db, 'accounts'));
       const updatedAccountList = data.docs.map((doc) => ({ ...doc.data() }));

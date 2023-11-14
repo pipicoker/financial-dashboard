@@ -4,7 +4,7 @@ import BalanceTransactionHistory from '../components/BalanceTransactionHistory'
 
 const AccountDetails = () => {
   return (
-    <div className='px-6 pt-4 '>
+    <div className=' pt-4 '>
       <BalancesAccountDetails />
       <BalanceTransactionHistory />
     </div>

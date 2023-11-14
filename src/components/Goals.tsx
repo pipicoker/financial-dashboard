@@ -1,10 +1,9 @@
-import React, {useState, useEffect} from 'react'
-import { db } from '../config/firebase'
-import { getDocs, collection } from 'firebase/firestore';
+import React from 'react'
+// import { getDocs, collection } from 'firebase/firestore';
 
 import { useSelector, useDispatch } from 'react-redux';
 import {selectActiveForm, setActiveForm, selectPresentAmount, selectTargetAmount,} from '../redux/goalsFormSlice'
-
+import { selectGoals } from '../redux/goalsSlice';
 import {FiEdit3} from 'react-icons/fi'
 import {GoGoal} from 'react-icons/go'
 import {PiMedalMilitaryThin} from 'react-icons/pi'
@@ -14,33 +13,10 @@ const Goals = () => {
     const activeForm = useSelector(selectActiveForm)
     const targetAmount = useSelector(selectTargetAmount)
     const presentAmount = useSelector(selectPresentAmount)
+    const goals = useSelector(selectGoals)
     const dispatch = useDispatch();
 
 
-    const [goals, setGoals] = useState<{ [x: string]: any }[]>([]);
-
-    const goalsRef = collection(db, "goals")
-
-    // function to get data from firestore
-    useEffect(() => {
-        const getGoals = async () => {
-
-            try{
-                const data =  await getDocs(goalsRef)
-                const filteredData = data.docs.map((doc) => ({
-                    ...doc.data()
-                }))
-                setGoals(filteredData)
-                
-                
-            } catch (err) {
-                console.error(err);
-                
-            }
-            
-        }
-        getGoals()
-    }, [])
 
     // this is function is used to get the current date
     function getFormattedDate() {
@@ -52,17 +28,17 @@ const Goals = () => {
         const today = new Date();
         const month = months[today.getMonth()];
         const year = today.getFullYear();
-        const date = today.getDate();
+        // const date = today.getDate();
     
         return `${month}, ${year}`;
     }
     
     const formattedDate = getFormattedDate();
   return (
-    <div>
+    <div className=' '>
         <h3 className='text-left text-gray02 text-[22px]'>Goals</h3>
 
-        <div className='h-[232px] w-[352px] bg-[#FFF] px-6 py-5 mt-2 '>
+        <div className='h-[232px]  bg-[#FFF] px-6 py-5 mt-2 rounded-lg'>
            {
             goals.map((goal, id) => (
                 <div key={id} className='divide-y '>

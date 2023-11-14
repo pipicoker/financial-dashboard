@@ -11,6 +11,7 @@ interface Transaction {
 interface FormState {
     
     accountDetails: {
+      id:string
       accountType: string;
   accountBalance: number;
   accountNumber: number;
@@ -23,7 +24,7 @@ interface FormState {
 export const accountDetailsSlice  = createSlice({
     name: "accountDetail",
     initialState: {
-       
+       id: "",
         accountDetails: {
           accountType : "",
           accountBalance: 0,

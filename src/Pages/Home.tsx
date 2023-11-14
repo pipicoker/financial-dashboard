@@ -1,11 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
+import {useQuery} from 'react-query'
 import { db } from '../config/firebase'
 import { getDocs, collection } from 'firebase/firestore'
 import {Routes, Route,} from 'react-router-dom'
 import { setExpenses, setRevenues } from '../redux/revenueAndExpensesSlice'
-import { setUpcoming } from '../redux/upcomingBillSlice'
-import { useDispatch } from 'react-redux'
+import { setUpcoming,  } from '../redux/upcomingBillSlice'
+import { useDispatch } from 'react-redux' 
 import { setExpenseBreakdown} from '../redux/expensesSlices';
+import { setGoals } from '../redux/goalsSlice'
 
 import Sidebar from '../components/Sidebar'
 import Overview from '../components/Overview'
@@ -24,99 +26,112 @@ const Home = () => {
   const expensesRef = collection(db, "expenses")
   const revenuesRef = collection(db, "revenue")
   const upcomingRef = collection(db, "upcomingBill")
-  const goalsRef = collection(db, "expensesBreakdown")
+  const breakdownRef = collection(db, "expensesBreakdown")
+  const goalsRef = collection(db, "goals")
 
-
-    // function to get data from firestore
-    useEffect(() => {
-        const getUpcoming = async () => {
-
-            try{
-                const data =  await getDocs(upcomingRef)
-                const filteredData = data.docs.map((doc) => ({
-                    ...doc.data()
-                }))
-                dispatch(setUpcoming(filteredData))
-                
-            } catch (err) {
-                console.error(err);
-                
-            }
-            
+    // function to get upcoming bill data from firestore
+    const getUpcoming = async () => {
+        try {
+          const data = await getDocs(upcomingRef);
+          return data.docs.map((doc) => ({
+            ...doc.data(),
+          }));
+        } catch (err) {
+          throw new Error('Failed to fetch card list');
         }
-        getUpcoming()
-    }, [])
+      };
+
+  useQuery('upcoming', getUpcoming, {
+        refetchOnWindowFocus: false, 
+        onSuccess: (fetchedData) => {
+            dispatch(setUpcoming(fetchedData))
+        }
+      });
 
 
-    // function to get data from firestore
-    useEffect(() => {
-      const getExpenses = async () => {
+    // function to get expenses data from firestore
+    const getExpenses = async () => {
+        try {
+          const data = await getDocs(expensesRef);
+          return data.docs.map((doc) => ({
+            ...doc.data(),
+          }));
+        } catch (err) {
+          throw new Error('Failed to fetch card list');
+        }
+      };
 
-          try{
-              const data =  await getDocs(expensesRef)
-              const filteredData = data.docs.map((doc) => ({
-                  ...doc.data()
-              }))
-              dispatch(setExpenses(filteredData))
-              // console.log('Expenses:', expenses);
-              
-          } catch (err) {
-              console.error(err);
-              
-          }
+  useQuery('expenses', getExpenses, {
+        refetchOnWindowFocus: false, 
+        onSuccess: (fetchedData) => {
+            dispatch(setExpenses(fetchedData))
+        }
+      });
+
+    // function to get revenues data from firestore
+    const getRevenues = async () => {
+        try {
+          const data = await getDocs(revenuesRef);
+          return data.docs.map((doc) => ({
+            ...doc.data(),
+          }));
+        } catch (err) {
+          throw new Error('Failed to fetch card list');
+        }
+      };
+
+  useQuery('revenues', getRevenues, {
+        refetchOnWindowFocus: false, 
+        onSuccess: (fetchedData) => {
+            dispatch(setRevenues(fetchedData))
+        }
+      });
+
+    // function to get transaction breakdown data from firestore
+    const getBreakdown = async () => {
+        try {
+          const data = await getDocs(breakdownRef);
+          return data.docs.map((doc) => ({
+            ...doc.data(),
+          }));
+        } catch (err) {
+          throw new Error('Failed to fetch card list');
+        }
+      };
+
+  useQuery('breakdown', getBreakdown, {
+        refetchOnWindowFocus: false, 
+        onSuccess: (fetchedData) => {
+            dispatch(setExpenseBreakdown(fetchedData))
+        }
+      });    
+
+    
+    // function to get goals  data from firestore
+    const getGoals = async () => {
+
+      try{
+          const data =  await getDocs(goalsRef)
+          return data.docs.map((doc) => ({
+              ...doc.data(),
+            }));     
           
+      } catch (err) {
+          console.error(err);
+          
+      } 
+  }
+
+  useQuery('goals', getGoals, {
+      refetchOnWindowFocus: false, 
+      onSuccess: (fetchedData) => {
+          dispatch(setGoals(fetchedData ?? []))
       }
-      getExpenses()
-  }, [])
-
-
-    // function to get data from firestore
-    useEffect(() => {
-        const getRevenues = async () => {
-
-            try{
-                const data =  await getDocs(revenuesRef)
-                const filteredData = data.docs.map((doc) => ({
-                    ...doc.data()
-                }))
-                dispatch(setRevenues(filteredData))
-                
-                
-            } catch (err) {
-                console.error(err);
-                
-            }
-            
-        }
-        getRevenues()
-    }, [])
-
-
-    // function to get data from firestore
-    useEffect(() => {
-        const getBreakdown = async () => {
-
-            try{
-                const data =  await getDocs(goalsRef)
-                const filteredData = data.docs.map((doc) => ({
-                    ...doc.data()
-                }))
-                dispatch(setExpenseBreakdown(filteredData))
-                
-            } catch (err) {
-                console.error(err);
-               
-                
-                
-            } 
-            
-        }
-        getBreakdown()
-    }, [])
+    });
   return (
     <div className='flex '>
       <Sidebar/>
-      <div className='bg-[#F4F5F7] divide-y divide-gray05 pb-8'>
+      <div className='bg-[#F4F5F7] w-full md:w-4/5 px-4 md:pr-8 md:pl-6 divide-y divide-gray05 pb-8'>
         <Header />
         <Routes>
           <Route path="/" element={<Overview />} />

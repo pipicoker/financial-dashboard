@@ -1,8 +1,7 @@
-import React, {memo} from 'react'
+import React, {memo, useState, useEffect} from 'react'
 import { Link } from 'react-router-dom';
 import { useSelector , useDispatch} from 'react-redux';
-import {selectCardList, removeCard} from '../redux/balancesSlice'
-import {setAccountForm} from '../redux/addAccountSlice'
+import {selectCardList} from '../redux/balancesSlice'
 import { setAccountDetails,  } from '../redux/accountDetailsSlice';
 
 import { MdOutlineNavigateNext } from 'react-icons/md';
@@ -13,43 +12,83 @@ import { db, auth } from '../config/firebase'
 
 const BalanceCards = ({ activeAccountForm, setActiveAccountForm }: { activeAccountForm: boolean, setActiveAccountForm: (value: boolean) => void }) => {
     const cardList = useSelector(selectCardList)
-    const accountDetails:any = useSelector(setAccountForm)
     const dispatch = useDispatch()
 
 
     const handleButtonClick = (e: React.MouseEvent,card: object) => {
-        // e.preventDefault()
         
-        dispatch(setAccountDetails(card)); // Dispatch the setAccountDetails action
-        // console.log(accountDetails);
-        console.log(card)
+        dispatch(setAccountDetails(card)); 
       };
-    const deleteCard = async(cardId: string) => {
+      const [deletedCardIds, setDeletedCardIds] = useState<string[]>([]);
 
-        try{
+    // const deleteCard = async(cardId: string) => {
+
+    //     try{
+    //         if(auth.currentUser) {
+    //             await deleteDoc(doc(db, 'accounts', cardId))
+    //             console.log('Card deleted from Firestore');
+
+    //             dispatch(removeCard(cardId))
+    //         } else {
+    //             console.log('User not Logged in')
+    //         }
+    //     } catch(error) {
+    //         console.log('Error deleting card', error)
+    //     }
+
+    // }
+
+    useEffect(() => {
+        localStorage.setItem('deletedCardIds', JSON.stringify(deletedCardIds));
+      }, [deletedCardIds]);
+    
+      useEffect(() => {
+        const storedDeletedCardIds = localStorage.getItem('deletedCardIds');
+        if (storedDeletedCardIds) {
+          setDeletedCardIds(JSON.parse(storedDeletedCardIds));
+        }
+      }, []);
+
+
+      const handleDeleteCard = async (cardId: string | undefined) => {
+        if (!cardId) {
+          console.error('Invalid cardId:', cardId);
+          return;
+        }
+      
+        // Update the state of deletedCardIds
+        setDeletedCardIds((prevIds) => [...prevIds, cardId]);
+      
+        try {
+
             if(auth.currentUser) {
+                // Delete the document from Firestore
                 await deleteDoc(doc(db, 'accounts', cardId))
                 console.log('Card deleted from Firestore');
-
-                dispatch(removeCard(cardId))
-            } else {
-                console.log('User not Logged in')
-            }
-        } catch(error) {
-            console.log('Error deleting card', error)
+            
+                } else {
+                   console.log('User not Logged in')
+                }
+          
+        } catch (error: any) {
+          // Log error details
+          console.error('Error deleting card:', error.message, error.code);
         }
-
-    }
-
-
+      };      
+      
+      
+      
+      const visibleCards = cardList.filter((card) => !deletedCardIds.includes(card.id));
+      
+      
   return (
-    <div>
-        <h3 className='text-left text-gray02 text-[22px]' onClick={() => console.log(accountDetails)}>Balances</h3>
+    <div className='w-full'>
+        <h3 className='text-left text-gray02 text-[22px]' >Balances</h3>
 
 
-        <div className='grid grid-cols-3 gap-6 mt-4'>
-            {cardList.map((card: any, id:number) => (
-                <div key={id} className='w-[352px] h-72 p-6 bg-[#FFF] divide-y'>
+        <div className='grid grid-cols-1 lg:grid-cols-3 gap-4 mt-4'>
+            {visibleCards.map((card: any, id:number) => (
+                <div key={id} className=' h-72 p-6 bg-[#FFF] divide-y'>
 
                     <div className='flex justify-between items-center pb-4 '>
                         <p className='font-bold text-gray02'> {card.accountType}</p>
@@ -69,7 +108,7 @@ const BalanceCards = ({ activeAccountForm, setActiveAccountForm }: { activeAccou
 
                     <div className='mt-[30px] flex justify-between items-center'>
                         <p className='text-pry-col cursor-pointer'
-                        onClick={() => deleteCard(card.cardType)}>Remove</p>
+                        onClick={() => handleDeleteCard(card.id)}>Remove</p>
 
                         <Link to="/Home/Balances/AccountDetails">
                             <button className='flex items-center gap-2 justify-center bg-pry-col text-white text-sm font-medium rounded-[4px] px-5 py-2'
@@ -82,7 +121,7 @@ const BalanceCards = ({ activeAccountForm, setActiveAccountForm }: { activeAccou
                       
                 </div>
             ))}
-            <div className='w-[352px] h-72 bg-[#FFF] flex flex-col justify-center items-center gap-4'>
+            <div className=' h-72 bg-[#FFF] flex flex-col justify-center items-center gap-4'>
 
                 <button className='bg-pry-col px-8 py-3 font-bold  text-[#FFF] rounded-[4px]' onClick={() => setActiveAccountForm(!activeAccountForm)}>Add Accounts</button>
 

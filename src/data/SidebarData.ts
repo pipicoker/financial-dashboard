@@ -18,7 +18,7 @@ const SidebarData: SideItem[] = [
         id: 'one',
         title: 'Overview',
         icon: BiCategory ,
-        path: ""
+        path: "/Home"
     },
     {
         id: 'two',

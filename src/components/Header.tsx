@@ -1,7 +1,14 @@
 import {MdKeyboardDoubleArrowRight} from 'react-icons/md'
 import {IoMdNotifications} from 'react-icons/io'
+import {RxHamburgerMenu} from 'react-icons/rx'
+import { useSelector, useDispatch } from 'react-redux'
+
+import { selectNAv, setNav } from '../redux/navSlice'
 
 const Header = () => {
+    const nav = useSelector(selectNAv)
+    const dispatch = useDispatch()
+
 
     // this function gets the current date 
     function getFormattedDate() {
@@ -22,17 +29,17 @@ const Header = () => {
 
     
   return (
-    <header className='w-[1160px] pl-6 pr-8 py-5 flex justify-between items-center'>
+    <header className=' py-5 flex justify-between items-center'>
         <div className='flex items-center gap-6'>
-            <h1 className='text-[191919] text-2xl font-bold'>Hello Tanzir</h1>
+            <h1 className='text-[191919] text-2xl font-bold '>Hello Princess</h1>
 
-            <div className='flex items-center text-gray03  text-sm'>
+            <div className=' items-center text-gray03  text-sm hidden lg:flex'>
                 <MdKeyboardDoubleArrowRight className='w-6 h-6' />
                 <p>{formattedDate}</p>
             </div>
         </div>
 
-        <div className='flex items-center space-x-10'>
+        <div className=' hidden md:flex items-center space-x-10'>
             <IoMdNotifications className='w-6 h-6 text-[#666666]'/>
             <form>
         <label className="relative block">
@@ -50,6 +57,13 @@ const Header = () => {
             </span>
         </label>
     </form>
+        </div>
+        
+        <div className='lg:hidden text-2xl text-gray-02' onClick={() => {
+            dispatch(setNav(!nav))
+        }}>
+          <RxHamburgerMenu/>
+
         </div>
         
         </header>

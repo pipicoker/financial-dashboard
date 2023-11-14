@@ -1,17 +1,14 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
 
 import RecentTransactioBtns from '../components/RecentTransactioBtns'
 import RecentTransactionFullTable from '../components/RecentTransactionFullTable'
-import {selectActiveButton } from '../redux/buttonSlice'
 
 
 
 const RecentTransactionPage = () => {
-  const activeButton = useSelector(selectActiveButton);
 
   return (
-    <div className='px-6 pt-4 '>
+    <div className='pt-4 w-full'>
          <h3 className='text-left text-gray02 text-[22px] mb-4'>Recent Transaction</h3>
          <RecentTransactioBtns />
          <RecentTransactionFullTable />

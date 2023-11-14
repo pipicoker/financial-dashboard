@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import { useQuery } from 'react-query';
 import { db } from '../config/firebase'
 import { getDocs, collection } from 'firebase/firestore';
 
@@ -24,38 +25,54 @@ import mastercard from "../images/Mastercard.png"
 const TotalBalance = () => {
     const cardList = useSelector(selectCardList)
     const dispatch = useDispatch()
-    // const [cardList, setCardList] = useState<{ [x: string]: any }[]>([]);
 
     const cardListRef = collection(db, "accounts")
 
     // function to get data from firestore
-    useEffect(() => {
-        const getCardList = async () => {
-            try {
-                const data = await getDocs(cardListRef);
-                const filteredData = data.docs.map((doc) => ({
-                    ...doc.data()
-                }));
-                dispatch(setCardList(filteredData));
-            } catch (err) {
-                console.error(err);
-            }
+    // useEffect(() => {
+    //     const getCardList = async () => {
+    //         try {
+    //             const data = await getDocs(cardListRef);
+    //             const filteredData = data.docs.map((doc) => ({
+    //                 ...doc.data()
+    //             }));
+    //             dispatch(setCardList(filteredData));
+    //         } catch (err) {
+    //             console.error(err);
+    //         }
+    //     }
+    
+    //     getCardList();
+    // }, [cardListRef, dispatch]);
+
+    const getCardList = async () => {
+        try {
+          const data = await getDocs(cardListRef);
+          return data.docs.map((doc) => ({
+            ...doc.data(),
+          }));
+        } catch (err) {
+          throw new Error('Failed to fetch card list');
         }
-    
-        getCardList();
-    }, [cardListRef, dispatch]);
-    
+      };
+    useQuery('cardList', getCardList, {
+        refetchOnWindowFocus: false, 
+        onSuccess: (fetchedData) => {
+            dispatch(setCardList(fetchedData))
+        }
+      });
+      
 
     const [prevEl, setPrevEl] = useState<HTMLElement | null>(null)
     const [nextEl, setNextEl] = useState<HTMLElement | null>(null)
   
     const totalAccountBalance = cardList.reduce((acc: any, card: any) => acc + Number(card.accountBalance), 0)
   return (
-    <div className=' w-[352px]   '>
+    <div className=' '>
         <h3 className='text-left text-gray02 text-[22px]'>Total Balance</h3>
-        <div className='bg-[#FFF] h-[232px] w-[352px] px-6 py-5 mt-2 divide-y'> 
+        <div className='bg-[#FFF] h-[232px]  px-6 py-5 mt-2 divide-y rounded-lg '> 
 
-            <div className='flex justify-between items-center rounded-lg pb-3'>
+            <div className='flex justify-between items-center  pb-3'>
                 <p className='text-defaultBlack font-extrabold text-[22px] '>${totalAccountBalance}</p>
                 <p className='t ext-secondary text-sm '>All Accounts</p>
             </div> 
@@ -70,12 +87,11 @@ const TotalBalance = () => {
           
           navigation={{ prevEl, nextEl }}
         
-        className="mySwiper grid   p-4"
+        className="mySwiper grid  p-4"
       >
         
             {cardList.map((card: any) => 
-              <SwiperSlide key={card.accountNumber} className="shrink-0 w-[304px] bg-[#299D91]  p-4 ">
-
+              <SwiperSlide key={card.accountNumber} className="shrink-0  bg-[#299D91]  p-4 ">
                 <div className=''>
 
                     <div className='flex justify-between '>

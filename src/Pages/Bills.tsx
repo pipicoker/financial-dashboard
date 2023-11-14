@@ -3,7 +3,7 @@ import FullUpcomingBills from '../components/FullUpcomingBills'
 
 const Bills = () => {
   return (
-    <div className='px-6 pt-4 '>
+    <div className=' pt-4 '>
         <FullUpcomingBills />
     </div>
   )

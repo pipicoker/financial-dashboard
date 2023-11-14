@@ -2,10 +2,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import {selectActiveButton, setActiveButton } from '../redux/buttonSlice'
 
-interface RecentTransactioBtnsProps  {
-    activeButton: string
-    setActiveButton: (value: string) => void
-}
+
 
 const RecentTransactioBtns= () => {
 

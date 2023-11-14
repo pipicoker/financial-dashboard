@@ -14,7 +14,7 @@ const SettingsPage = () => {
         <SettingBtns />
 
         <div>
-            {activeSettingBtn  == "account"  ? <UserDetails /> : <SecurityDetails />}
+            {activeSettingBtn  === "account"  ? <UserDetails /> : <SecurityDetails />}
         </div>
     </div>
   )

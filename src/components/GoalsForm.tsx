@@ -27,7 +27,7 @@ const GoalsForm = () => {
       if (storedPresentAmount) {
         setPresentAmount(storedPresentAmount);
       }
-    }, []);
+    }, [storedPresentAmount, storedTargetAmount]);
 
     const handleSave = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -54,6 +54,7 @@ const GoalsForm = () => {
 
           localStorage.setItem('targetAmount', targetAmount);
       localStorage.setItem('presentAmount', presentAmount);
+      console.log(docRef)
          
         } catch (error) {
           console.error('Error adding document: ', error);

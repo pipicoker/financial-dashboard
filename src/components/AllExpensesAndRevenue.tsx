@@ -1,14 +1,21 @@
-import React, { useEffect, useState , } from 'react'
+import React, { useEffect, useState , useMemo} from 'react'
 import { useSelector } from 'react-redux';
 import { selectActiveButton } from '../redux/buttonSlice';
 import {  selectExpenses, selectRevenues, } from '../redux/revenueAndExpensesSlice'
 import {PiGameController} from 'react-icons/pi'
 
+// interface Transaction {
+//   name : string,
+//     amount: number;
+//     item: string
+ 
+//   }
+
 const AllExpensesAndRevenue = () => {
   const activeButton = useSelector(selectActiveButton)
   const expenses = useSelector(selectExpenses)
   const revenue = useSelector(selectRevenues)
-  const revenuesAndExpenses = expenses.concat(revenue)
+  const revenuesAndExpenses = useMemo(() => expenses.concat(revenue), [expenses, revenue]);
 
   const [tableDetails, setTableDetails] = useState(revenuesAndExpenses);
   // const prevTableDetails = useRef(revenuesAndExpenses);
@@ -21,11 +28,13 @@ const AllExpensesAndRevenue = () => {
     } else  {
       setTableDetails(revenuesAndExpenses);
     }
-  }, [activeButton, expenses, revenue, ])
+  }, [activeButton, expenses, revenue, revenuesAndExpenses])
+  
+  
 
   return (
     <div className='divide-y mt-3'>
-      {tableDetails.map((data, id) => (
+      { tableDetails.map((data, id) => (
         <div key={id} className='flex justify-between items-center py-6'>
           <div className='flex items-center space-x-3 text-left'>
             <div className='w-10 h-10 flex justify-center items-center bg-special rounded-lg'>
@@ -41,7 +50,7 @@ const AllExpensesAndRevenue = () => {
             <p className='text-xs text-gray03'>17 May 2023</p>
           </div>
         </div>
-      ))}
+      )) }
     </div>
   );
 }

@@ -25,35 +25,35 @@ import { getDocs, collection } from 'firebase/firestore';
 const Statistics = () => {
 
     const [stats, setStats] = useState([{day: "", thisWeek: 0, lastWeek: 0}])
-
     const statsRef = collection(db, "statistics")
+
+    const localStorageKey = 'statsData'
 
     // function to get data from firestore
     useEffect(() => {
-        const getStats = async () => {
-
-            try {
-                const data = await getDocs(statsRef);
-                const statsData = data.docs.map((doc) => {
-                  // Map Firestore data to the structure of your state
-                  return {
-                    day: doc.data().day, 
-                    thisWeek: doc.data().thisWeek,
-                    lastWeek: doc.data().lastWeek,
-                  };
-                });
-        
-                // Update the stats state with the fetched and mapped data
-                setStats(statsData);
-                
-              } catch (err) {
-                console.error(err);
-                
-            }
-            
+      const getStats = async () => {
+        try {
+          const data = await getDocs(statsRef);
+          const statsData = data.docs.map((doc) => ({
+            day: doc.data().day,
+            thisWeek: doc.data().thisWeek,
+            lastWeek: doc.data().lastWeek,
+          }));
+  
+          // Update the stats state only when necessary
+          if (JSON.stringify(statsData) !== JSON.stringify(stats)) {
+            setStats(statsData);
+            // Cache data in localStorage
+            localStorage.setItem(localStorageKey, JSON.stringify(statsData));
+          }
+        } catch (err) {
+          console.error(err);
         }
-        getStats()
-    }, [statsRef])
+      };
+  
+      getStats();
+    }, [statsRef, stats]);
+    
 
     const dayLabel = stats.map((stat) => stat.day)
     const thisWeekData = stats.map((stat) => stat.thisWeek)
@@ -119,16 +119,9 @@ const Statistics = () => {
     };
     
   return (
-    <div className=''>
-        
-       
+    <div className='mt-2 w-full h-[258px] bg-[#FFF] px-6 pt-4 pb-10  rounded-lg'>
 
-        <div className='w-full h-[258px] bg-[#FFF] px-6 pt-4 pb-10 mt-2 rounded-lg'>
         <Bar options={options} data={data}  />
-        </div>
-        
-
-        
     </div>
   )
 }

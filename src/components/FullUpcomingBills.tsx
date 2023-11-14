@@ -5,12 +5,12 @@ import { selectUpcoming } from '../redux/upcomingBillSlice'
 const FullUpcomingBills = () => {
     const upcoming = useSelector(selectUpcoming)
   return (
-    <div>
+    <div className=''>
         <h3 className='text-left text-gray02 text-[22px]' >Upcoming Bills</h3>
 
-        <div className='w-[1104px] mt-5 p-6 rounded-2xl bg-[#FFF]'>
+        <div className='w-full mt-5 p-6 rounded-2xl bg-[#FFF] overflow-x-scroll md:overflow-x-hidden'>
 
-            <table className='w-full divide-y text-left'>
+            <table className='w-[720px] md:w-full divide-y text-left'>
                 <thead>
                     <tr className=' '>
                         <th className='pb-6 font-bold text-defaultBlack'>Due Date</th>

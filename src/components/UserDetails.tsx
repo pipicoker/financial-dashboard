@@ -1,4 +1,5 @@
 import React, { useEffect, useState} from 'react'
+import {useQuery} from 'react-query'
 import { db } from '../config/firebase'
 import { getDocs, collection } from 'firebase/firestore'
 
@@ -17,6 +18,32 @@ const UserDetails = () => {
 
 
     // function to get user details from firestore
+    const getCardList = async () => {
+        try {
+          const data = await getDocs(userDetailsRef);
+          return data.docs.map((doc) => ({
+            ...doc.data(),
+          }));
+        } catch (err) {
+          throw new Error('Failed to fetch card list');
+        }
+      };
+    useQuery('cardList', getCardList, {
+        refetchOnWindowFocus: false, 
+        onSuccess: (fetchedData) => {
+            const userDetailData: UserDetail[] = fetchedData.map((dataItem) => ({
+                fullName: dataItem.fullName,
+                email: dataItem.email,
+                phoneNumber: dataItem.phoneNumber,
+                username: dataItem.username,
+                // Add other properties if necessary
+              }));
+              setUserDetails(userDetailData);
+        }
+      });
+
+
+
     useEffect(() => {
         const getUpcoming = async () => {
 
@@ -37,7 +64,7 @@ const UserDetails = () => {
             
         }
         getUpcoming()
-    }, [])
+    }, [userDetailsRef])
   return (
     <div className='mt-8'>
         {

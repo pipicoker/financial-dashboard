@@ -1,4 +1,5 @@
 import React , {useEffect} from 'react';
+import {QueryClient, QueryClientProvider} from 'react-query'
 import {  useDispatch } from 'react-redux';
 import { db } from './config/firebase'
 
@@ -13,6 +14,7 @@ import Home from './Pages/Home';
 
 import { setCardList} from './redux/balancesSlice'
 
+const queryClient = new QueryClient()
 function App() {
   const dispatch = useDispatch();
 
@@ -25,6 +27,7 @@ useEffect(() => {
       const data = await getDocs(cardListRef);
       const filteredData = data.docs.map((doc) => ({
         ...doc.data(),
+        id: doc.id
       }));
       dispatch(setCardList(filteredData));
     } catch (err) {
@@ -33,10 +36,11 @@ useEffect(() => {
   };
 
   fetchData(); // Call the fetchData function when the component mounts
-}, [dispatch]);
+}, [dispatch, cardListRef]);
 
   return (
-    <div className="App">
+    <QueryClientProvider client={queryClient}>
+<div className="App ">
       <Routes>
       <Route path="/" element={<Login/>} />
       <Route path="/SignUp" element={<SignUp/>} />
@@ -46,6 +50,8 @@ useEffect(() => {
       </Routes>
           
     </div>
+    </QueryClientProvider>
+    
   );
 }
 

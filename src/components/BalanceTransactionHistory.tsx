@@ -6,15 +6,15 @@ const BalanceTransactionHistory = () => {
     const accountDetails = useSelector(selectAccountDetails)
     const transactionHistory = accountDetails.transactionHistory
   return (
-    <div className='mt-8'>
+    <div className='mt-8 w-full'>
          <h3 className='text-left text-gray02 text-[22px]' onClick={() => console.log(accountDetailsSlice)}>Transaction History</h3>
 
-         <div className='w-[1104px] mt-5 rounded-2xl bg-[#FFF] px-8 pt-1 pb-8 '>
-            <table className='w-full  divide-y '>
+         <div className=' mt-5 rounded-2xl bg-[#FFF] px-8 pt-3 lg:pt-1 pb-8 overflow-x-scroll '>
+            <table className='w-[420px] lg:w-full  divide-y '>
                 <thead>
                     <tr className='text-defaultBlack   font-bold capitalize'>
                         <th className='pt-2 pb-4 text-left'>Date</th>
-                        <th className='pt-2 pb-4'>Status</th>
+                        <th className='pt-2 pb-4 hidden lg:flex'>Status</th>
                         <th className='pt-2 pb-4'>Trasaction</th>
                         <th className='pt-2 pb-4'>Receipt</th>
                         <th className='pt-2 pb-4'>Amount</th>
@@ -26,7 +26,7 @@ const BalanceTransactionHistory = () => {
                     {transactionHistory.map((tras, id) => (
                         <tr key={id} className='text-secondary '>
                             <td className='pt-4 pb-4 text-left'>{tras.date}</td>
-                            <td className='pt-4 pb-4'>{tras.status}</td>
+                            <td className='pt-4 pb-4 hidden lg:flex'>{tras.status}</td>
                             <td className='pt-4 pb-4'>{tras.transType}</td>
                             <td className='pt-4 pb-4'>{tras.receipt}</td>
                             <td className='pt-4 pb-4 font-semibold text-defaultBlack'>${tras.amount}</td>
@@ -35,7 +35,7 @@ const BalanceTransactionHistory = () => {
                     {transactionHistory.map((tras, id) => (
                         <tr key={id} className='text-secondary'>
                             <td className='pt-4 pb-4 text-left'>{tras.date}</td>
-                            <td className='pt-4 pb-4'>{tras.status}</td>
+                            <td className='pt-4 pb-4 hidden lg:flex'>{tras.status}</td>
                             <td className='pt-4 pb-4'>{tras.transType}</td>
                             <td className='pt-4 pb-4'>{tras.receipt}</td>
                             <td className='pt-4 pb-4 font-semibold text-defaultBlack'>${tras.amount}</td>

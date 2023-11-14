@@ -2,8 +2,8 @@ import React, {useEffect} from 'react'
 import { db } from '../config/firebase'
 import { getDocs, collection } from 'firebase/firestore'
 import Goals from '../components/Goals'
-import { useSelector, useDispatch } from 'react-redux'
-import { setGoalCategory, selectGoalCategory } from '../redux/goalsByCategorySlice'
+import { useDispatch } from 'react-redux'
+import { setGoalCategory } from '../redux/goalsByCategorySlice'
 import GoalsByCategory from '../components/GoalsByCategory'
 import SavingSummary from '../components/SavingSummary'
 import GoalsForm from '../components/GoalsForm'
@@ -31,12 +31,13 @@ const GoalsPage = () => {
     };
     
             getGoalsCategory();
-        }, []);
+        }, [goalsRef, dispatch]);
   return (
-    <div className='px-6 pt-4 '>
-        <div className='flex space-x-6'>
-            <GoalsForm />
+    <div className=' pt-4 w-full'>
+        <GoalsForm />
             <AdjustGoalsForm />
+        <div className='lg:flex gap-4 w-full'>
+            
             <Goals />
             <SavingSummary />
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState , } from 'react'
+import React, { useEffect, useState , useMemo} from 'react'
 import { useSelector } from 'react-redux';
 import { selectActiveButton } from '../redux/buttonSlice';
 import {  selectExpenses, selectRevenues, } from '../redux/revenueAndExpensesSlice'
@@ -8,26 +8,31 @@ const RecentTransactionFullTable = () => {
   const activeButton = useSelector(selectActiveButton)
   const expenses = useSelector(selectExpenses)
   const revenue = useSelector(selectRevenues)
-  const revenuesAndExpenses = expenses.concat(revenue)
+  const revenuesAndExpenses = useMemo(() => expenses.concat(revenue), [expenses, revenue]);
 
   const [tableDetails, setTableDetails] = useState(revenuesAndExpenses);
   // const prevTableDetails = useRef(revenuesAndExpenses);
   useEffect(() => {
-  
-      if (activeButton === 'expenses') {
-        setTableDetails(expenses);
+    let updatedTableDetails;
+
+    if (activeButton === 'expenses') {
+      updatedTableDetails = expenses;
     } else if (activeButton === 'revenue') {
-      setTableDetails(revenue);
-    } else  {
-      setTableDetails(revenuesAndExpenses);
+      updatedTableDetails = revenue;
+    } else {
+      updatedTableDetails = revenuesAndExpenses;
     }
-  }, [activeButton, expenses, revenue, ])
+
+    // Set the new state directly
+    setTableDetails(updatedTableDetails);
+  }, [activeButton, expenses, revenue, revenuesAndExpenses]);
+
 
   
 
   return (
-    <div className='w-[1104px] mt-6 px-7 pb-14 rounded-2xl bg-[#FFF]'>
-        <table className='w-full divide-y'>
+    <div className='w-full  mt-6 px-7 pb-14 rounded-2xl bg-[#FFF] overflow-x-scroll md:overflow-x-hidden'>
+        <table className='w-[720px] md:w-full divide-y '>
           <thead>
             <tr>
                   <th className='pt-6 pb-4 text-left'>Items</th>
