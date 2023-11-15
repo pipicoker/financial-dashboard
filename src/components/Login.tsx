@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import { useAnimation, motion, useInView } from "framer-motion";
+
 import {Link, useNavigate} from 'react-router-dom'
 import {auth, googleProvider} from '../config/firebase'
 import {signInWithEmailAndPassword, signInWithPopup} from 'firebase/auth'
@@ -44,8 +46,32 @@ const Login = () => {
   });
     
   }
+
+  const controls = useAnimation();
+  const ref = useRef(null)
+  const inView = useInView(ref)
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+    else {
+      controls.start("hidden");
+    }
+    console.log(inView);
+    
+  }, [controls, inView]);
   return (
-    <div className='flex justify-center items-center bg-[#F4F5F7] pt-[64px] pb-[268px]'>
+    <motion.div 
+    ref={ref}
+    animate={controls}
+    initial="hidden"
+    variants={{
+      hidden: {opacity: 0, y: -75},
+      visible: {opacity: 1, y: 0},
+    }}
+    transition={{ duration: 1 }}
+    className='flex justify-center items-center bg-[#F4F5F7] pt-[64px] pb-[268px]'>
       <div className='w-5/6 lg:w-[400px] h-[596px]'>
         <div className='flex justify-center text-pry-col text-ll'>
           <p className=' tracking-widest font-extrabold '>FINE</p>
@@ -91,7 +117,7 @@ const Login = () => {
     
         
          
-        </div>
+        </motion.div>
   )
 }
 
