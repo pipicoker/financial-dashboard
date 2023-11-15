@@ -90,14 +90,14 @@ const TotalBalance = () => {
     const totalAccountBalance = cardList.reduce((acc: any, card: any) => acc + Number(card.accountBalance), 0)
   return (
     <motion.div 
-    // ref={ref}
-    // animate={controls}
-    // initial="hidden"
-    // variants={{
-    //     hidden: {opacity: 0,  x: 75},
-    //     visible: {opacity: 1,  x: 0},
-    //   }}
-    //   transition={{duration: 1}}
+    ref={ref}
+    animate={controls}
+    initial="hidden"
+    variants={{
+        hidden: {opacity: 0,  y: 75},
+        visible: {opacity: 1,  y: 0},
+      }}
+      transition={{duration: 1}}
     className=' '>
         <h3 className='text-left text-gray02 text-[22px]'>Total Balance</h3>
         <div className='bg-[#FFF] h-[232px]  px-6 py-5 mt-2 divide-y rounded-lg '> 

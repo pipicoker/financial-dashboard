@@ -1,3 +1,5 @@
+import React, { useRef, useEffect } from 'react'
+import { useAnimation, motion, useInView } from "framer-motion";
 import { Link } from 'react-router-dom';
 import {GrFormNext} from 'react-icons/gr'
 import { useSelector,  } from 'react-redux';
@@ -6,9 +8,31 @@ import { selectUpcoming } from '../redux/upcomingBillSlice';
 const UpcomingBill = () => {
   const upcoming = useSelector(selectUpcoming)
 
+  const controls = useAnimation()
+  const ref = useRef(null)
+  const inView = useInView(ref)
+
+  useEffect(() => {
+      if(inView) {
+          controls.start('visible')
+      }
+      else{
+          controls.start('hidden')
+      }
+  }, [controls, inView])
     
   return (
-    <div className=''>
+    
+    <motion.div
+    ref={ref}
+    animate={controls}
+    initial="hidden"
+    variants={{
+      hidden: {opacity: 0, y: 75},
+      visible: {opacity: 1, y: 0},
+    }}
+    transition={{ duration: 1 }}
+     className=''>
       
         <div className='flex justify-between items-center  text-gray02'>
             <h3 className='text-left  text-[22px]'>Upcoming Bill</h3>
@@ -47,7 +71,7 @@ const UpcomingBill = () => {
             </div>
           ))}
         </div>
-    </div>
+    </motion.div>
     
   )
 }
