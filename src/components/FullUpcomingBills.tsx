@@ -1,14 +1,40 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useRef, useEffect } from 'react'
+import { useAnimation, motion, useInView } from "framer-motion";import { useSelector } from 'react-redux'
 import { selectUpcoming } from '../redux/upcomingBillSlice'
 
 const FullUpcomingBills = () => {
     const upcoming = useSelector(selectUpcoming)
+
+    const controls = useAnimation();
+  const ref = useRef(null)
+  const inView = useInView(ref)
+
+    useEffect(() => {
+        if (inView) {
+          controls.start("visible");
+        }
+        else {
+          controls.start("hidden");
+        }
+        console.log(inView);
+        
+      }, [controls, inView]);
   return (
-    <div className=''>
+    <motion.div
+    ref={ref}
+        animate={controls}
+        initial="hidden"
+        variants={{
+          hidden: {opacity: 0, y: 75},
+          visible: {opacity: 1, y: 0},
+        }}
+        transition={{duration: 1}}
+     className=''>
         <h3 className='text-left text-gray02 text-[22px]' >Upcoming Bills</h3>
 
-        <div className='w-full mt-5 p-6 rounded-2xl bg-[#FFF] overflow-x-scroll md:overflow-x-hidden'>
+        <div 
+        
+        className='w-full mt-5 p-6 rounded-2xl bg-[#FFF] overflow-x-scroll md:overflow-x-hidden'>
 
             <table className='w-[720px] md:w-full divide-y text-left'>
                 <thead>
@@ -44,7 +70,7 @@ const FullUpcomingBills = () => {
             
         </div>
         
-    </div>
+    </motion.div>
   )
 }
 

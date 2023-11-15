@@ -101,7 +101,7 @@ const BalanceCards = ({ activeAccountForm, setActiveAccountForm }: { activeAccou
       animate={controls}
       initial="hidden"
       variants={{
-        hidden: {opacity: 0, x: -75},
+        hidden: {opacity: 0, x: 75},
         visible: {opacity: 1, x: 0},
       }}
       transition={{ duration: 1 }}
