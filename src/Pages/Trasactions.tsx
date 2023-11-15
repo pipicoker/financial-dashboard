@@ -1,5 +1,5 @@
-import React, {useEffect, useRef} from 'react'
-import {useAnimation, motion, useInView} from 'framer-motion'
+// import React, {useEffect, useRef} from 'react'
+// import {useAnimation, motion, useInView} from 'framer-motion'
 import RecentTransactioBtns from '../components/RecentTransactioBtns'
 import RecentTransactionFullTable from '../components/RecentTransactionFullTable'
 
