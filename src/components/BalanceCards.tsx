@@ -50,7 +50,7 @@ const BalanceCards = ({ activeAccountForm, setActiveAccountForm }: { activeAccou
       }, []);
 
 
-      const handleDeleteCard = async (cardId: string | undefined) => {
+      const handleDeleteCard = async (cardId: string ) => {
         if (!cardId) {
           console.error('Invalid cardId:', cardId);
           return;
@@ -87,8 +87,8 @@ const BalanceCards = ({ activeAccountForm, setActiveAccountForm }: { activeAccou
 
 
         <div className='grid grid-cols-1 lg:grid-cols-3 gap-4 mt-4'>
-            {visibleCards.map((card: any, id:number) => (
-                <div key={id} className=' h-72 p-6 bg-[#FFF] divide-y'>
+            {visibleCards.map((card: any) => (
+                <div key={card.id} className=' h-72 p-6 bg-[#FFF] divide-y'>
 
                     <div className='flex justify-between items-center pb-4 '>
                         <p className='font-bold text-gray02'> {card.accountType}</p>
@@ -109,7 +109,7 @@ const BalanceCards = ({ activeAccountForm, setActiveAccountForm }: { activeAccou
                     <div className='mt-[30px] flex justify-between items-center'>
                         <button className='text-pry-col cursor-pointer'
                         onClick={() => {
-                          console.log(card)
+                          console.log(card.id)
                           handleDeleteCard(card.id)}}>Remove</button>
 
                         <Link to="/Home/Balances/AccountDetails">

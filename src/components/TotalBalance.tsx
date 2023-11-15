@@ -49,6 +49,7 @@ const TotalBalance = () => {
         try {
           const data = await getDocs(cardListRef);
           return data.docs.map((doc) => ({
+            id: doc.id,
             ...doc.data(),
           }));
         } catch (err) {
@@ -58,6 +59,7 @@ const TotalBalance = () => {
     useQuery('cardList', getCardList, {
         refetchOnWindowFocus: false, 
         onSuccess: (fetchedData) => {
+          
             dispatch(setCardList(fetchedData))
         }
       });
