@@ -108,7 +108,9 @@ const BalanceCards = ({ activeAccountForm, setActiveAccountForm }: { activeAccou
 
                     <div className='mt-[30px] flex justify-between items-center'>
                         <button className='text-pry-col cursor-pointer'
-                        onClick={() => handleDeleteCard(card.id)}>Remove</button>
+                        onClick={() => {
+                          console.log(card)
+                          handleDeleteCard(card.id)}}>Remove</button>
 
                         <Link to="/Home/Balances/AccountDetails">
                             <button className='flex items-center gap-2 justify-center bg-pry-col text-white text-sm font-medium rounded-[4px] px-5 py-2'
