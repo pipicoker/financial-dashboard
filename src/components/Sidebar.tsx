@@ -10,7 +10,7 @@ const Sidebar = () => {
     const dispatch = useDispatch()
     const nav = useSelector(selectNAv)
   return (
-    <nav className={`bg-defaultBlack lg:w-1/5    lg:flex  flex-col justify-start pt-12 px-7  ${nav ? 'flex absolute z-[1000]' : 'hidden' }` }>
+    <nav className={`bg-defaultBlack w-3/5 lg:w-1/5    lg:flex  flex-col justify-start pt-12 px-7  ${nav ? 'flex absolute z-[1000]' : 'hidden' }` }>
         
         <div className='flex justify-center'>
             <div className='flex justify-center  text-white text-2xl'>
