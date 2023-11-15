@@ -37,20 +37,13 @@ const Overview = () => {
     className='px-2  pt-4  w-full'>
       <GoalsForm />
 
-      <motion.div 
-      ref={ref}
-      animate={controls}
-      initial="hidden"
-      variants={{
-          hidden: {opacity: 0,  x: 75,},
-          visible: {opacity: 1,  x: 0,},
-        }}
-        transition={{duration: 1, }}
+      <div 
+      
       className='grid grid-cols-1 md:grid-cols-3 gap-4'>
         <TotalBalance />
         <Goals />
         <UpcomingBill />
-      </motion.div>
+      </div>
 
         <motion.div
         ref={ref}
