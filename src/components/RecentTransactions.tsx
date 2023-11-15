@@ -30,7 +30,7 @@ const RecentTransactions = () => {
         hidden: {opacity: 0, y: 75},
         visible: {opacity: 1, y: 0},
       }}
-      transition={{duration: 1}}
+      transition={{duration: .5}}
     className='md:w-1/3'>
         
         <motion.div className='flex justify-between items-center w-full text-gray02 '>

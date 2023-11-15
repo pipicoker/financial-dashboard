@@ -88,7 +88,7 @@ const CustomYAxisTick = (props :any) => {
         hidden: {opacity: 0, x: 75},
         visible: {opacity: 1, x: 0},
       }}
-      transition={{ duration: 1 }}
+      transition={{ duration: .5 }}
     className='lg:w-[66%] flex-auto '>
         <ResponsiveContainer height={232}    className=' mt-10 bg-[#FFF] px-6 pt-6 rounded-lg '>
         <AreaChart title='Saving Summary' className='w-full'

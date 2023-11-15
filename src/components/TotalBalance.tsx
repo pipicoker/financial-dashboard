@@ -97,7 +97,7 @@ const TotalBalance = () => {
         hidden: {opacity: 0,  y: 75},
         visible: {opacity: 1,  y: 0},
       }}
-      transition={{duration: 1}}
+      transition={{duration: .5}}
     className=' '>
         <h3 className='text-left text-gray02 text-[22px]'>Total Balance</h3>
         <div className='bg-[#FFF] h-[232px]  px-6 py-5 mt-2 divide-y rounded-lg '> 

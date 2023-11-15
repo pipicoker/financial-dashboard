@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react'
-import { useAnimation, motion, useInView } from "framer-motion";// import { getDocs, collection } from 'firebase/firestore';
+import { useAnimation, motion, useInView } from "framer-motion";
 
 import { useSelector, useDispatch } from 'react-redux';
 import {selectActiveForm, setActiveForm, selectPresentAmount, selectTargetAmount,} from '../redux/goalsFormSlice'
@@ -57,7 +57,7 @@ const Goals = () => {
         hidden: {opacity: 0, y: 75},
         visible: {opacity: 1, y: 0},
       }}
-      transition={{ duration: 1 }}
+      transition={{ duration: .5}}
     className=' '>
         <h3 className='text-left text-gray02 text-[22px]'>Goals</h3>
 

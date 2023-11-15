@@ -104,7 +104,7 @@ const BalanceCards = ({ activeAccountForm, setActiveAccountForm }: { activeAccou
         hidden: {opacity: 0, x: 75},
         visible: {opacity: 1, x: 0},
       }}
-      transition={{ duration: 1 }}
+      transition={{ duration: .5 }}
     className='w-full'>
         <h3 className='text-left text-gray02 text-[22px] ' >Balances</h3>
 
@@ -119,7 +119,7 @@ const BalanceCards = ({ activeAccountForm, setActiveAccountForm }: { activeAccou
                   hidden: {opacity: 0, y: 75},
                   visible: {opacity: 1, y: 0},
                 }}
-                transition={{ duration: 1 }}
+                transition={{ duration: .5 }}
                 key={card.id} className=' h-72 p-6 bg-[#FFF] divide-y '>
 
                   <div className='hover:scale-105 duration-500'>

@@ -31,7 +31,7 @@ const UpcomingBill = () => {
       hidden: {opacity: 0, y: 75},
       visible: {opacity: 1, y: 0},
     }}
-    transition={{ duration: 1 }}
+    transition={{ duration: .5 }}
      className=''>
       
         <div className='flex justify-between items-center  text-gray02'>

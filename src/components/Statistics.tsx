@@ -141,7 +141,7 @@ const Statistics = () => {
         hidden: {opacity: 0, y: 75},
         visible: {opacity: 1, y: 0},
       }}
-      transition={{ duration: 1 }}
+      transition={{ duration: .5 }}
     className='mt-2 w-full h-[258px] bg-[#FFF] px-6 pt-4 pb-10  rounded-lg'>
 
         <Bar options={options} data={data}  />

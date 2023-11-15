@@ -52,7 +52,7 @@ const RecentTransactionFullTable = () => {
         hidden: {opacity: 0, y: 75},
         visible: {opacity: 1, y: 0},
       }}
-      transition={{duration: 1}}
+      transition={{duration: .5}}
     className='w-full  mt-6 px-7 pb-14 rounded-2xl bg-[#FFF] overflow-x-scroll md:overflow-x-hidden'>
         <table className='w-[720px] md:w-full divide-y '>
           <thead>

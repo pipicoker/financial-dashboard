@@ -31,7 +31,7 @@ const ExpensesBreakdown = () => {
         hidden: {opacity: 0, y: 75},
         visible: {opacity: 1, y: 0},
       }}
-      transition={{ duration: 1 }}
+      transition={{ duration: .5 }}
     className='mt-5 '>
         <div className='flex justify-between items-center  text-gray03'>
             <h3 className='text-left  text-[22px]'>Expenses Breakdown</h3>

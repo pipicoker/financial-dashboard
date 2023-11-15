@@ -30,7 +30,7 @@ const FullExpensesBreakdown = () => {
         hidden: {opacity: 0, y: 75},
         visible: {opacity: 1, y: 0},
       }}
-      transition={{ duration: 1 }}
+      transition={{ duration: .5 }}
     className='mt-8 w-full'>
        <h3 className=' text-[22px] text-gray02 text-left' >Expenses Breakdown</h3>
 
@@ -42,7 +42,7 @@ const FullExpensesBreakdown = () => {
          hidden: {opacity: 0, x: 75},
          visible: {opacity: 1, x: 0},
        }}
-       transition={{ duration: 1 }}
+       transition={{ duration: .5 }}
        className='grid grid-cols-1 lg:grid-cols-3 gap-6 mt-4'>
           {breakdown.map((data, id) => (
             <div key={id} >

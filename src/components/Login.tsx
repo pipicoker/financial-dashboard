@@ -70,7 +70,7 @@ const Login = () => {
       hidden: {opacity: 0, y: -75},
       visible: {opacity: 1, y: 0},
     }}
-    transition={{ duration: 1 }}
+    transition={{ duration: .5 }}
     className='flex justify-center items-center bg-[#F4F5F7] pt-[64px] pb-[268px]'>
       <div className='w-5/6 lg:w-[400px] h-[596px]'>
         <div className='flex justify-center text-pry-col text-ll'>

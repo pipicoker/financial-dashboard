@@ -35,7 +35,7 @@ const GoalsByCategory= () => {
         hidden: {opacity: 0, y: 75},
         visible: {opacity: 1, y: 0},
       }}
-      transition={{ duration: 1 }}
+      transition={{ duration: .5 }}
     className='mt-8 w-full'>
         <h3 className='text-left text-gray02 text-[22px]' >Expenses Goals by Category</h3>
 
@@ -47,7 +47,7 @@ const GoalsByCategory= () => {
           hidden: {opacity: 0, x: 75},
           visible: {opacity: 1, x: 0},
         }}
-        transition={{ duration: 1 }}
+        transition={{ duration: .5 }}
         className='grid grid-cols-1 lg:grid-cols-3 gap-4 mt-4'>
           {goalsCategory && goalsCategory.map((data, index) => (
             <div 

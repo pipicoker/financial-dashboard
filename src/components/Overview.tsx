@@ -52,7 +52,7 @@ const Overview = () => {
           hidden: {opacity: 0,  y: 75,},
           visible: {opacity: 1,  y: 0,},
         }}
-        transition={{duration: 3, delay: 5}}
+        transition={{duration: .5}}
          className='mt-8 md:flex md:space-x-4 w-full'>
           <RecentTransactions />
           <div className='md:w-2/3'>
