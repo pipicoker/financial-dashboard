@@ -1,4 +1,6 @@
-import React, {memo, useState, useEffect} from 'react'
+import React, {memo, useState, useEffect, useRef} from 'react'
+import { useAnimation, motion, useInView } from "framer-motion";
+
 import { Link } from 'react-router-dom';
 import { useSelector , useDispatch} from 'react-redux';
 import {selectCardList} from '../redux/balancesSlice'
@@ -74,21 +76,42 @@ const BalanceCards = ({ activeAccountForm, setActiveAccountForm }: { activeAccou
           // Log error details
           console.error('Error deleting card:', error.message, error.code);
         }
-      };      
-      
-      
+      };          
       
       const visibleCards = cardList.filter((card) => !deletedCardIds.includes(card.id));
       
+
+      const controls = useAnimation();
+  const ref = useRef(null)
+  const inView = useInView(ref)
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+    else {
+      controls.start("hidden");
+    }
+    
+  }, [controls, inView]);
       
   return (
-    <div className='w-full'>
-        <h3 className='text-left text-gray02 text-[22px]' >Balances</h3>
+    <motion.div 
+    ref={ref}
+      animate={controls}
+      initial="hidden"
+      variants={{
+        hidden: {opacity: 0, x: -75},
+        visible: {opacity: 1, x: 0},
+      }}
+      transition={{ duration: 1 }}
+    className='w-full'>
+        <h3 className='text-left text-gray02 text-[22px] ' >Balances</h3>
 
 
         <div className='grid grid-cols-1 lg:grid-cols-3 gap-4 mt-4'>
             {visibleCards.map((card: any, id:number) => (
-                <div key={card.id} className=' h-72 p-6 bg-[#FFF] divide-y'>
+                <div key={card.id} className=' h-72 p-6 bg-[#FFF] divide-y hover:scale-105 duration-500'>
 
                     <div className='flex justify-between items-center pb-4 '>
                         <p className='font-bold text-gray02'> {card.accountType}</p>
@@ -131,7 +154,7 @@ const BalanceCards = ({ activeAccountForm, setActiveAccountForm }: { activeAccou
             </div>
         </div>
         
-    </div>
+    </motion.div>
   )
 }
 

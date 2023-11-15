@@ -1,5 +1,5 @@
-import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useRef, useEffect } from 'react'
+import { useAnimation, motion, useInView } from "framer-motion";import { useSelector, useDispatch } from 'react-redux'
 import { selectGoalCategory } from '../redux/goalsByCategorySlice'
 import { setActiveAdjustForm, selectActiveAdjustForm, selectCategoryTargetAmount, setOpenedCategory, selectOpenedCategory } from '../redux/goalsFormSlice'
 import {FiEdit3} from 'react-icons/fi'
@@ -12,13 +12,48 @@ const GoalsByCategory= () => {
     const goalsCategory = useSelector(selectGoalCategory) 
     const openedCategory = useSelector(selectOpenedCategory)
 
+    const controls = useAnimation();
+    const ref = useRef(null)
+    const inView = useInView(ref)
+  
+    useEffect(() => {
+      if (inView) {
+        controls.start("visible");
+      }
+      else {
+        controls.start("hidden");
+      }
+      
+    }, [controls, inView]);
+
   return (
-    <div className='mt-8 w-full'>
+    <motion.div 
+    ref={ref}
+      animate={controls}
+      initial="hidden"
+      variants={{
+        hidden: {opacity: 0, y: 75},
+        visible: {opacity: 1, y: 0},
+      }}
+      transition={{ duration: 1 }}
+    className='mt-8 w-full'>
         <h3 className='text-left text-gray02 text-[22px]' >Expenses Goals by Category</h3>
 
-        <div className='grid grid-cols-1 lg:grid-cols-3 gap-4 mt-4'>
+        <motion.div 
+        ref={ref}
+        animate={controls}
+        initial="hidden"
+        variants={{
+          hidden: {opacity: 0, x: 75},
+          visible: {opacity: 1, x: 0},
+        }}
+        transition={{ duration: 1 }}
+        className='grid grid-cols-1 lg:grid-cols-3 gap-4 mt-4'>
           {goalsCategory && goalsCategory.map((data, index) => (
-            <div key={data.id} className='flex items-center justify-between bg-[#FFF] rounded-lg px-4 py-7 capitalize'>
+            <div 
+            
+            key={data.id} 
+            className='flex items-center justify-between bg-[#FFF] rounded-lg px-4 py-7 capitalize hover:scale-105 duration-500'>
 
               <div className='flex space-x-4'>
                 <div className='w-10 h-12 flex bg-special justify-center items-center rounded-lg'>
@@ -41,8 +76,8 @@ const GoalsByCategory= () => {
               >Adjust <FiEdit3 className='ml-2'/></button>
             </div>
           ))}
-        </div>
-    </div>
+        </motion.div>
+    </motion.div>
   )
 }
 

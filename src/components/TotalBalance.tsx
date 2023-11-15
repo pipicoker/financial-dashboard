@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import {useAnimation, motion, useInView} from 'framer-motion'
+
 import { useQuery } from 'react-query';
 import { db } from '../config/firebase'
 import { getDocs, collection } from 'firebase/firestore';
@@ -23,6 +25,23 @@ import "swiper/css/free-mode";
 import mastercard from "../images/Mastercard.png"
 
 const TotalBalance = () => {
+
+  const controls = useAnimation()
+  const ref = useRef(null)
+  const inView = useInView(ref)
+
+  useEffect(() => {
+      if(inView) {
+          controls.start('visible')
+      }
+      else{
+          controls.start('hidden')
+      }
+  }, [controls, inView])
+  
+
+
+
     const cardList = useSelector(selectCardList)
     const dispatch = useDispatch()
 
@@ -70,7 +89,16 @@ const TotalBalance = () => {
   
     const totalAccountBalance = cardList.reduce((acc: any, card: any) => acc + Number(card.accountBalance), 0)
   return (
-    <div className=' '>
+    <motion.div 
+    // ref={ref}
+    // animate={controls}
+    // initial="hidden"
+    // variants={{
+    //     hidden: {opacity: 0,  x: 75},
+    //     visible: {opacity: 1,  x: 0},
+    //   }}
+    //   transition={{duration: 1}}
+    className=' '>
         <h3 className='text-left text-gray02 text-[22px]'>Total Balance</h3>
         <div className='bg-[#FFF] h-[232px]  px-6 py-5 mt-2 divide-y rounded-lg '> 
 
@@ -132,7 +160,7 @@ const TotalBalance = () => {
 
             </div>
         </div>
-    </div>
+    </motion.div>
   )
 }
 

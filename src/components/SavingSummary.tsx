@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { useAnimation, motion, useInView } from "framer-motion";
+
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import {useQuery} from 'react-query'
 import { db } from '../config/firebase'
@@ -63,8 +65,31 @@ const CustomYAxisTick = (props :any) => {
 
   // const customYAxisTicks = [ 2000, 4000, 6000];
 
+  const controls = useAnimation();
+  const ref = useRef(null)
+  const inView = useInView(ref)
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+    else {
+      controls.start("hidden");
+    }
+    
+  }, [controls, inView]);
+
   return (
-    <div className='lg:w-[66%] flex-auto '>
+    <motion.div 
+    ref={ref}
+      animate={controls}
+      initial="hidden"
+      variants={{
+        hidden: {opacity: 0, x: 75},
+        visible: {opacity: 1, x: 0},
+      }}
+      transition={{ duration: 1 }}
+    className='lg:w-[66%] flex-auto '>
         <ResponsiveContainer height={232}    className=' mt-10 bg-[#FFF] px-6 pt-6 rounded-lg '>
         <AreaChart title='Saving Summary' className='w-full'
       // width= {712}
@@ -105,7 +130,7 @@ const CustomYAxisTick = (props :any) => {
         </text>
     </AreaChart>
     </ResponsiveContainer>
-    </div>
+    </motion.div>
     
   )
 }

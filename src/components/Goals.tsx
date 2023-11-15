@@ -1,5 +1,5 @@
-import React from 'react'
-// import { getDocs, collection } from 'firebase/firestore';
+import React, { useRef, useEffect } from 'react'
+import { useAnimation, motion, useInView } from "framer-motion";// import { getDocs, collection } from 'firebase/firestore';
 
 import { useSelector, useDispatch } from 'react-redux';
 import {selectActiveForm, setActiveForm, selectPresentAmount, selectTargetAmount,} from '../redux/goalsFormSlice'
@@ -34,8 +34,31 @@ const Goals = () => {
     }
     
     const formattedDate = getFormattedDate();
+
+    const controls = useAnimation();
+  const ref = useRef(null)
+  const inView = useInView(ref)
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+    else {
+      controls.start("hidden");
+    }
+    
+  }, [controls, inView]);
   return (
-    <div className=' '>
+    <motion.div 
+    ref={ref}
+      animate={controls}
+      initial="hidden"
+      variants={{
+        hidden: {opacity: 0, x: 75},
+        visible: {opacity: 1, x: 0},
+      }}
+      transition={{ duration: 1 }}
+    className=' '>
         <h3 className='text-left text-gray02 text-[22px]'>Goals</h3>
 
         <div className='h-[232px]  bg-[#FFF] px-6 py-5 mt-2 rounded-lg'>
@@ -87,7 +110,7 @@ const Goals = () => {
             ))
            }
         </div>
-    </div>
+    </motion.div>
   )
 }
 

@@ -1,5 +1,5 @@
-import React from 'react'
-import {BsArrowRight} from "react-icons/bs"
+import React, { useRef, useEffect } from 'react'
+import { useAnimation, motion, useInView } from "framer-motion";import {BsArrowRight} from "react-icons/bs"
 import {BsArrowUp} from "react-icons/bs"
 import {BsArrowDown} from "react-icons/bs"
 
@@ -9,8 +9,30 @@ import {  selectExpenseBreakdown } from '../redux/expensesSlices';
 const ExpensesBreakdown = () => {
   const breakdown = useSelector(selectExpenseBreakdown)
 
+  const controls = useAnimation();
+  const ref = useRef(null)
+  const inView = useInView(ref)
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+    else {
+      controls.start("hidden");
+    }
+    
+  }, [controls, inView]);
   return (
-    <div className='mt-5 '>
+    <motion.div 
+    ref={ref}
+      animate={controls}
+      initial="hidden"
+      variants={{
+        hidden: {opacity: 0, y: 75},
+        visible: {opacity: 1, y: 0},
+      }}
+      transition={{ duration: 1 }}
+    className='mt-5 '>
         <div className='flex justify-between items-center  text-gray03'>
             <h3 className='text-left  text-[22px]'>Expenses Breakdown</h3>
             <button className='flex items-center text-xs'>Compare to last week
@@ -69,7 +91,7 @@ const ExpensesBreakdown = () => {
              </div>
            ))}
         </div>
-    </div>
+    </motion.div>
   )
 }
 

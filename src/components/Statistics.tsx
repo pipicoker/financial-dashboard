@@ -1,4 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
+import { useAnimation, motion, useInView } from "framer-motion";
+
 import { db } from '../config/firebase'
 import { getDocs, collection } from 'firebase/firestore';
 
@@ -23,6 +25,18 @@ import { getDocs, collection } from 'firebase/firestore';
   );
 
 const Statistics = () => {
+  const controls = useAnimation();
+  const ref = useRef(null)
+  const inView = useInView(ref)
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+    else {
+      controls.start("hidden");
+    }    
+  }, [controls, inView]);
 
     const [stats, setStats] = useState([{day: "", thisWeek: 0, lastWeek: 0}])
     const statsRef = collection(db, "statistics")
@@ -119,10 +133,19 @@ const Statistics = () => {
     };
     
   return (
-    <div className='mt-2 w-full h-[258px] bg-[#FFF] px-6 pt-4 pb-10  rounded-lg'>
+    <motion.div 
+    ref={ref}
+      animate={controls}
+      initial="hidden"
+      variants={{
+        hidden: {opacity: 0, y: 75},
+        visible: {opacity: 1, y: 0},
+      }}
+      transition={{ duration: 1 }}
+    className='mt-2 w-full h-[258px] bg-[#FFF] px-6 pt-4 pb-10  rounded-lg'>
 
         <Bar options={options} data={data}  />
-    </div>
+    </motion.div>
   )
 }
 

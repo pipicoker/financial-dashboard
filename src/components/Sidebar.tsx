@@ -25,7 +25,7 @@ const Sidebar = () => {
         <Link to={data.path} key={data.id}>
           <div
           onClick={() => dispatch(setNav(false))}
-            className={` flex items-center gap-3 font-semibold text-base mb-3 py-3 pl-4 ${
+            className={` flex items-center gap-3 font-semibold text-base mb-3 py-3 pl-4 transition duration-500 ${
               location.pathname === data.path ? 'bg-pry-col text-[#FFF] rounded-[4px]' : 'text-greyish2 bg-defaultBlack'
             }`}
           >

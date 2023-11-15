@@ -1,4 +1,5 @@
-import React, { useEffect, useState , useMemo} from 'react'
+import React, { useEffect, useState , useMemo, useRef} from 'react'
+import { motion, useAnimation, useInView } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import { selectActiveButton } from '../redux/buttonSlice';
 import {  selectExpenses, selectRevenues, } from '../redux/revenueAndExpensesSlice'
@@ -28,10 +29,31 @@ const RecentTransactionFullTable = () => {
   }, [activeButton, expenses, revenue, revenuesAndExpenses]);
 
 
-  
+  const controls = useAnimation();
+  const ref = useRef(null)
+  const inView = useInView(ref)
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+    else {
+      controls.start("hidden");
+    }
+    
+  }, [controls, inView]);
 
   return (
-    <div className='w-full  mt-6 px-7 pb-14 rounded-2xl bg-[#FFF] overflow-x-scroll md:overflow-x-hidden'>
+    <motion.div 
+    ref={ref}
+      animate={controls}
+      initial="hidden"
+      variants={{
+        hidden: {opacity: 0, y: 75},
+        visible: {opacity: 1, y: 0},
+      }}
+      transition={{duration: 1}}
+    className='w-full  mt-6 px-7 pb-14 rounded-2xl bg-[#FFF] overflow-x-scroll md:overflow-x-hidden'>
         <table className='w-[720px] md:w-full divide-y '>
           <thead>
             <tr>
@@ -61,7 +83,7 @@ const RecentTransactionFullTable = () => {
         </table>
 
         <button className='mt-8 px-6 py-3 bg-pry-col text-[#FFF] font-bold'>Load More</button>
-    </div>
+    </motion.div>
   )
 }
 

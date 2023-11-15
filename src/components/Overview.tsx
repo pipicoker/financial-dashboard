@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useEffect, useRef} from 'react'
+import {useAnimation, motion, useInView} from 'framer-motion'
 import TotalBalance from './TotalBalance'
 import Goals from './Goals'
 import UpcomingBill from './UpcomingBill'
@@ -10,15 +11,56 @@ import GoalsForm from './GoalsForm'
 const ExpensesBreakdown = React.lazy(() => import('./ExpensesBreakdown'))
 
 const Overview = () => {
+
+  const controls = useAnimation()
+  const ref = useRef(null)
+  const inView = useInView(ref)
+
+  useEffect(() => {
+      if(inView) {
+          controls.start('visible')
+      }
+      else{
+          controls.start('hidden')
+      }
+  }, [controls, inView])
   return (
-    <div className='px-2  pt-4  w-full'>
+    <motion.div 
+    ref={ref}
+    animate={controls}
+    variants={{
+      hidden: {opacity: 0,  y: 75,},
+      visible: {opacity: 1,  y: 0,},
+    }}
+    transition={{duration: 1, }}
+    
+    className='px-2  pt-4  w-full'>
       <GoalsForm />
-      <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+
+      <motion.div 
+      ref={ref}
+      animate={controls}
+      initial="hidden"
+      variants={{
+          hidden: {opacity: 0,  x: 75,},
+          visible: {opacity: 1,  x: 0,},
+        }}
+        transition={{duration: 1, }}
+      className='grid grid-cols-1 md:grid-cols-3 gap-4'>
         <TotalBalance />
         <Goals />
         <UpcomingBill />
-      </div>
-        <div className='mt-8 md:flex md:space-x-4 w-full'>
+      </motion.div>
+
+        <motion.div
+        ref={ref}
+        animate={controls}
+        variants={{
+          hidden: {opacity: 0,  y: 75,},
+          visible: {opacity: 1,  y: 0,},
+        }}
+        transition={{duration: 3, delay: 5}}
+         className='mt-8 md:flex md:space-x-4 w-full'>
           <RecentTransactions />
           <div className='md:w-2/3'>
             <div className=''>
@@ -29,8 +71,8 @@ const Overview = () => {
             <ExpensesBreakdown />
           </React.Suspense>
           </div>
-        </div>
-    </div>
+        </motion.div>
+    </motion.div>
   )
 }
 
