@@ -6,6 +6,7 @@ interface userState {
     email: string;
     phoneNumber: string;
     username: string;
+    pix: string
     }; 
   }
   

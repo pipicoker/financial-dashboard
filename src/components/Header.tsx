@@ -2,7 +2,7 @@ import {MdKeyboardDoubleArrowRight} from 'react-icons/md'
 import {IoMdNotifications} from 'react-icons/io'
 import {RxHamburgerMenu} from 'react-icons/rx'
 import { useSelector, useDispatch } from 'react-redux'
-import { selectuserDetails } from '../redux/profileDetails'
+import { selectuserDetails } from '../redux/profileDetailsSlice'
 import { selectNAv, setNav } from '../redux/navSlice'
 
 const Header = () => {

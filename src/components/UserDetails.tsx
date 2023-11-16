@@ -1,7 +1,8 @@
 import React from 'react'
-import { selectuserDetails } from '../redux/profileDetails'
+import { selectuserDetails } from '../redux/profileDetailsSlice'
 
 import { useSelector } from 'react-redux'
+import UploadProfileImage from './UploadProfileImage'
 
 
 
@@ -9,10 +10,8 @@ const UserDetails = () => {
   const userDetails = useSelector(selectuserDetails)
 
   return (
-    <div className='mt-8'>
-        {
-            userDetails ? 
-            
+    <div className='mt-8 flex flex-col lg:flex-row justify-between'>
+      {userDetails ? 
                 <div >
                     <div className='text-left space-y-8'>
                         <div>
@@ -40,6 +39,13 @@ const UserDetails = () => {
                 
             
         : ("no details")}
+
+        <div className='order-first lg:order-last'>
+        <UploadProfileImage />
+
+        </div>
+       
+        
     </div>
   )
 }

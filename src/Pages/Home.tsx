@@ -1,14 +1,15 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {useQuery} from 'react-query'
 import { db } from '../config/firebase'
-import { getDocs, collection } from 'firebase/firestore'
+import { getDocs, doc, getDoc, collection } from 'firebase/firestore'
 import {Routes, Route,} from 'react-router-dom'
 import { setExpenses, setRevenues } from '../redux/revenueAndExpensesSlice'
 import { setUpcoming,  } from '../redux/upcomingBillSlice'
-import { setUserDetails } from '../redux/profileDetails'
+import { setUserDetails } from '../redux/profileDetailsSlice'
 import { useDispatch } from 'react-redux' 
 import { setExpenseBreakdown} from '../redux/expensesSlices';
 import { setGoals } from '../redux/goalsSlice'
+import { setPix } from '../redux/userProfilePixSlice'
 
 import Sidebar from '../components/Sidebar'
 import Overview from '../components/Overview'
@@ -30,7 +31,6 @@ const Home = () => {
   const breakdownRef = collection(db, "expensesBreakdown")
   const goalsRef = collection(db, "goals")
   const userDetailsRef = collection(db, "userDetails")
-
 
     // function to get upcoming bill data from firestore
     const getUpcoming = async () => {
@@ -143,7 +143,7 @@ const Home = () => {
           throw new Error('No user details found.');
         }
     
-        const data = querySnapshot.docs[0].data(); // Assuming there's only one document
+        const data = querySnapshot.docs[0].data(); // since there's only one document
     
         return data;
       } catch (err) {
@@ -163,6 +163,22 @@ const Home = () => {
         dispatch(setUserDetails(userDetailData));
       },
     });
+
+    // fetch user profile picture
+  useEffect(() => {
+    const fetchData = async () => {
+      // Fetch the document from Firestore to get the download URL
+      const docRef = doc(db, 'userDetails', 'NahYlYQLZwMSZVVST12z'); // Replace 'yourDocumentId' with the actual document ID
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        dispatch(setPix(data?.pix || null));
+      }
+    };
+
+    fetchData();
+  }, [dispatch]); 
     
   return (
     <div className='flex '>

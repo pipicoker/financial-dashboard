@@ -3,7 +3,8 @@ import { Link, useLocation } from 'react-router-dom'
 import SidebarData from '../data/SidebarData'
 import {FiLogOut} from 'react-icons/fi'
 import { selectNAv, setNav } from '../redux/navSlice'
-import { selectuserDetails } from '../redux/profileDetails'
+import { selectuserDetails } from '../redux/profileDetailsSlice'
+import { selectPix } from '../redux/userProfilePixSlice'
 import { useDispatch, useSelector } from 'react-redux'
 
 const Sidebar = () => {
@@ -11,6 +12,7 @@ const Sidebar = () => {
     const dispatch = useDispatch()
     const nav = useSelector(selectNAv)
     const userDetails = useSelector(selectuserDetails)
+    const downloadURL = useSelector(selectPix)
   return (
     <nav className={`bg-defaultBlack w-3/5 lg:w-1/5    lg:flex  flex-col justify-start pt-12 px-7   ${nav ? 'flex absolute z-[1000] ease-in-out duration-500' : 'hidden' }` }>
         
@@ -49,7 +51,7 @@ const Sidebar = () => {
             </button>
           </Link>
             <div className='pt-8 flex items-center space-x-3'>
-                <img src="https://media.istockphoto.com/id/1406308214/photo/portrait-of-mature-multiracial-asian-businessman-in-office-hallway-smiling.jpg?s=612x612&w=0&k=20&c=uIhJqBL2lyg4zZN0Mdx7jHARJiA3NJCE66IPYu6l93M=" alt="" className='w-8 h-8 rounded-[32px]'/>
+                <img src={downloadURL} alt='profile pix' className='w-8 h-8 rounded-full'/>
 
                 <div className=''>
                     <p className='font-semibold text-[#FFF]'>{userDetails.fullName}</p>
