@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
-import { useDispatch} from 'react-redux';
-import {setCardList} from '../redux/balancesSlice'
-import { db, auth } from '../config/firebase'
+import { useDispatch, } from 'react-redux';
+import {setCardList, } from '../redux/balancesSlice'
+import { db } from '../config/firebase'
 import { addDoc, collection, getDocs,  } from 'firebase/firestore'
 import {GrClose} from 'react-icons/gr'
 
 
 const AddAccountForm = ({ activeAccountForm, setActiveAccountForm }: { activeAccountForm: boolean, setActiveAccountForm: (value: boolean) => void }) => {
     const dispatch = useDispatch()
-
 
 
     const [accountType, setAccounType ] = useState("")
@@ -23,17 +22,19 @@ const AddAccountForm = ({ activeAccountForm, setActiveAccountForm }: { activeAcc
       setActiveAccountForm(false)
 
       try{
-        const docRef = await addDoc(collection(db, 'accounts'), {
+          await addDoc(collection(db, 'accounts'), {
           accountType: accountType,
           accountNumber: accountNumber,
           accountBalance: accountBalance,
           cardType: cardType,
-          userId: auth.currentUser ? auth.currentUser.uid : null,           
+          // userId: auth.currentUser ? auth.currentUser.uid : null,           
         });
-        console.log(docRef)
         // Fetch the updated list of accounts
       const data = await getDocs(collection(db, 'accounts'));
-      const updatedAccountList = data.docs.map((doc) => ({ ...doc.data() }));
+      const updatedAccountList = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id
+      }))
 
       // Dispatch the updated list to the Redux store
       dispatch(setCardList(updatedAccountList));

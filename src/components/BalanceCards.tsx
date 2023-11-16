@@ -110,16 +110,16 @@ const BalanceCards = ({ activeAccountForm, setActiveAccountForm }: { activeAccou
 
 
         <div className='grid grid-cols-1 lg:grid-cols-3 gap-4 mt-4'>
-            {visibleCards.map((card: any, id:number) => (
-                <motion.div 
-                ref={ref}
-                animate={controls}
-                initial="hidden"
-                variants={{
-                  hidden: {opacity: 0, y: 75},
-                  visible: {opacity: 1, y: 0},
-                }}
-                transition={{ duration: .5 }}
+            {visibleCards.map((card: any, id) => (
+                <div 
+                // ref={ref}
+                // animate={controls}
+                // initial="hidden"
+                // variants={{
+                //   hidden: {opacity: 0, y: 75},
+                //   visible: {opacity: 1, y: 0},
+                // }}
+                // transition={{ duration: .5 }}
                 key={card.id} className=' h-72 p-6 bg-[#FFF] divide-y '>
 
                   <div className='hover:scale-105 duration-500'>
@@ -155,7 +155,7 @@ const BalanceCards = ({ activeAccountForm, setActiveAccountForm }: { activeAccou
                     </div>
                   </div>
                       
-                </motion.div>
+                </div>
             ))}
             <div className=' h-72 bg-[#FFF] flex flex-col justify-center items-center gap-4'>
 
