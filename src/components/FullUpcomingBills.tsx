@@ -34,9 +34,9 @@ const FullUpcomingBills = () => {
 
         <div 
         
-        className='w-full mt-5 p-6 rounded-2xl bg-[#FFF] overflow-x-scroll md:overflow-x-hidden'>
+        className='w-full mt-5 p-6 rounded-2xl bg-[#FFF] overflow-x-scroll lg:overflow-x-hidden'>
 
-            <table className='w-[720px] md:w-full divide-y text-left'>
+            <table className='w-[720px] lg:w-full divide-y text-left'>
                 <thead>
                     <tr className=' '>
                         <th className='pb-6 font-bold text-defaultBlack'>Due Date</th>

@@ -39,7 +39,7 @@ const Overview = () => {
 
       <div 
       
-      className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+      className='grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-4 md:justify-center items-center'>
         <TotalBalance />
         <Goals />
         <UpcomingBill />
@@ -53,9 +53,9 @@ const Overview = () => {
           visible: {opacity: 1,  y: 0,},
         }}
         transition={{duration: .5}}
-         className='mt-8 md:flex md:space-x-4 w-full'>
+         className='mt-8 md:flex md:space-x-4  w-full'>
           <RecentTransactions />
-          <div className='md:w-2/3'>
+          <div className='md:w-3/5 lg:w-2/3'>
             <div className=''>
               <h3 className='mt-6 md:mt-0 text-[22px] text-gray02 text-left'>Statistics</h3>
               <Statistics />

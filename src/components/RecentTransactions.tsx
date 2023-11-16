@@ -31,7 +31,7 @@ const RecentTransactions = () => {
         visible: {opacity: 1, y: 0},
       }}
       transition={{duration: .5}}
-    className='md:w-1/3'>
+    className='md:w-2/5 lg:w-1/3'>
         
         <motion.div className='flex justify-between items-center w-full text-gray02 '>
             <h3 className='text-left  text-[22px]'>Recent Transactions</h3>

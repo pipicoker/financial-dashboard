@@ -41,7 +41,7 @@ const Header = () => {
         </div>
 
         <div className=' hidden md:flex items-center space-x-10'>
-            <IoMdNotifications className='w-6 h-6 text-[#666666]'/>
+            <IoMdNotifications className='w-6 h-6 text-[#666666] hidden lg:flex'/>
             <form>
         <label className="relative block">
             <input

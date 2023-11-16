@@ -183,7 +183,7 @@ const Home = () => {
   return (
     <div className='flex '>
       <Sidebar/>
-      <div className='bg-[#F4F5F7] w-full md:w-4/5 px-4 md:pr-8 md:pl-6 divide-y divide-gray05 pb-8'>
+      <div className='bg-[#F4F5F7] w-full lg:w-4/5 px-4 lg:pr-8 lg:pl-6 divide-y divide-gray05 pb-8'>
         <Header />
         <Routes>
           <Route path="/" element={<Overview />} />

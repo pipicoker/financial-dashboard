@@ -36,7 +36,7 @@ const GoalsPage = () => {
     <div className=' pt-4 w-full'>
         <GoalsForm />
             <AdjustGoalsForm />
-        <div className='lg:flex gap-4 w-full'>
+        <div className='md:flex gap-4 w-full'>
             
             <Goals />
             <SavingSummary />

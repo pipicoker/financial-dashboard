@@ -14,7 +14,7 @@ const Sidebar = () => {
     const userDetails = useSelector(selectuserDetails)
     const downloadURL = useSelector(selectPix)
   return (
-    <nav className={`bg-defaultBlack w-3/5 lg:w-1/5    lg:flex  flex-col justify-start pt-12 px-7   ${nav ? 'flex absolute z-[1000] ease-in-out duration-500' : 'hidden' }` }>
+    <nav className={`bg-defaultBlack w-3/5 md:w-2/5 lg:w-1/5  lg:flex  flex-col justify-start pt-12 px-7  pb-6  ${nav ? 'flex absolute z-[1000] ease-in-out duration-500' : 'hidden' }` }>
         
         <div className='flex justify-center'>
             <div className='flex justify-center  text-white text-2xl'>

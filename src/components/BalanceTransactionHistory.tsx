@@ -10,7 +10,7 @@ const BalanceTransactionHistory = () => {
          <h3 className='text-left text-gray02 text-[22px]' onClick={() => console.log(accountDetailsSlice)}>Transaction History</h3>
 
          <div className=' mt-5 rounded-2xl bg-[#FFF] px-8 pt-3 lg:pt-1 pb-8 overflow-x-scroll '>
-            <table className='w-[420px] lg:w-full  divide-y '>
+            <table className='w-[420px] md:w-full  divide-y '>
                 <thead>
                     <tr className='text-defaultBlack   font-bold capitalize'>
                         <th className='pt-2 pb-4 text-left'>Date</th>

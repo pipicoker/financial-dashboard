@@ -40,13 +40,13 @@ const ExpensesBreakdown = () => {
             </button>
         </div>
 
-        <div className='mt-2 px-6 py-5 bg-[#FFF]  grid grid-cols-2 md:grid-cols-3 gap-4 md:divide-y-0 md:gap-y-12 justify-between rounded-lg'>
+        <div className='mt-2 px-6 py-5  bg-[#FFF]  grid grid-cols-2 md:grid-cols-3  gap-4 lg:divide-y-0 lg:gap-y-12 justify-between rounded-lg'>
             
            {breakdown.map((item, index) => (
-             <div key={index} className='pt-4 md:pt-0 '>
-                <div className='flex  items-center gap-6'>
+             <div key={index} className='pt-4 lg:pt-0 '>
+                <div className='flex  items-center gap-6 md:gap-4'>
  
-                <div className='w-10 h-14 rounded-lg bg-special hidden md:flex justify-center items-center'>
+                <div className='w-10 h-14 rounded-lg bg-special hidden lg:flex justify-center items-center'>
                   <img src={item.logo} alt="logo" className='w-6 h-6 text-gray02'/>
                     {/* <BsHouseDoor 
                     /> */}

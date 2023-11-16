@@ -10,7 +10,7 @@ const UserDetails = () => {
   const userDetails = useSelector(selectuserDetails)
 
   return (
-    <div className='mt-8 flex flex-col lg:flex-row justify-between'>
+    <div className='mt-8 flex flex-col md:flex-row justify-between'>
       {userDetails ? 
                 <div >
                     <div className='text-left space-y-8'>
@@ -40,7 +40,7 @@ const UserDetails = () => {
             
         : ("no details")}
 
-        <div className='order-first lg:order-last'>
+        <div className='order-first md:order-last'>
         <UploadProfileImage />
 
         </div>
