@@ -1,92 +1,35 @@
-import React, { useEffect, useState} from 'react'
-import {useQuery} from 'react-query'
-import { db } from '../config/firebase'
-import { getDocs, collection } from 'firebase/firestore'
+import React from 'react'
+import { selectuserDetails } from '../redux/profileDetails'
 
-interface UserDetail {
-    fullName: string;
-    email: string;
-    phoneNumber: string;
-    username: string;
-    // Add other properties as needed
-  }
+import { useSelector } from 'react-redux'
+
+
 
 const UserDetails = () => {
+  const userDetails = useSelector(selectuserDetails)
 
-    const [userDetails, setUserDetails] = useState<UserDetail[]>([]); // Use the UserDetail[] type
-    const userDetailsRef = collection(db, "userDetails")
-
-
-    // function to get user details from firestore
-    const getCardList = async () => {
-        try {
-          const data = await getDocs(userDetailsRef);
-          return data.docs.map((doc) => ({
-            ...doc.data(),
-          }));
-        } catch (err) {
-          throw new Error('Failed to fetch card list');
-        }
-      };
-    useQuery('cardList', getCardList, {
-        refetchOnWindowFocus: false, 
-        onSuccess: (fetchedData) => {
-            const userDetailData: UserDetail[] = fetchedData.map((dataItem) => ({
-                fullName: dataItem.fullName,
-                email: dataItem.email,
-                phoneNumber: dataItem.phoneNumber,
-                username: dataItem.username,
-                // Add other properties if necessary
-              }));
-              setUserDetails(userDetailData);
-        }
-      });
-
-
-
-    useEffect(() => {
-        const getUpcoming = async () => {
-
-            try{
-                const data =  await getDocs(userDetailsRef)
-                const filteredData = data.docs.map((doc) => ({
-                    ...doc.data() as UserDetail
-                }))
-                setUserDetails(filteredData)
-                // console.log(filteredData);
-                // console.log(userDetails)
-                
-                
-            } catch (err) {
-                console.error(err);
-                
-            }
-            
-        }
-        getUpcoming()
-    }, [userDetailsRef])
   return (
     <div className='mt-8'>
         {
             userDetails ? 
-            userDetails.map((data, index) => (
-                <div key={index} >
+            
+                <div >
                     <div className='text-left space-y-8'>
                         <div>
                             <h4 className='text-secondary font-semibold'>Full name</h4>
-                            <p className='px-6 pt-4 text-gray02'>{data.fullName}</p>
+                            <p className='px-6 pt-4 text-gray02'>{userDetails.fullName}</p>
                         </div>
                         <div>
                             <h4 className='text-secondary font-semibold'>Email</h4>
-                            <p className='px-6 pt-4 text-gray02'>{data.email}</p>
+                            <p className='px-6 pt-4 text-gray02'>{userDetails.email}</p>
                         </div>
                         <div>
                             <h4 className='text-secondary font-semibold'>Username</h4>
-                            <p className='px-6 pt-4 text-gray02'>{data.username}</p>
+                            <p className='px-6 pt-4 text-gray02'>{userDetails.username}</p>
                         </div>
                         <div>
                             <h4 className='text-secondary font-semibold'>Phone Number</h4>
-                            <p className='px-6 pt-4 text-gray02'>{data.phoneNumber}</p>
+                            <p className='px-6 pt-4 text-gray02'>{userDetails.phoneNumber}</p>
                         </div>
                     </div>
                    
@@ -95,7 +38,7 @@ const UserDetails = () => {
                 </div>
 
                 
-            ))
+            
         : ("no details")}
     </div>
   )

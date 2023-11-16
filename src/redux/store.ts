@@ -12,7 +12,7 @@ import upcomingBillSlice from './upcomingBillSlice';
 import expensesSlices from './expensesSlices';
 import goalsByCategorySlice from './goalsByCategorySlice';
 import navSlice from './navSlice';
-
+import profileDetailsSlice from './profileDetails'
 const store = configureStore({
     reducer: {
         button: buttonReducer,
@@ -27,7 +27,8 @@ const store = configureStore({
         expensesBreakdown: expensesSlices,
         ByCategory: goalsByCategorySlice,
         goalss: goalsSlice,
-        NavControl: navSlice
+        NavControl: navSlice,
+        userProfile: profileDetailsSlice,
     }
 })
 export default store;

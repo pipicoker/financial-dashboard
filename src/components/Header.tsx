@@ -2,11 +2,12 @@ import {MdKeyboardDoubleArrowRight} from 'react-icons/md'
 import {IoMdNotifications} from 'react-icons/io'
 import {RxHamburgerMenu} from 'react-icons/rx'
 import { useSelector, useDispatch } from 'react-redux'
-
+import { selectuserDetails } from '../redux/profileDetails'
 import { selectNAv, setNav } from '../redux/navSlice'
 
 const Header = () => {
     const nav = useSelector(selectNAv)
+    const userDetails = useSelector(selectuserDetails)
     const dispatch = useDispatch()
 
 
@@ -31,7 +32,7 @@ const Header = () => {
   return (
     <header className='sticky py-5 flex justify-between items-center'>
         <div className='flex items-center gap-6'>
-            <h1 className='text-[191919] text-2xl font-bold '>Hello Princess</h1>
+            <h1 className='text-[191919] text-2xl font-bold capitalize'>Hello {userDetails.username}</h1>
 
             <div className=' items-center text-gray03  text-sm hidden lg:flex'>
                 <MdKeyboardDoubleArrowRight className='w-6 h-6' />

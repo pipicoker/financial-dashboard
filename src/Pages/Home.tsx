@@ -5,6 +5,7 @@ import { getDocs, collection } from 'firebase/firestore'
 import {Routes, Route,} from 'react-router-dom'
 import { setExpenses, setRevenues } from '../redux/revenueAndExpensesSlice'
 import { setUpcoming,  } from '../redux/upcomingBillSlice'
+import { setUserDetails } from '../redux/profileDetails'
 import { useDispatch } from 'react-redux' 
 import { setExpenseBreakdown} from '../redux/expensesSlices';
 import { setGoals } from '../redux/goalsSlice'
@@ -28,6 +29,8 @@ const Home = () => {
   const upcomingRef = collection(db, "upcomingBill")
   const breakdownRef = collection(db, "expensesBreakdown")
   const goalsRef = collection(db, "goals")
+  const userDetailsRef = collection(db, "userDetails")
+
 
     // function to get upcoming bill data from firestore
     const getUpcoming = async () => {
@@ -128,6 +131,39 @@ const Home = () => {
           dispatch(setGoals(fetchedData ?? []))
       }
     });
+
+
+
+    // function to get user details from firestore
+    const getUserDetails = async () => {
+      try {
+        const querySnapshot = await getDocs(userDetailsRef);
+        
+        if (querySnapshot.empty) {
+          throw new Error('No user details found.');
+        }
+    
+        const data = querySnapshot.docs[0].data(); // Assuming there's only one document
+    
+        return data;
+      } catch (err) {
+        throw new Error('Failed to fetch user details');
+      }
+    };
+    
+    useQuery('details', getUserDetails, {
+      refetchOnWindowFocus: false,
+      onSuccess: (fetchedData) => {
+        const userDetailData = {
+          fullName: fetchedData.fullName,
+          email: fetchedData.email,
+          phoneNumber: fetchedData.phoneNumber,
+          username: fetchedData.username,
+        };
+        dispatch(setUserDetails(userDetailData));
+      },
+    });
+    
   return (
     <div className='flex '>
       <Sidebar/>

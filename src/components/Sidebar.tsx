@@ -3,12 +3,14 @@ import { Link, useLocation } from 'react-router-dom'
 import SidebarData from '../data/SidebarData'
 import {FiLogOut} from 'react-icons/fi'
 import { selectNAv, setNav } from '../redux/navSlice'
+import { selectuserDetails } from '../redux/profileDetails'
 import { useDispatch, useSelector } from 'react-redux'
 
 const Sidebar = () => {
     const location = useLocation()
     const dispatch = useDispatch()
     const nav = useSelector(selectNAv)
+    const userDetails = useSelector(selectuserDetails)
   return (
     <nav className={`bg-defaultBlack w-3/5 lg:w-1/5    lg:flex  flex-col justify-start pt-12 px-7   ${nav ? 'flex absolute z-[1000] ease-in-out duration-500' : 'hidden' }` }>
         
@@ -50,7 +52,7 @@ const Sidebar = () => {
                 <img src="https://media.istockphoto.com/id/1406308214/photo/portrait-of-mature-multiracial-asian-businessman-in-office-hallway-smiling.jpg?s=612x612&w=0&k=20&c=uIhJqBL2lyg4zZN0Mdx7jHARJiA3NJCE66IPYu6l93M=" alt="" className='w-8 h-8 rounded-[32px]'/>
 
                 <div className=''>
-                    <p className='font-semibold text-[#FFF]'>Princess Ekere</p>
+                    <p className='font-semibold text-[#FFF]'>{userDetails.fullName}</p>
                     <p className='text-xs text-greyish2 flex justify-start'>View Profile</p>
                 </div>
             </div>
