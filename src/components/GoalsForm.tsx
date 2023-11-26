@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react'
+import { useForm  } from 'react-hook-form';
+import { ErrorMessage } from '@hookform/error-message';
 import { useSelector, useDispatch } from 'react-redux';
 import {selectActiveForm, selectTargetAmount, selectPresentAmount, setActiveForm , setPresentAmount, setTargetAmount} from '../redux/goalsFormSlice'
 
@@ -8,7 +10,17 @@ import { addDoc, collection, getDocs, deleteDoc } from 'firebase/firestore'
 import {GrClose} from 'react-icons/gr'
 
 
+interface FormInputs {
+  targetAmount: string,
+  presentAmount: string,
+
+}
+
 const GoalsForm = () => {
+  const { register, formState: { errors }, handleSubmit } = useForm<FormInputs>({
+    criteriaMode: "all"
+  });
+
     const activeForm = useSelector(selectActiveForm)
     const targetAmount = useSelector(selectTargetAmount)
     const presentAmount = useSelector(selectPresentAmount)
@@ -29,8 +41,7 @@ const GoalsForm = () => {
       }
     }, [storedPresentAmount, storedTargetAmount]);
 
-    const handleSave = async (e: React.FormEvent) => {
-        e.preventDefault()
+    const handleSave = async () => {
         dispatch(setActiveForm(false))
 
         try {
@@ -68,25 +79,51 @@ const GoalsForm = () => {
             <div className='flex justify-end ' onClick={() => dispatch(setActiveForm(false))}>
                 <GrClose className='w-8 h-8  '/>
             </div>
-            <form action="" className='flex flex-col text-left px-4 lg:px-0 lg:pr-10'>
+            <form onSubmit={handleSubmit(handleSave)}
+            action="" className='flex flex-col text-left px-4 lg:px-0 lg:pr-10'>
                     
                 <label htmlFor="" className='text-secondary font-semibold'>Target Amounts</label>
-                <input type="text" id='target-amount' placeholder='$500000' className='border border-[#D1D1D1] w-full  lg:w-[360px] h-14 mt-2 px-6 py-4 rounded-lg text-gray02'
+                <input 
+                {...register('targetAmount', 
+                {required: "Target Amount is required",
+              })}
+                type="number" id='target-amount' placeholder='$500000' className='border border-[#D1D1D1] w-full  lg:w-[360px] h-14 mt-2 px-6 py-4 rounded-lg text-gray02'
                 value={targetAmount}
-                onChange={(e) => dispatch(setTargetAmount(e.target.value))}
-
+                onChange={(e) => dispatch(setTargetAmount(e.target.value.toString()))}
+                />
+                <ErrorMessage
+                  errors={errors}
+                  name="targetAmount"
+                  render={({ messages }) =>
+                    messages &&
+                    Object.entries(messages).map(([type, message]) => (
+                      <p key={type} className='text-red-400 text-left text-sm font-semibold'>{message}</p>
+                    ))
+                  }
                 />
 
                 <label htmlFor="" className='mt-6 text-secondary font-semibold'>Present Amounts</label>
-                <input type="text" id='present-amount' placeholder='Write present amounts here' className='border border-[#D1D1D1] lg:w-[360px] h-14 mt-2 px-6 py-4 rounded-lg text-gray02'
+                <input 
+                {...register('presentAmount', 
+                {required: "Present Amount is required",
+              })}
+                type="number" id='present-amount' placeholder='Write present amounts here' className='border border-[#D1D1D1] lg:w-[360px] h-14 mt-2 px-6 py-4 rounded-lg text-gray02'
                 value={presentAmount}
-                onChange={(e) => dispatch(setPresentAmount(e.target.value))}
-
+                onChange={(e) => dispatch(setPresentAmount(e.target.value.toString()))}
+                />
+                <ErrorMessage
+                  errors={errors}
+                  name="presentAmount"
+                  render={({ messages }) =>
+                    messages &&
+                    Object.entries(messages).map(([type, message]) => (
+                      <p key={type} className='text-red-400 text-left text-sm font-semibold'>{message}</p>
+                    ))
+                  }
                 />
                 
                 <div className='flex justify-center'>
                 <button className=' mt-8 h-12 w-48 bg-pry-col text-[#FFF] font-bold'
-                onClick={handleSave}
                 >Save</button>
                 </div>
                 
