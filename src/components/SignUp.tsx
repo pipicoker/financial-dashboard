@@ -1,27 +1,41 @@
  import React, { useState } from 'react'
+ import { useForm  } from 'react-hook-form';
+import { ErrorMessage } from '@hookform/error-message';
  import {Link, useNavigate} from 'react-router-dom'
  import {createUserWithEmailAndPassword, signInWithPopup} from 'firebase/auth'
 
  import {auth, googleProvider} from '../config/firebase'
 import { FcGoogle } from 'react-icons/fc';
 
+interface FormInputs {
+  email: string,
+  password: string
+}
+
 const SignUp = () => {
+  const { register, formState: { errors }, handleSubmit } = useForm<FormInputs>({
+    criteriaMode: "all"
+  });
+
   const navigate = useNavigate()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
   const signUp = async(e: any) => {
-    e.preventDefault()
     await createUserWithEmailAndPassword(auth,  email, password)
     
     .then((userCredential) => {
       // const user = userCredential.user
       navigate("/")
+      setEmail("")
+    setPassword("")
     })
+    
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorCode, errorMessage);
+      alert(errorMessage)
   });
   }
 
@@ -52,28 +66,63 @@ const SignUp = () => {
 
         <h2 className='text-2xl text-[#191D23] font-semibold pt-4'>Create an account</h2>
 
-        <form action="" className='grid pt-8'>
+        <form action=""  onSubmit={handleSubmit(signUp)}
+        className='grid pt-8'>
             <label className='flex justify-start text-[#191D23] text-base font-medium'>Name</label>
           <input 
-          type="text" placeholder="Ekere Princess" className='h-12 px-4 py-3 text-base text-[4B5768] rounded-lg break-words '/>
+          type="text" 
+          placeholder="Ekere Princess" className='h-12 px-4 py-3 text-base text-[4B5768] rounded-lg break-words '/>
 
           <label className='mt-6 flex justify-start text-[#191D23] text-base font-medium'>Email Address</label>
-          <input onChange={(e) => setEmail(e.target.value)}
+          <input 
+            {...register('email', 
+            {required: "Email is required",
+            pattern: {
+              value: /^\S+@\S+\.\S+$/ ,
+              message: "This is not a valid email"
+            }
+          })}
+          onChange={(e) => setEmail(e.target.value)}
           type="email" placeholder="johndoe@gmail.com" className='h-12 px-4 py-3 text-base text-[4B5768] rounded-lg break-words '/>
+            <ErrorMessage
+        errors={errors}
+        name="email"
+        render={({ messages }) =>
+          messages &&
+          Object.entries(messages).map(([type, message]) => (
+            <p key={type} className='text-red-400 text-left text-sm font-semibold'>{message}</p>
+          ))
+        }
+      />
 
           <div className='mt-6 flex justify-between items-center font-medium'>
             <label className='text-[#191D23] text-base '>Password</label>
           </div>
-          <input onChange={(e) => setPassword(e.target.value)}
+          <input 
+          {...register('password', 
+          {required: "Password is required",
+          minLength : {
+            value: 5,
+            message: "Password must be more than 5 characters"
+          }
+        })}
+          onChange={(e) => setPassword(e.target.value)}
           type="password" placeholder='..............' className='h-12 px-4 py-3 text-base text-[4B5768] rounded-lg break-words tracking-widest'/>
-          
-          {/* <div className='flex items-center mt-8 space-x-4' >
-            <input type="checkbox"/>
-            <label className='text-[#191D23]font-light text-base'>Keep me signed in</label>
-          </div>  */}
+          <ErrorMessage
+        errors={errors}
+        name="password"
+        render={({ messages }) =>
+          messages &&
+          Object.entries(messages).map(([type, message]) => (
+            <p key={type} className='text-red-400 text-left text-sm font-semibold'>{message}</p>
+          ))
+        }
+      />
+
           <p className='flex justify-start text-[#999DA3] text-sm font-normal mt-6'>By continuing, you agree to our  <span className='text-pry-col'> terms of service</span> </p>
 
-          <button onClick={signUp}
+          <button 
+          // onClick={signUp}
           className='h-12 bg-pry-col mt-4 rounded-[4px] text-white font-semibold text-base'>Sign Up</button>
           
           <p className='text-[#999DA3] text-sm font-normal mt-6'>-------------- or sign up with -------------- </p>

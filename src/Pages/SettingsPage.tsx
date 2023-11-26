@@ -10,7 +10,7 @@ const SettingsPage = () => {
 
     const activeSettingBtn = useSelector(selectActiveSettingBtn)
   return (
-    <div className='mt-4 mx-6 px-8 pt-6 pb-12 bg-[#FFF]'>
+    <div className='h-full mt-4 mx-6 px-8 pt-6 pb-12 bg-[#FFF]'>
         <SettingBtns />
 
         <div>

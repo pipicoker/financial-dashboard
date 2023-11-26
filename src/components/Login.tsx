@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { useForm  } from 'react-hook-form';
+import { ErrorMessage } from '@hookform/error-message';
 import { useAnimation, motion, useInView } from "framer-motion";
 
 import {Link, useNavigate} from 'react-router-dom'
@@ -7,14 +9,19 @@ import {signInWithEmailAndPassword, signInWithPopup} from 'firebase/auth'
 
 import { FcGoogle } from 'react-icons/fc';
 
-
+interface FormInputs {
+  email: string,
+  password: string
+}
 const Login = () => {
+  const { register, formState: { errors }, handleSubmit } = useForm<FormInputs>({
+    criteriaMode: "all"
+  });
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   
   const onLogin = (e: any) => {
-    e.preventDefault()
 
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -48,8 +55,8 @@ const Login = () => {
   }
 
   const controls = useAnimation();
-  const ref = useRef(null)
-  const inView = useInView(ref)
+  const animref = useRef(null)
+  const inView = useInView(animref)
 
   useEffect(() => {
     if (inView) {
@@ -58,12 +65,12 @@ const Login = () => {
     else {
       controls.start("hidden");
     }
-    console.log(inView);
     
   }, [controls, inView]);
+
   return (
     <motion.div 
-    ref={ref}
+    ref={animref}
     animate={controls}
     initial="hidden"
     variants={{
@@ -79,10 +86,35 @@ const Login = () => {
           <p className='tracking-widest font-extrabold'>IO</p>
         </div>
 
-        <form action="" className='grid pt-16'>
+        <form action="" 
+        onSubmit={handleSubmit(onLogin)}
+        className='grid pt-16'>
           <label className='flex justify-start text-[#191D23] text-base font-medium'>Email Address</label>
-          <input   onChange={(e)=>setEmail(e.target.value)}  
-          type="email" placeholder="johndoe@gmail.com" className='h-12 px-4 py-3 text-base text-[4B5768] rounded-lg break-words '/>
+          <input 
+          {...register('email', 
+          {required: "Email is required",
+          pattern: {
+            value: /^\S+@\S+$/i,
+            message: "This is not a valid email"
+          }
+        })}
+          onChange={(e)=>setEmail(e.target.value)}  
+          name='email'
+          type="email" 
+          placeholder="johndoe@gmail.com"
+          className='h-12 px-4 py-3 text-base text-[4B5768] rounded-lg break-words '/>
+          
+          <ErrorMessage
+        errors={errors}
+        name="email"
+        render={({ messages }) =>
+          messages &&
+          Object.entries(messages).map(([type, message]) => (
+            <p key={type} className='text-red-400 text-left text-sm font-semibold'>{message}</p>
+          ))
+        }
+      />
+         
 
           <div className='mt-6 flex justify-between items-center font-medium'>
             <label className='text-[#191D23] text-base '>Password</label>
@@ -90,15 +122,38 @@ const Login = () => {
             <p className='text-pry-col text-xs'>Forgot password?</p>
             </Link>
           </div>
-          <input  onChange={(e)=>setPassword(e.target.value)}
-           type="password" placeholder='..............' className='h-12 px-4 py-3 text-base text-[4B5768] rounded-lg break-words tracking-widest'/>
+          <input 
+          {...register('password', 
+          {required: "Password is required",
+          minLength : {
+            value: 5,
+            message: "Password must be more than 5 characters"
+          }
+        })} 
+          onChange={(e)=>setPassword(e.target.value)}
+          name='password'
+           type="password" 
+           placeholder='..............' 
+           className='h-12 px-4 py-3 text-base text-[4B5768] rounded-lg break-words tracking-widest'/>
+           <ErrorMessage
+        errors={errors}
+        name="password"
+        render={({ messages }) =>
+          messages &&
+          Object.entries(messages).map(([type, message]) => (
+            <p key={type} className='text-red-400 text-left text-sm font-semibold'>{message}</p>
+          ))
+        }
+      />
+           
           
           <div className='flex items-center mt-8 space-x-4' >
             <input type="checkbox"/>
             <label className='text-[#191D23]font-light text-base'>Keep me signed in</label>
           </div> 
 
-          <button onClick={onLogin}
+          <button 
+          // onClick={onLogin}
           className='h-12 bg-pry-col mt-4 rounded-[4px] text-white font-semibold text-base'>Login</button>
           
           <p className='text-[#999DA3] text-sm font-normal mt-6'>-------------- or sign in with -------------- </p>

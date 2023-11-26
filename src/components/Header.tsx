@@ -60,7 +60,7 @@ const Header = () => {
     </form>
         </div>
         
-        <div className='lg:hidden text-2xl text-gray-02' onClick={() => {
+        <div className='lg:hidden text-2xl text-gray-02' data-testid="hamburger-menu" onClick={() => {
             dispatch(setNav(!nav))
         }}>
           <RxHamburgerMenu/>

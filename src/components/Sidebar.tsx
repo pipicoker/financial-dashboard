@@ -45,7 +45,9 @@ const Sidebar = () => {
 
           >
 
-            <button className='flex items-center  gap-3 font-semibold text-base bg-greyish w-full  rounded-[4px]  py-3 px-4 mb-11 text-greyish2'>
+            <button 
+             onClick={() => dispatch(setNav(false))}
+            className='flex items-center  gap-3 font-semibold text-base bg-greyish w-full  rounded-[4px]  py-3 px-4 mb-11 text-greyish2'>
                 <FiLogOut className=''/>
                 Logout
             </button>
@@ -55,7 +57,12 @@ const Sidebar = () => {
 
                 <div className=''>
                     <p className='font-semibold text-[#FFF]'>{userDetails.fullName}</p>
-                    <p className='text-xs text-greyish2 flex justify-start'>View Profile</p>
+                    <Link to="/Home/SettingsPage">
+                      <p 
+                      onClick={() => dispatch(setNav(false))}
+                      className='text-xs text-greyish2 flex justify-start'>View Profile</p>
+                    </Link>
+                    
                 </div>
             </div>
         </div>
