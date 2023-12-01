@@ -2,9 +2,9 @@
  import { useForm  } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
  import {Link, useNavigate} from 'react-router-dom'
- import {createUserWithEmailAndPassword, signInWithPopup} from 'firebase/auth'
+ import {createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider} from 'firebase/auth'
 
- import {auth, googleProvider} from '../config/firebase'
+ import {auth} from '../config/firebase'
 import { FcGoogle } from 'react-icons/fc';
 
 interface FormInputs {
@@ -16,6 +16,8 @@ const SignUp = () => {
   const { register, formState: { errors }, handleSubmit } = useForm<FormInputs>({
     criteriaMode: "all"
   });
+
+  const googleProvider = new GoogleAuthProvider();
 
   const navigate = useNavigate()
   const [email, setEmail] = useState("")
@@ -39,20 +41,39 @@ const SignUp = () => {
   });
   }
 
-  const signInWithGoogle = async (e: any) => {
+  const signUpWithGoogle = async (e: any) => {
     e.preventDefault()
-    await signInWithPopup(auth, googleProvider)
+    try {
+      const userCredential = await signInWithPopup(auth, googleProvider);
+      
+      const user = auth.currentUser;
+  if (user) {
+    navigate("/")
+    console.log('User signed in:', userCredential.user);
+    // User is signed in, handle accordingly
+  } else {
+    console.log("user not signed in");
+    
+  }
+    } catch (error) {
+      console.error('Authentication error:', error);
+      // Handle authentication failure
+    } finally {
+      // Close the popup in both success and failure scenarios
+      closePopup();
+    }
+    
+    function closePopup() {
+      if (window.opener) {
+        try {
+          window.opener.close();
+        } catch (error) {
+          console.error('Error closing window:', error);
+        }
+      }
+    }
     
     
-    .then((userCredential) => {
-      // const user = userCredential.user
-      navigate("/")
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
-  });
     
   }
   return (
@@ -127,7 +148,7 @@ const SignUp = () => {
           
           <p className='text-[#999DA3] text-sm font-normal mt-6'>-------------- or sign up with -------------- </p>
 
-          <button onClick={signInWithGoogle} className='bg-[#E4E7EB] rounded-[4px] h-12 text-[#4B5768] text-base font-normal mt-6 flex justify-center items-center space-x-4'>
+          <button onClick={signUpWithGoogle} className='bg-[#E4E7EB] rounded-[4px] h-12 text-[#4B5768] text-base font-normal mt-6 flex justify-center items-center space-x-4'>
             <FcGoogle className='text-lg'/>
             <p >Continue with Google</p>
           </button>

@@ -39,18 +39,38 @@ const Login = () => {
 
  const signInWithGoogle = async (e: any) => {
     e.preventDefault()
-    await signInWithPopup(auth, googleProvider)
+    try {
+      const userCredential = await signInWithPopup(auth, googleProvider);
+      
+
+      const user = auth.currentUser;
+  if (user) {
+    console.log('User signed in:', userCredential.user);
+      navigate("/Home")
+    // User is signed in, handle accordingly
+  } else {
+    console.log("user not signed in");
     
+    // Authentication failed or user not signed in, handle the error
+  }
+      // Handle authentication success
+    } catch (error) {
+      console.error('Authentication error:', error);
+      // Handle authentication failure
+    } finally {
+      // Close the popup in both success and failure scenarios
+      closePopup();
+    }
     
-    .then((userCredential) => {
-      // const user = userCredential.user
-      navigate("/")
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
-  });
+    function closePopup() {
+      if (window.opener) {
+        try {
+          window.opener.close();
+        } catch (error) {
+          console.error('Error closing window:', error);
+        }
+      }
+    }
     
   }
 
