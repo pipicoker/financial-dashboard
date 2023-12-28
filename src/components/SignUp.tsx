@@ -3,7 +3,7 @@
 import { ErrorMessage } from '@hookform/error-message';
  import {Link, useNavigate} from 'react-router-dom'
  import {createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider} from 'firebase/auth'
-
+ 
  import {auth} from '../config/firebase'
 import { FcGoogle } from 'react-icons/fc';
 
@@ -41,41 +41,32 @@ const SignUp = () => {
   });
   }
 
-  const signUpWithGoogle = async (e: any) => {
+
+  const signInWithGoogle = async (e: any) => {
     e.preventDefault()
     try {
       const userCredential = await signInWithPopup(auth, googleProvider);
-      
-      const user = auth.currentUser;
-  if (user) {
-    navigate("/")
+      const userr = auth.currentUser;
+      // dispatch(setUser(auth.currentUser))
+  if (userr) {
     console.log('User signed in:', userCredential.user);
+    // dispatch(setUser(userCredential.user))
+      navigate("/Home")
     // User is signed in, handle accordingly
   } else {
     console.log("user not signed in");
     
+    // Authentication failed or user not signed in, handle the error
   }
+      // Handle authentication success
     } catch (error) {
       console.error('Authentication error:', error);
       // Handle authentication failure
-    } finally {
-      // Close the popup in both success and failure scenarios
-      closePopup();
-    }
-    
-    function closePopup() {
-      if (window.opener) {
-        try {
-          window.opener.close();
-        } catch (error) {
-          console.error('Error closing window:', error);
-        }
-      }
-    }
-    
-    
-    
+    } 
+
   }
+  
+  
   return (
     <div className='flex justify-center items-center bg-[#F4F5F7] pt-[64px] pb-[268px]'>
       <div className='w-5/6 lg:w-[400px] h-[596px]'>
@@ -148,7 +139,9 @@ const SignUp = () => {
           
           <p className='text-[#999DA3] text-sm font-normal mt-6'>-------------- or sign up with -------------- </p>
 
-          <button onClick={signUpWithGoogle} className='bg-[#E4E7EB] rounded-[4px] h-12 text-[#4B5768] text-base font-normal mt-6 flex justify-center items-center space-x-4'>
+          <button 
+          onClick={signInWithGoogle}
+           className='bg-[#E4E7EB] rounded-[4px] h-12 text-[#4B5768] text-base font-normal mt-6 flex justify-center items-center space-x-4'>
             <FcGoogle className='text-lg'/>
             <p >Continue with Google</p>
           </button>

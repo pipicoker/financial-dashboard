@@ -6,6 +6,9 @@ import { selectNAv, setNav } from '../redux/navSlice'
 import { selectuserDetails } from '../redux/profileDetailsSlice'
 import { selectPix } from '../redux/userProfilePixSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { signOut } from 'firebase/auth'
+import { auth } from '../config/firebase'
+
 
 const Sidebar = () => {
     const location = useLocation()
@@ -13,6 +16,20 @@ const Sidebar = () => {
     const nav = useSelector(selectNAv)
     const userDetails = useSelector(selectuserDetails)
     const downloadURL = useSelector(selectPix)
+
+    const logout = async() => {
+      try{
+        dispatch(setNav(false))
+        await signOut(auth)
+        // console.log("logged out", user.displayName);
+        
+      } 
+      catch (error) {
+        console.log(error);
+        
+      }
+      
+    }
   return (
     <nav className={`bg-defaultBlack w-3/5 md:w-2/5 lg:w-1/5  lg:flex  flex-col justify-start pt-12 px-7  pb-6  ${nav ? 'flex absolute z-[1000] ease-in-out duration-500' : 'hidden' }` }>
         
@@ -43,10 +60,10 @@ const Sidebar = () => {
         <div className='mt-[200px] divide-y '>
           <Link to="/"
 
-          >
+           > 
 
             <button 
-             onClick={() => dispatch(setNav(false))}
+            onClick={logout}
             className='flex items-center  gap-3 font-semibold text-base bg-greyish w-full  rounded-[4px]  py-3 px-4 mb-11 text-greyish2'>
                 <FiLogOut className=''/>
                 Logout

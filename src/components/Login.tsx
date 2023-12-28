@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { useDispatch } from 'react-redux';
 import { useForm  } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { useAnimation, motion, useInView } from "framer-motion";
@@ -7,6 +8,7 @@ import {Link, useNavigate} from 'react-router-dom'
 import {auth, googleProvider} from '../config/firebase'
 import {signInWithEmailAndPassword, signInWithPopup} from 'firebase/auth'
 
+import { setUser } from '../redux/userCredentialsSlice';
 import { FcGoogle } from 'react-icons/fc';
 
 interface FormInputs {
@@ -14,6 +16,8 @@ interface FormInputs {
   password: string
 }
 const Login = () => {
+  const dispatch = useDispatch()
+
   const { register, formState: { errors }, handleSubmit } = useForm<FormInputs>({
     criteriaMode: "all"
   });
@@ -41,11 +45,11 @@ const Login = () => {
     e.preventDefault()
     try {
       const userCredential = await signInWithPopup(auth, googleProvider);
-      
-
-      const user = auth.currentUser;
-  if (user) {
+      const userr = auth.currentUser;
+      // dispatch(setUser(auth.currentUser))
+  if (userr) {
     console.log('User signed in:', userCredential.user);
+    dispatch(setUser(userCredential.user))
       navigate("/Home")
     // User is signed in, handle accordingly
   } else {
@@ -57,22 +61,15 @@ const Login = () => {
     } catch (error) {
       console.error('Authentication error:', error);
       // Handle authentication failure
-    } finally {
-      // Close the popup in both success and failure scenarios
-      closePopup();
-    }
-    
-    function closePopup() {
-      if (window.opener) {
-        try {
-          window.opener.close();
-        } catch (error) {
-          console.error('Error closing window:', error);
-        }
-      }
-    }
-    
+    } 
+
   }
+
+  // useEffect(() => {
+  //   if (user != null) {
+  //     navigate("/Home")
+  //   }
+  // }, [user])
 
   const controls = useAnimation();
   const animref = useRef(null)
@@ -173,15 +170,15 @@ const Login = () => {
           </div> 
 
           <button 
-          // onClick={onLogin}
+          onClick={onLogin}
           className='h-12 bg-pry-col mt-4 rounded-[4px] text-white font-semibold text-base'>Login</button>
           
           <p className='text-[#999DA3] text-sm font-normal mt-6'>-------------- or sign in with -------------- </p>
 
-          <button
+          <button onClick={signInWithGoogle}
           className='bg-[#E4E7EB] rounded-[4px] h-12 text-[#4B5768] text-base font-normal mt-6 flex justify-center items-center space-x-4'>
             <FcGoogle className='text-lg'/>
-            <p onClick={signInWithGoogle}>Continue with Google</p>
+            <p >Continue with Google</p>
           </button>
 
           <Link to="./SignUp">
@@ -197,4 +194,3 @@ const Login = () => {
 }
 
 export default Login
-

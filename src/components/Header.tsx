@@ -8,6 +8,7 @@ import { selectNAv, setNav } from '../redux/navSlice'
 const Header = () => {
     const nav = useSelector(selectNAv)
     const userDetails = useSelector(selectuserDetails)
+    // const user = useSelector(selectUser)
     const dispatch = useDispatch()
 
 
