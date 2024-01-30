@@ -1,8 +1,8 @@
 import React from 'react'
-import SettingBtns from '../redux/SettingBtns'
+import SettingBtns from '../components/SettingBtns'
 
 import { useSelector } from 'react-redux'
-import { selectActiveSettingBtn } from '../redux/buttonSlice'
+import { selectActiveSettingBtn } from '../redux/settingbuttonSlice'
 import UserDetails from '../components/UserDetails'
 import SecurityDetails from '../components/SecurityDetails'
 

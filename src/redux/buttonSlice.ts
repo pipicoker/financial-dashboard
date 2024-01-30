@@ -16,13 +16,11 @@ export const buttonSlice  = createSlice({
         setActiveButton: (state, action) => {
             state.activeButton = action.payload
         },
-        setActiveSettingBtn: (state, action) => {
-            state.activeSettingBtn = action.payload
-        },
+
     }
 })
 
-export const {setActiveButton, setActiveSettingBtn} = buttonSlice.actions
+export const {setActiveButton} = buttonSlice.actions
 export const selectActiveButton = (state: { button: ButtonState }) => state.button.activeButton;
 export const selectActiveSettingBtn = (state: { button: ButtonState }) => state.button.activeSettingBtn;
 

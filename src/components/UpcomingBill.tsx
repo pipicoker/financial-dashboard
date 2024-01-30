@@ -48,7 +48,7 @@ const UpcomingBill = () => {
         <div className='h-[232px]  bg-[#FFF] px-6 pb-5 mt-2 divide-y space-y-4 rounded-lg'>
 
           {upcoming.map((data) => (
-            <div key={data.company} className='flex items-center justify-between pt-5'>
+            <div key={data.company}  className='flex items-center justify-between pt-5'>
               <div className='flex items-center space-x-2'>
                 <div className='w-11 h-[66px] bg-special flex flex-col justify-center items-center text-xs font-normal'>
                   {data.billDate.split(' ')[0]}<br /> <span className='text-defaultBlack text-[22px] font-extrabold pt-2'>
@@ -58,9 +58,10 @@ const UpcomingBill = () => {
                 </div>
 
                 <div className='text-left'>
-                  {/* <p className='text-sm font-semibold'>{data.company}</p> */}
+                  
                   <img src={data.pix} alt="" className='w-11 h-4' />
-                  <p className='text-secondary font-bold'>{data.company} - {data.duration}</p>
+                  <p className='text-secondary font-bold' >{data.company} - {data.duration}</p>
+
                   <p className='text-gray03  text-xs'>Last charge - {data.lastCharge}</p>
                 </div>
               </div>

@@ -16,6 +16,9 @@ interface FormInputs {
   password: string
 }
 const Login = () => {
+  console.log('Number of inputs:', document.querySelectorAll('input').length);
+
+
   const dispatch = useDispatch()
 
   const { register, formState: { errors }, handleSubmit } = useForm<FormInputs>({
@@ -65,11 +68,7 @@ const Login = () => {
 
   }
 
-  // useEffect(() => {
-  //   if (user != null) {
-  //     navigate("/Home")
-  //   }
-  // }, [user])
+
 
   const controls = useAnimation();
   const animref = useRef(null)
@@ -170,7 +169,7 @@ const Login = () => {
           </div> 
 
           <button 
-          onClick={onLogin}
+          // onClick={onLogin}
           className='h-12 bg-pry-col mt-4 rounded-[4px] text-white font-semibold text-base'>Login</button>
           
           <p className='text-[#999DA3] text-sm font-normal mt-6'>-------------- or sign in with -------------- </p>

@@ -18,6 +18,7 @@
     "firebase": "^10.7.1",
     "formik": "^2.4.5",
     "framer-motion": "^10.16.5",
+    "intersection-observer": "^0.12.2",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
@@ -31,8 +32,10 @@
     "redux": "^4.2.1",
     "reselect": "^4.1.8",
     "swiper": "^10.3.0",
+    "text-encoding": "^0.7.0",
     "typescript": "^4.9.5",
     "use-immer": "^0.9.0",
+    "util": "^0.12.5",
     "web-vitals": "^2.1.4",
     "yup": "^1.3.2"
   },
@@ -62,7 +65,9 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@firebase/testing": "^0.20.11",
     "@types/redux-mock-store": "^1.0.6",
+    "@types/text-encoding": "^0.0.39",
     "redux-mock-store": "^1.5.4",
     "tailwindcss": "^3.3.3"
   }

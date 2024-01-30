@@ -14,7 +14,7 @@ import {GrFormPrevious} from 'react-icons/gr'
 
 import { Navigation, FreeMode, Pagination,  } from 'swiper/modules';
 
-import { Swiper, SwiperSlide,  } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
 import 'swiper/css';

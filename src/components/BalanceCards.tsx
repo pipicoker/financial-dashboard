@@ -23,22 +23,7 @@ const BalanceCards = ({ activeAccountForm, setActiveAccountForm }: { activeAccou
       };
       const [deletedCardIds, setDeletedCardIds] = useState<string[]>([]);
 
-    // const deleteCard = async(cardId: string) => {
 
-    //     try{
-    //         if(auth.currentUser) {
-    //             await deleteDoc(doc(db, 'accounts', cardId))
-    //             console.log('Card deleted from Firestore');
-
-    //             dispatch(removeCard(cardId))
-    //         } else {
-    //             console.log('User not Logged in')
-    //         }
-    //     } catch(error) {
-    //         console.log('Error deleting card', error)
-    //     }
-
-    // }
 
     useEffect(() => {
         localStorage.setItem('deletedCardIds', JSON.stringify(deletedCardIds));
@@ -66,7 +51,7 @@ const BalanceCards = ({ activeAccountForm, setActiveAccountForm }: { activeAccou
             if(auth.currentUser) {
                 // Delete the document from Firestore
                 await deleteDoc(doc(db, 'accounts', cardId))
-                console.log('Card deleted from Firestore');
+                alert('Card deleted from Firestore');
             
                 } else {
                    console.log('User not Logged in')
@@ -112,14 +97,7 @@ const BalanceCards = ({ activeAccountForm, setActiveAccountForm }: { activeAccou
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4'>
             {visibleCards.map((card: any, id) => (
                 <div 
-                // ref={ref}
-                // animate={controls}
-                // initial="hidden"
-                // variants={{
-                //   hidden: {opacity: 0, y: 75},
-                //   visible: {opacity: 1, y: 0},
-                // }}
-                // transition={{ duration: .5 }}
+        
                 key={card.id} className=' h-72 p-6 bg-[#FFF] divide-y '>
 
                   <div className='hover:scale-105 duration-500'>

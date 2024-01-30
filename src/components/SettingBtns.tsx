@@ -1,5 +1,5 @@
 import React from 'react'
-import { setActiveSettingBtn, selectActiveSettingBtn } from './buttonSlice'
+import { setActiveSettingBtn, selectActiveSettingBtn } from '../redux/settingbuttonSlice'
 import { useSelector, useDispatch } from 'react-redux'
 const SettingBtns = () => {
     const activeSettingBtn = useSelector(selectActiveSettingBtn)
